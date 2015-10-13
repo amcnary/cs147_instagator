@@ -124,6 +124,7 @@ fieldset[disabled] .btn-primary.active {
     border-radius: 3px;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-shadow: black 0.1em 0.1em 0.1em;
     font-size: 18px;
     font-weight: 700;
     color: #fff;
@@ -266,7 +267,7 @@ header {
     text-align: center;
     color: #fff;
     background-attachment: scroll;
-    background-image: url(../img/header-bg.jpg);
+    background-image: url(img/alligator.jpg);
     background-position: center center;
     background-repeat: none;
     -webkit-background-size: cover;
@@ -278,6 +279,7 @@ header {
 header .intro-text {
     padding-top: 100px;
     padding-bottom: 50px;
+    text-shadow: black 0.2em 0.2em 0.2em;
 }
 
 header .intro-text .intro-lead-in {

@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-# cs147_instagator
-=======
-Agency Jekyll theme
-====================
+cs147_instagator
 
+Using:
+Agency Jekyll theme
 Agency theme based on [Agency bootstrap theme ](http://startbootstrap.com/templates/agency/)
 
 # How to use
@@ -28,7 +26,3 @@ Images are in '/img/team/'
 # Demo
 
 View this jekyll theme in action [here](https://y7kim.github.io/agency-jekyll-theme)
-
-=========
-For more details, read [documentation](http://jekyllrb.com/)
->>>>>>> 43a0c0893bcfabf0d260654c67ea1813c03fdeab
