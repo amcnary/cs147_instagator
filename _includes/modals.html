@@ -16,21 +16,23 @@
                             <hr class="star-primary">
                             <img src="img/portfolio/{{ post.img }}" class="img-responsive img-centered" alt="{{ post.alt }}">
                             <p>{{ post.description }}</p>
+
+                            <h4>Documents: </h4>
+                            <a href="documents/{{ post.document1 }}">{{ post.document1Name }}</a></br>
+                            <a href="documents/{{ post.document2 }}">{{post.document2Name}}</a></br>
+                            <a href="documents/{{ post.document3 }}">{{post.document3Name}}</a></br>
+                            
                             <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">{{ post.client }}</a>
+                                <li>Due Date:
+                                    <strong>{{ post.due_date }}
                                     </strong>
                                 </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">{{ post.project-date }}</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">{{ post.category }}</a>
+                                <li>Studio Task:
+                                    <strong>{{ post.task }}
                                     </strong>
                                 </li>
                             </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Show Me More</button>
                         </div>
                     </div>
                 </div>

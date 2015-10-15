@@ -1,15 +1,23 @@
 ---
-title: Escape
-subtitle: Website Design
-layout: default
+title: How Might We?
+subtitle: HMW, POV, and Protoypes
+task: HMW/POV 
+due_date: October 8, 2015
+date: 2015-10-08
+img: prototype.png
+thumbnail: prototype.png
 modal-id: 2
-date: 2014-07-17
-img: escape.png
-thumbnail: escape-thumbnail.png
+
+layout: default
 alt: image-alt
-project-date: April 2014
-client: Start Bootstrap
-category: Web Development
-description: Lorem ipsum dolor sit amet, usu cu alterum nominavi lobortis. At duo novum diceret. Tantas apeirian vix et, usu sanctus postulant inciderint ut, populo diceret necessitatibus in vim. Cu eum dicam feugiat noluisse.
+
+document1: HMWPOVWriteup.pdf
+document1Name: HMW, POV, and Protyping Write-up
+document2: POVHMWPresentation.pdf
+document2Name: Presentation
+document3: 
+document3Name: 
+
+description: This week, we met five more interviewees and focused on three specific dimensions of traveling-- alone and in groups, for work and for pleasure, and pre- versus during travel. We dug deep and posed dozens of questions that hoped to answer how we might improve their experiences. We then narrowed our questions down to a few problems, came up with a few dozen solutions, and tested three of them in the field.
 
 ---

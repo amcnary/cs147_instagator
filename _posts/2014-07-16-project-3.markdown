@@ -1,15 +1,23 @@
 ---
-title: Golden
-subtitle: Website Design
-layout: default
+title: Concept Video
+subtitle: What would it look like?
+task: Concept Video
+due_date: October 15, 2015
+date: 2015-10-15
+img: concept-video.png
+thumbnail: concept-video.png
 modal-id: 3
-date: 2014-07-16
-img: golden.png
-thumbnail: golden-thumbnail.png
+
+layout: default
 alt: image-alt
-project-date: April 2014
-client: Start Bootstrap
-category: Web Development
-description: Lorem ipsum dolor sit amet, usu cu alterum nominavi lobortis. At duo novum diceret. Tantas apeirian vix et, usu sanctus postulant inciderint ut, populo diceret necessitatibus in vim. Cu eum dicam feugiat noluisse.
+
+document1: ConceptVideo.pdf
+document1Name: Process and Storyboard
+document2: ConceptVideo.mp4
+document2Name: Concept Video
+document3: 
+document3Name: 
+
+description: After deciding on one prototype to run with, we filmed a video to show the problem we wanted to solve -- group travel. More importantly, we wanted to show how delightful we envisioned life would look after solving group travel. 
 
 ---
