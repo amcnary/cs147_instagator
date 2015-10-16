@@ -1,5 +1,5 @@
-url: 127.0.0.1:4000
-baseurl: /home
+url: http://web.stanford.edu/class/cs147/projects/behavior/The_Penguins
+baseurl: /
 
 # Site settings
 title: Instagator
