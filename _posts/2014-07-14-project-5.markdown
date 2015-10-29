@@ -1,0 +1,23 @@
+---
+title: Medium-Fi Prototyping
+subtitle: Click me to test!!
+task: Medium-Fi Prototype
+due_date: October 29, 2015
+date: 2015-10-29
+img: medfi_prototype.png
+thumbnail: medfi_prototype.png
+modal-id: 5
+
+layout: default
+alt: image-alt
+
+document1: 
+document1Name: README (How to use me?)
+document2: 
+document2Name: 
+document3: 
+document3Name: 
+
+description: It's a medium-fi prototype. Read the readme. 
+
+---

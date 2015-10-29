@@ -1,0 +1,23 @@
+---
+title: Lo-Fi Prototyping
+subtitle: How does it feel?
+task: Lo-Fi Prototype
+due_date: October 22, 2015
+date: 2015-10-22
+img: lofi_prototype.png
+thumbnail: lofi_prototype.png
+modal-id: 4
+
+layout: default
+alt: image-alt
+
+document1: LoFiWriteUp.pdf
+document1Name: Lo-Fi Write Up
+document2: 
+document2Name: 
+document3: 
+document3Name: 
+
+description: We drew out a pretend app to see how users would feel about using a tablet to complete a few of our tasks. We learned quite a bit about what felt right and natural and what didn't, without worrying about how things looked.
+
+---
