@@ -1,6 +1,6 @@
 ---
 title: Medium-Fi Prototyping
-subtitle: Click me to test!!
+subtitle: For medium-fi testing, click above!
 task: Medium-Fi Prototype
 due_date: October 29, 2015
 date: 2015-10-29
@@ -11,13 +11,12 @@ modal-id: 5
 layout: default
 alt: image-alt
 
-document1: 
+document1: README
 document1Name: README (How to use me?)
 document2: 
 document2Name: 
 document3: 
 document3Name: 
 
-description: It's a medium-fi prototype. Read the readme. 
-
+description: Welcome to the dashboard for the medium-fi prototype! You're probably here to test out the prototype, yeah? If so, go <a href="https://mdennisellis.proto.io/player/?id=8e37777f-d6c6-4946-af60-278fa0dfa99d">here!</a> But first, check out the README (below).
 ---

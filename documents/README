@@ -1,0 +1,23 @@
+/**
+ * Instagator -- README
+ * The Penguins
+ */
+
+Platform: proto.io
+
+Username:   Mdennisellis@gmail.com
+Pass:       InstaGator
+
+To navigate the app, click the screen. 
+
+Your three tasks will be to: 
+    Start a new trip 
+    Send a task reminder to Sarah 
+    Start a new event 
+
+Some notes: 
+    * You already have an account, so no need to sign-in!
+    * When viewing a trip member's To-Do items, don't try to select different tasks
+    * If a button doesn't seem to go anywhere, it's because we're waiting until later to implement it
+
+For feedback or questions, email amcnary@stanford.edu.
