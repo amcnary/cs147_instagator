@@ -13,8 +13,8 @@ alt: image-alt
 
 document1: README
 document1Name: README (How to use me?)
-document2: 
-document2Name: 
+document2: MedFiPresentation
+document2Name: Medium-Fi Prototype Presentation
 document3: 
 document3Name: 
 
