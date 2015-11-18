@@ -15,8 +15,8 @@ document1: LoFiWriteUp.pdf
 document1Name: Lo-Fi Write Up
 document2: LoFiPresentation.pdf
 document2Name: Lo-Fi Presentation
-document3: 
-document3Name: 
+document3: LoFiPresentation.key
+document3Name: Lo-Fi Presentation (.key)
 
 description: We drew out a pretend app to see how users would feel about using a tablet to complete a few of our tasks. We learned quite a bit about what felt right and natural and what didn't, without worrying about how things looked.
 

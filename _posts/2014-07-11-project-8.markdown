@@ -1,0 +1,22 @@
+---
+title: Poster & Pitch
+subtitle: It's compelling.
+task: Marketing
+due_date: December 3, 2015
+date: 2015-12-03
+img: project_fair.png
+thumbnail: project_fair.png
+modal-id: 8
+
+layout: default
+alt: image-alt
+
+document1: 
+document1Name: Pitch Slide
+document2:
+document2Name: Poster 
+document3: 
+document3Name: 
+
+description: We first made a 30-second pitch for those with a short attention span, but decided we should probably have more to say. We can now thoroughly explain what Instagator brings to the table.
+---

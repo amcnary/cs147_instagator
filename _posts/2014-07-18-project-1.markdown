@@ -13,8 +13,8 @@ alt: image-alt
 
 document1: NeedfindingPresentation.pdf
 document1Name: Needfinding Presentation
-document2:
-document2Name:
+document2: NeedfindingPresentation.pptx
+document2Name: Needfinding Presentation (.pptx)
 document3: 
 document3Name: 
 
