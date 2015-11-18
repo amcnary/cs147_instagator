@@ -14,6 +14,15 @@
 		2BE5F3961BFB01EF004CAB2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3951BFB01EF004CAB2A /* Assets.xcassets */; };
 		2BE5F3991BFB01EF004CAB2A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3971BFB01EF004CAB2A /* LaunchScreen.storyboard */; };
 		2BE5F3A11BFB0C9C004CAB2A /* MidwayStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F3A01BFB0C9C004CAB2A /* MidwayStartViewController.swift */; };
+		5A06E0B41BFC395E0039E415 /* TripSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0B31BFC395E0039E415 /* TripSummaryViewController.swift */; };
+		5A06E0B61BFC3A570039E415 /* EditTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0B51BFC3A570039E415 /* EditTripViewController.swift */; };
+		5A06E0BA1BFC3AF00039E415 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0B91BFC3AF00039E415 /* Trip.swift */; };
+		5A06E0BC1BFC3CDA0039E415 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0BB1BFC3CDA0039E415 /* Person.swift */; };
+		5A06E0BE1BFC3CED0039E415 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0BD1BFC3CED0039E415 /* Task.swift */; };
+		5A06E0C01BFC3D050039E415 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0BF1BFC3D050039E415 /* Poll.swift */; };
+		5A06E0C21BFC3F870039E415 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0C11BFC3F870039E415 /* Event.swift */; };
+		5A06E0C61BFC43E50039E415 /* TripListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0C51BFC43E50039E415 /* TripListViewController.swift */; };
+		5A06E0C81BFC53F50039E415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0C71BFC53F50039E415 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +35,15 @@
 		2BE5F3981BFB01EF004CAB2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BE5F39A1BFB01EF004CAB2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BE5F3A01BFB0C9C004CAB2A /* MidwayStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidwayStartViewController.swift; sourceTree = "<group>"; };
+		5A06E0B31BFC395E0039E415 /* TripSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripSummaryViewController.swift; sourceTree = "<group>"; };
+		5A06E0B51BFC3A570039E415 /* EditTripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTripViewController.swift; sourceTree = "<group>"; };
+		5A06E0B91BFC3AF00039E415 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		5A06E0BB1BFC3CDA0039E415 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		5A06E0BD1BFC3CED0039E415 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		5A06E0BF1BFC3D050039E415 /* Poll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
+		5A06E0C11BFC3F870039E415 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		5A06E0C51BFC43E50039E415 /* TripListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripListViewController.swift; sourceTree = "<group>"; };
+		5A06E0C71BFC53F50039E415 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +76,41 @@
 		2BE5F38B1BFB01EF004CAB2A /* instagator-prototype */ = {
 			isa = PBXGroup;
 			children = (
+				5A06E0B81BFC3ABB0039E415 /* Models */,
+				5A06E0B71BFC3A940039E415 /* Controllers */,
 				2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */,
-				2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */,
-				2BE5F3901BFB01EF004CAB2A /* SecondViewController.swift */,
 				2BE5F3921BFB01EF004CAB2A /* Main.storyboard */,
 				2BE5F3951BFB01EF004CAB2A /* Assets.xcassets */,
 				2BE5F3971BFB01EF004CAB2A /* LaunchScreen.storyboard */,
 				2BE5F39A1BFB01EF004CAB2A /* Info.plist */,
-				2BE5F3A01BFB0C9C004CAB2A /* MidwayStartViewController.swift */,
+				5A06E0C71BFC53F50039E415 /* Constants.swift */,
 			);
 			path = "instagator-prototype";
+			sourceTree = "<group>";
+		};
+		5A06E0B71BFC3A940039E415 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2BE5F3A01BFB0C9C004CAB2A /* MidwayStartViewController.swift */,
+				5A06E0B51BFC3A570039E415 /* EditTripViewController.swift */,
+				5A06E0B31BFC395E0039E415 /* TripSummaryViewController.swift */,
+				2BE5F3901BFB01EF004CAB2A /* SecondViewController.swift */,
+				2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */,
+				5A06E0C51BFC43E50039E415 /* TripListViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		5A06E0B81BFC3ABB0039E415 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5A06E0B91BFC3AF00039E415 /* Trip.swift */,
+				5A06E0BB1BFC3CDA0039E415 /* Person.swift */,
+				5A06E0BD1BFC3CED0039E415 /* Task.swift */,
+				5A06E0BF1BFC3D050039E415 /* Poll.swift */,
+				5A06E0C11BFC3F870039E415 /* Event.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,9 +184,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A06E0C01BFC3D050039E415 /* Poll.swift in Sources */,
+				5A06E0C21BFC3F870039E415 /* Event.swift in Sources */,
 				2BE5F3911BFB01EF004CAB2A /* SecondViewController.swift in Sources */,
 				2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */,
 				2BE5F3A11BFB0C9C004CAB2A /* MidwayStartViewController.swift in Sources */,
+				5A06E0B61BFC3A570039E415 /* EditTripViewController.swift in Sources */,
+				5A06E0B41BFC395E0039E415 /* TripSummaryViewController.swift in Sources */,
+				5A06E0C81BFC53F50039E415 /* Constants.swift in Sources */,
+				5A06E0BA1BFC3AF00039E415 /* Trip.swift in Sources */,
+				5A06E0BC1BFC3CDA0039E415 /* Person.swift in Sources */,
+				5A06E0C61BFC43E50039E415 /* TripListViewController.swift in Sources */,
+				5A06E0BE1BFC3CED0039E415 /* Task.swift in Sources */,
 				2BE5F38F1BFB01EF004CAB2A /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +346,7 @@
 				2BE5F39F1BFB01EF004CAB2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QAD-0t-pdU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QAD-0t-pdU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--TripSummaryController-->
         <scene sceneID="Jwk-j2-pOO">
             <objects>
-                <viewController id="HVS-NK-UL6" sceneMemberID="viewController">
+                <viewController id="HVS-NK-UL6" userLabel="TripSummaryController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IaE-tB-GXR"/>
                         <viewControllerLayoutGuide type="bottom" id="pel-gP-btE"/>
@@ -56,6 +56,9 @@
                                 <state key="normal" title="Edit Trip">
                                     <color key="titleColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="6W9-OP-mUy" kind="presentation" identifier="SummaryToEditSegue" id="MjG-PC-RHQ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DDD MM DD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhx-cV-7vs">
                                 <rect key="frame" x="167" y="72" width="82" height="17"/>
@@ -106,7 +109,7 @@
         <!--Trips I'm Planning-->
         <scene sceneID="Yhk-3i-hbf">
             <objects>
-                <tableViewController id="iQk-Zw-xd4" sceneMemberID="viewController">
+                <tableViewController id="iQk-Zw-xd4" customClass="TripListViewController" customModule="instagator_prototype" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="83" sectionHeaderHeight="28" sectionFooterHeight="28" id="vC5-bD-TmM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -184,10 +187,10 @@
             </objects>
             <point key="canvasLocation" x="1597" y="-389"/>
         </scene>
-        <!--View Controller-->
+        <!--EditTripController-->
         <scene sceneID="bkI-ie-6G3">
             <objects>
-                <viewController id="6W9-OP-mUy" sceneMemberID="viewController">
+                <viewController id="6W9-OP-mUy" userLabel="EditTripController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SIH-sM-Lca"/>
                         <viewControllerLayoutGuide type="bottom" id="YNE-wA-hI0"/>
@@ -258,14 +261,14 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Invitees" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc2-gy-bJe">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Invitees" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc2-gy-bJe">
                                 <rect key="frame" x="20" y="537" width="69.5" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="69G-1p-JKo">
+                            <searchBar contentMode="redraw" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="69G-1p-JKo">
                                 <rect key="frame" x="20" y="556" width="560" height="44"/>
                                 <animations/>
                                 <textInputTraits key="textInputTraits"/>
@@ -287,7 +290,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="([Count selected guests])" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTg-n0-zGo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="([Count selected guests])" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTg-n0-zGo">
                                 <rect key="frame" x="97.5" y="546" width="133" height="6"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
@@ -305,7 +308,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xb8-mI-jYN">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xb8-mI-jYN">
                                 <rect key="frame" x="443.5" y="536" width="136.5" height="26"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -313,7 +316,7 @@
                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Enter Short Trip Description" translatesAutoresizingMaskIntoConstraints="NO" id="7nQ-uJ-Fjx">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" ambiguous="YES" text="Enter Short Trip Description" translatesAutoresizingMaskIntoConstraints="NO" id="7nQ-uJ-Fjx">
                                 <rect key="frame" x="20" y="410" width="560" height="128"/>
                                 <animations/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -398,12 +401,11 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2318" y="-353"/>
+            <point key="canvasLocation" x="2332" y="-389"/>
         </scene>
         <!--Trips I'm Attending-->
         <scene sceneID="NFC-nd-5Gn">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jB7-F8-SED" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="dzo-lN-Rn4" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="83" sectionHeaderHeight="28" sectionFooterHeight="28" id="ykd-6S-xmx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -470,6 +472,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Trips I'm Attending" id="20f-xz-oSM"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jB7-F8-SED" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1605" y="428"/>
         </scene>
@@ -739,4 +742,7 @@
     <resources>
         <image name="Image" width="341" height="227"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="fPS-wR-HxD"/>
+    </inferredMetricsTieBreakers>
 </document>
