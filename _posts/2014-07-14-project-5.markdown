@@ -13,10 +13,10 @@ alt: image-alt
 
 document1: README
 document1Name: README (How to use me?)
-document2: MedFiPresentation
+document2: MedFiPresentation.pdf
 document2Name: Medium-Fi Prototype Presentation
-document3: 
-document3Name: 
+document3: MedFiPresentation.key
+document3Name: Medium-Fi Prototype Presentation (.key)
 
-description: Welcome to the dashboard for the medium-fi prototype! You're probably here to test out the prototype, yeah? If so, go <a href="https://mdennisellis.proto.io/player/?id=8e37777f-d6c6-4946-af60-278fa0dfa99d">here!</a> But first, check out the README (below).
+description: Welcome to the dashboard for the medium-fi prototype! You're probably here to test out the prototype, yeah? If so, go <a href="https://mdennisellis.proto.io/player/?id=8e37777f-d6c6-4946-af60-278fa0dfa99d">here!</a> But first, check out the README (below). You'll need a login for ptoto.io, but you can use ours if you don't yet have one. Login information is in the README!
 ---

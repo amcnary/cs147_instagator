@@ -11,12 +11,12 @@ modal-id: 3
 layout: default
 alt: image-alt
 
-document1: ConceptVideo.pdf
-document1Name: Process and Storyboard
-document2: ConceptVideo.mp4
-document2Name: Concept Video
-document3: 
-document3Name: 
+document1: ConceptVideo.mp4
+document1Name: Concept Video
+document2: ConceptVideo.pdf
+document2Name: Process and Storyboard
+document3: ConceptVideo.pptx
+document3Name: Process and Storyboard (.pptx)
 
 description: After deciding on one prototype to run with, we filmed a video to show the problem we wanted to solve -- group travel. More importantly, we wanted to show how delightful we envisioned life would look after solving group travel. 
 

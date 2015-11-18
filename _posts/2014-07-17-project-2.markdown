@@ -15,8 +15,8 @@ document1: HMWPOVWriteup.pdf
 document1Name: HMW, POV, and Protyping Write-up
 document2: POVHMWPresentation.pdf
 document2Name: Presentation
-document3: 
-document3Name: 
+document3: POVHMWPresentation.pptx
+document3Name: Presentation (.pptx)
 
 description: This week, we met five more interviewees and focused on three specific dimensions of traveling-- alone and in groups, for work and for pleasure, and pre- versus during travel. We dug deep and posed dozens of questions that hoped to answer how we might improve their experiences. We then narrowed our questions down to a few problems, came up with a few dozen solutions, and tested three of them in the field.
 

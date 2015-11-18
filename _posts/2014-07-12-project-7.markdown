@@ -1,0 +1,24 @@
+---
+title: Hi-Fi Prototype
+subtitle: It's kinda like a game
+task: Hi-Fi Prototype
+due_date: November 19, 2015
+date: 2015-11-19
+img: hifi_start.png
+thumbnail: hifi_start.png
+modal-id: 7
+
+layout: default
+alt: image-alt
+
+document1:
+document1Name: Final Report 
+document2: 
+document2Name: Prototype README 
+document3: 
+document3Name: Midway Milestone Presentation
+document4:
+document4Name: Midway Milestone Presentation (.pptx)
+
+description: The project is done (kinda)! It works on real iPads, and you can feel free to test it out <a href="https://web.stanford.edu/class/cs147/projects/behavior/The_Penguins/">here</a>.
+---
