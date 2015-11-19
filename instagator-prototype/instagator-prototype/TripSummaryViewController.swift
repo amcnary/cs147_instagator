@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class TripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,
-UITableViewDataSource, UITableViewDelegate {
+UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     
     static let storyboardId = "TripSummaryViewController"
     
@@ -31,10 +31,8 @@ UITableViewDataSource, UITableViewDelegate {
     
     var trip: Trip?
     
-    
-    // MARK: lifecycle
-    
-    override func viewDidLoad() {
+    // MARK: helper utility functions
+    func updateUI() {
         if let unwrappedTrip = trip {
             tripTitleLabel.text         = unwrappedTrip.Name
             tripImageView.image         = unwrappedTrip.Image
@@ -56,7 +54,13 @@ UITableViewDataSource, UITableViewDelegate {
             tripActivitiesTableView.tableFooterView = UIView(frame: CGRectZero)
             tripTasksTableView.tableFooterView      = UIView(frame: CGRectZero)
         }
-        
+    }
+    
+    
+    // MARK: lifecycle
+    
+    override func viewDidLoad() {
+        updateUI()
 //        if let unwrappedNavController = navigationController {
 //            let editTripButton    = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: Selector("editTripButtonTapped"))
 //            let navigationBarItem = UINavigationItem(title: "Trip Summary")
@@ -77,6 +81,7 @@ UITableViewDataSource, UITableViewDelegate {
         super.prepareForSegue(segue, sender: sender)
         if let id = segue.identifier, editViewController = segue.destinationViewController as? EditTripViewController where id == "SummaryToEditSegue" {
             editViewController.trip = self.trip
+            editViewController.delegate = self
         }
     }
     
@@ -182,4 +187,28 @@ UITableViewDataSource, UITableViewDelegate {
         return
     }
     
+    
+    // MARK: EditTripViewControllerDelegate protocol methods
+    
+    func editTripConrollerCancelTapped(editTripController: EditTripViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func editTripConroller(editTripController: EditTripViewController, savedTrip trip: Trip) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        // TODO: update the saved trip object and call your "updateUI" method
+        self.trip = trip
+        updateUI()
+    }
+    
+    
+    
 }
+
+
+
+
+
+
+
+

@@ -13,10 +13,11 @@ class PersonTableViewCell: UITableViewCell {
     
     // MARK: - constants
     
-    static let reuseIdentifier = "TripCollectionViewCell"
+    static let reuseIdentifier = "PersonTableViewCell"
     
     // MARK: - interface outlets
-    @IBOutlet weak var personImageView: UIView!
-    @IBOutlet weak var personNameLabel: UIView!
+    
+    @IBOutlet weak var personImageView: UIImageView!
+    @IBOutlet weak var personNameLabel: UILabel!
     
 }

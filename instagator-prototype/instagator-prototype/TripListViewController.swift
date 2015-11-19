@@ -9,7 +9,18 @@
 import Foundation
 import UIKit
 
-class TripListViewController: UICollectionViewController {
+class TripListViewController: UICollectionViewController, EditTripViewControllerDelegate {
+    
+    static let tripsImPlanningToCreateTripSegueIdentifier = "TripsImPlanningToCreateTripSegue"
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if let id = segue.identifier, editViewController = segue.destinationViewController as? EditTripViewController where id == TripListViewController.tripsImPlanningToCreateTripSegueIdentifier {
+            editViewController.delegate = self
+        }
+    }
+    
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
@@ -45,4 +56,19 @@ class TripListViewController: UICollectionViewController {
         
         return
     }
+    
+    
+    // MARK: EditTripViewControllerDelegate protocol methods
+    
+    func editTripConrollerCancelTapped(editTripController: EditTripViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func editTripConroller(editTripController: EditTripViewController, savedTrip trip: Trip) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        trips.append(trip)
+        collectionView?.reloadData()
+    }
+    
+    
 }
