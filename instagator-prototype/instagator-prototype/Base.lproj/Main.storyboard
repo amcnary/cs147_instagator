@@ -523,7 +523,7 @@
                                                 <action selector="cancelButtonTapped:" destination="6W9-OP-mUy" id="YCW-hb-GcC"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Create" id="HPq-xv-xMZ">
+                                        <barButtonItem key="rightBarButtonItem" title="Save" id="HPq-xv-xMZ">
                                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="createButtonTapped:" destination="6W9-OP-mUy" id="zyB-zZ-eXk"/>
@@ -1157,7 +1157,7 @@
         <image name="Image" width="341" height="227"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0se-AH-npk"/>
+        <segue reference="qGU-Wz-10S"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.67843137249999996" green="0.71764705880000002" blue="0.48627450979999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

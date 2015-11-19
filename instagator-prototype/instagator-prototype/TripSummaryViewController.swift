@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol TripSummaryViewControllerDelegate {
+    func tripSummaryViewControllerEditedTrip(tripSummaryViewController: TripSummaryViewController)
+}
+
 class TripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,
 UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     
@@ -30,6 +34,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     // MARK: properties
     
     var trip: Trip?
+    var delegate: TripSummaryViewControllerDelegate?
     
     // MARK: helper utility functions
     func updateUI() {
@@ -42,6 +47,10 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
             let endDateString           = dateFormatter.stringFromDate(unwrappedTrip.EndDate)
             tripDatesLabel.text         = "\(startDateString) to \(endDateString)"
             
+            tripInviteesCollectionView.reloadData()
+            tripActivitiesTableView.reloadData()
+            tripTasksTableView.reloadData()
+            
             let acceptedMembers      = unwrappedTrip.Members.filter({ (memberInfo: (member: Person, memberRSVPStatus: Trip.RSVPStatus)) -> Bool in
                 return memberInfo.memberRSVPStatus == .Accepted
             })
@@ -53,6 +62,8 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
             
             tripActivitiesTableView.tableFooterView = UIView(frame: CGRectZero)
             tripTasksTableView.tableFooterView      = UIView(frame: CGRectZero)
+            
+
         }
     }
     
@@ -61,21 +72,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     
     override func viewDidLoad() {
         updateUI()
-//        if let unwrappedNavController = navigationController {
-//            let editTripButton    = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: Selector("editTripButtonTapped"))
-//            let navigationBarItem = UINavigationItem(title: "Trip Summary")
-//            navigationBarItem.rightBarButtonItem = editTripButton
-//            self.navigationItem = navigationBarItem
-////            unwrappedNavController.navigationBar.pushNavigationItem(navigationBarItem, animated: false)
-//        }
     }
-    
-//    func editTripButtonTapped(){
-//        let alertController         = UIAlertController(title: "Not Implemented", message: "Editting trips is not yet implemented (but it will be!)", preferredStyle: .Alert)
-//        let confirmAction           = UIAlertAction(title: "Okay", style: .Default, handler: nil)
-//        alertController.addAction(confirmAction)
-//        self.presentViewController(alertController, animated: true, completion: nil)
-//    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
@@ -110,26 +107,6 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trip?.Members.count ?? 0
     }
-    
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        return CGSize(width: 150.0, height: 250.0)
-//    }
-
-
-    // MARK: UICollectionViewDelegate protocol methods
-    
-//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-//
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let tripSummaryViewController = storyboard.instantiateViewControllerWithIdentifier(TripSummaryViewController.storyboardId) as? TripSummaryViewController {
-//            
-//            tripSummaryViewController.trip = trips[indexPath.item]
-//            self.navigationController?.pushViewController(tripSummaryViewController, animated: true)
-//        }
-//        
-//        return
-//    }
-    
     
     // MARK: UITableViewDataSource protocol methods
     
@@ -196,9 +173,11 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     
     func editTripConroller(editTripController: EditTripViewController, savedTrip trip: Trip) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        // TODO: update the saved trip object and call your "updateUI" method
         self.trip = trip
         updateUI()
+        
+        // notify anyone who cares that our trip changed
+        self.delegate?.tripSummaryViewControllerEditedTrip(self)
     }
     
     

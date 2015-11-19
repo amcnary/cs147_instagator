@@ -21,8 +21,8 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
     
     private static let editTripToSelectImageSegue = "EditTripToSelectImageSegue"
     
-    var trip: Trip?
-    var delegate: EditTripViewControllerDelegate?
+    
+    // MARK: interface outlets
     
     @IBOutlet weak var tripNameTextField: UITextField!
     @IBOutlet weak var tripImageButton: UIButton!
@@ -32,6 +32,20 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
     @IBOutlet weak var tripEndDatePicker: UIDatePicker!
     @IBOutlet weak var tripInviteesHeaderLabel: UILabel!
     @IBOutlet weak var tripInviteesTableView: UITableView!
+    
+    
+    // MARK: other properties
+    
+    private var invitedPeople: [(member: Person, memberRSVPStatus: Trip.RSVPStatus)] = []
+    var trip: Trip? {
+        didSet {
+            self.invitedPeople = trip?.Members ?? []
+        }
+    }
+    var delegate: EditTripViewControllerDelegate?
+    
+    
+    // MARK: lifecycle
     
     override func viewDidLoad() {
         if let unwrappedTrip = self.trip {
@@ -73,7 +87,7 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
             self.presentViewController(alertController, animated: true, completion: nil)
             return
         }
-        let tripDescription = self.tripDescriptionTextView.text ?? ""
+        let tripDescription = (self.tripDescriptionTextView.text != "enter trip description (optional)") ? self.tripDescriptionTextView.text : ""
         guard let tripDestination = self.tripDestinationTextField.text where tripDestination != "" else {
             alertController.message = "You have to set a trip destination."
             self.presentViewController(alertController, animated: true, completion: nil)
@@ -91,8 +105,9 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
             tripToReturn.Image    = tripImage
             tripToReturn.StartDate = tripStartDate
             tripToReturn.EndDate = tripEndDate
+            tripToReturn.Members = self.invitedPeople
         } else {
-            tripToReturn = Trip(name: tripName, destination: tripDestination, description: tripDescription, image: tripImage, startDate: tripStartDate, endDate: tripEndDate, fullyCreated: true, events: [], polls: [], tasks: [], members: [], admins: [])
+            tripToReturn = Trip(name: tripName, destination: tripDestination, description: tripDescription, image: tripImage, startDate: tripStartDate, endDate: tripEndDate, fullyCreated: true, events: [], polls: [], tasks: [], members: self.invitedPeople, admins: [])
         }
         
         self.delegate?.editTripConroller(self, savedTrip: tripToReturn)
@@ -105,16 +120,13 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
     
     // MARK: - UITableViewDataSource protocol
     
-    
-    
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(PersonTableViewCell.reuseIdentifier, forIndexPath: indexPath)
             as? PersonTableViewCell {
-            
-                let invitedUsers = self.trip?.Members ?? []
+                
                 let currentMember = people[indexPath.item]
+                cell.accessoryType = self.indexOfInvitedPerson(currentMember) == NSNotFound ? .None : .Checkmark
                 cell.personImageView.image      = currentMember.Pic
                 cell.personNameLabel.text       = "\(currentMember.FirstName) \(currentMember.LastName)"
                 return cell
@@ -122,6 +134,18 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
         
         return UITableViewCell()
     }
+    
+    private func indexOfInvitedPerson(person: Person) -> Int {
+        var currentIndex = 0
+        for (member, _) in self.invitedPeople {
+            if member.Id == person.Id {
+                return currentIndex
+            }
+            currentIndex++
+        }
+        return NSNotFound
+    }
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
@@ -131,6 +155,16 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
     // MARK: UITableViewDelegate protocol methods
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedMember = people[indexPath.item]
+        let indexOfInvitedPerson = self.indexOfInvitedPerson(selectedMember)
+        if indexOfInvitedPerson == NSNotFound {
+            // invite the person!
+            invitedPeople.append((member: selectedMember, memberRSVPStatus: .Pending))
+        } else {
+            // uninvite the person
+            invitedPeople.removeAtIndex(indexOfInvitedPerson)
+        }
+        self.tripInviteesTableView.reloadData()
         return
     }
     

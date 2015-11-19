@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TripListViewController: UICollectionViewController, EditTripViewControllerDelegate {
+class TripListViewController: UICollectionViewController, EditTripViewControllerDelegate, TripSummaryViewControllerDelegate {
     
     static let tripsImPlanningToCreateTripSegueIdentifier = "TripsImPlanningToCreateTripSegue"
     
@@ -48,9 +48,11 @@ class TripListViewController: UICollectionViewController, EditTripViewController
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let tripSummaryViewController = storyboard.instantiateViewControllerWithIdentifier(TripSummaryViewController.storyboardId) as? TripSummaryViewController {
+        if let tripSummaryViewController = storyboard.instantiateViewControllerWithIdentifier(
+            TripSummaryViewController.storyboardId) as? TripSummaryViewController {
             
                 tripSummaryViewController.trip = trips[indexPath.item]
+                tripSummaryViewController.delegate = self
                 self.navigationController?.pushViewController(tripSummaryViewController, animated: true)
         }
         
@@ -68,6 +70,11 @@ class TripListViewController: UICollectionViewController, EditTripViewController
         self.dismissViewControllerAnimated(true, completion: nil)
         trips.append(trip)
         collectionView?.reloadData()
+    }
+    
+    // MARK: TripSummaryViewControllerDelegate protocol methods
+    func tripSummaryViewControllerEditedTrip(tripSummaryViewController: TripSummaryViewController) {
+        self.collectionView?.reloadData()
     }
     
     
