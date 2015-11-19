@@ -14,7 +14,12 @@ protocol EditTripViewControllerDelegate {
     func editTripConroller(editTripController: EditTripViewController, savedTrip trip: Trip)
 }
 
-class EditTripViewController: UIViewController, UINavigationBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class EditTripViewController: UIViewController, UINavigationBarDelegate, UITableViewDelegate,
+UITableViewDataSource, SelectImageViewControllerDelegate {
+    
+    // MARK: constants
+    
+    private static let editTripToSelectImageSegue = "EditTripToSelectImageSegue"
     
     var trip: Trip?
     var delegate: EditTripViewControllerDelegate?
@@ -39,8 +44,13 @@ class EditTripViewController: UIViewController, UINavigationBarDelegate, UITable
             self.tripEndDatePicker.setDate(unwrappedTrip.EndDate, animated: false)
             self.tripInviteesHeaderLabel.text = "Invitees (\(unwrappedTrip.Members.count) total)"
         }
-        
-        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if let id = segue.identifier, selectImageViewController = segue.destinationViewController as? SelectImageViewController where id == EditTripViewController.editTripToSelectImageSegue {
+            selectImageViewController.delegate = self
+        }
     }
     
     // this function is needed to display the navigation bar correctly
@@ -124,5 +134,13 @@ class EditTripViewController: UIViewController, UINavigationBarDelegate, UITable
         return
     }
     
+    
+    // MARK: SelectImageViewControllerDelegate protocol methods
+    
+    func selectImageViewController(selectImageViewController: SelectImageViewController, imageSelected: UIImage) {
+        // update the button's image with the new one and dismiss dat shit
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.tripImageButton.setBackgroundImage(imageSelected, forState: .Normal)
+    }
     
 }

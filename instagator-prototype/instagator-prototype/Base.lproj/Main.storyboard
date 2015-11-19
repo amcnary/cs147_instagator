@@ -556,6 +556,9 @@
                                         <exclude reference="mXt-UA-9DW"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <segue destination="bTU-bi-ChI" kind="presentation" identifier="EditTripToSelectImageSegue" id="KiV-oi-9YV"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="enter trip description (optional)" translatesAutoresizingMaskIntoConstraints="NO" id="7nQ-uJ-Fjx">
                                 <rect key="frame" x="20" y="211" width="377" height="150"/>
@@ -814,6 +817,63 @@
             </objects>
             <point key="canvasLocation" x="1781" y="1288"/>
         </scene>
+        <!--Select Image View Controller-->
+        <scene sceneID="sYE-2J-w9w">
+            <objects>
+                <collectionViewController id="bTU-bi-ChI" customClass="SelectImageViewController" customModule="instagator_prototype" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="rG2-9U-eF6">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="15" id="4Up-Sx-hMp">
+                            <size key="itemSize" width="225" height="225"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="15" minY="64" maxX="15" maxY="15"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectImageCollectionViewCell" id="8nw-IT-byj" customClass="SelectImageCollectionViewCell" customModule="instagator_prototype" customModuleProvider="target">
+                                <rect key="frame" x="15" y="64" width="225" height="225"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="225" height="225"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HtX-gK-Cfn">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="HtX-gK-Cfn" secondAttribute="height" multiplier="1:1" id="YaX-LG-wtq"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="HtX-gK-Cfn" secondAttribute="bottom" id="QPv-8m-zCH"/>
+                                    <constraint firstAttribute="trailing" secondItem="HtX-gK-Cfn" secondAttribute="trailing" id="Z4d-qh-NYn"/>
+                                    <constraint firstItem="HtX-gK-Cfn" firstAttribute="top" secondItem="8nw-IT-byj" secondAttribute="top" id="gQB-QM-zyK"/>
+                                    <constraint firstItem="HtX-gK-Cfn" firstAttribute="leading" secondItem="8nw-IT-byj" secondAttribute="leading" id="krD-r1-nyR"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="HtX-gK-Cfn" id="vbB-Or-5UV"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="bTU-bi-ChI" id="6HJ-PV-aP7"/>
+                            <outlet property="delegate" destination="bTU-bi-ChI" id="OtH-H4-ExT"/>
+                        </connections>
+                    </collectionView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nJx-wY-Vki" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2965" y="715"/>
+        </scene>
         <!--Trips I'm Planning-->
         <scene sceneID="Zwc-2I-xd0">
             <objects>
@@ -844,17 +904,17 @@
                         <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.87012528450000004" green="1" blue="0.79721317800000002" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="15" id="61N-jE-xTF">
-                            <size key="itemSize" width="238" height="330"/>
+                            <size key="itemSize" width="225" height="330"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="15" minY="15" maxX="15" maxY="15"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TripCollectionViewCell" id="jzE-fD-HcA" customClass="TripCollectionViewCell" customModule="instagator_prototype" customModuleProvider="target">
-                                <rect key="frame" x="15" y="79" width="238" height="330"/>
+                                <rect key="frame" x="15" y="79" width="225" height="330"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="238" height="330"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="225" height="330"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vMc-A1-7Z5">

@@ -12,6 +12,8 @@
 		2B4789631BFD8E90005499DA /* InviteeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4789621BFD8E90005499DA /* InviteeCollectionViewCell.swift */; };
 		2B4789651BFD8EA4005499DA /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4789641BFD8EA4005499DA /* ActivityTableViewCell.swift */; };
 		2B4789671BFD8EB2005499DA /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4789661BFD8EB2005499DA /* TaskTableViewCell.swift */; };
+		2B4789691BFE8D05005499DA /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4789681BFE8D05005499DA /* SelectImageViewController.swift */; };
+		2B47896B1BFE8D4A005499DA /* SelectImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B47896A1BFE8D4A005499DA /* SelectImageCollectionViewCell.swift */; };
 		2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */; };
 		2BE5F38F1BFB01EF004CAB2A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */; };
 		2BE5F3911BFB01EF004CAB2A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F3901BFB01EF004CAB2A /* SecondViewController.swift */; };
@@ -36,6 +38,8 @@
 		2B4789621BFD8E90005499DA /* InviteeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteeCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B4789641BFD8EA4005499DA /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		2B4789661BFD8EB2005499DA /* TaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		2B4789681BFE8D05005499DA /* SelectImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
+		2B47896A1BFE8D4A005499DA /* SelectImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2BE5F3891BFB01EF004CAB2A /* instagator-prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagator-prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 				2B4789601BFD8E67005499DA /* PersonTableViewCell.swift */,
 				2B4789621BFD8E90005499DA /* InviteeCollectionViewCell.swift */,
 				2B4789641BFD8EA4005499DA /* ActivityTableViewCell.swift */,
+				2B47896A1BFE8D4A005499DA /* SelectImageCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 				2BE5F3901BFB01EF004CAB2A /* SecondViewController.swift */,
 				2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */,
 				5A06E0C51BFC43E50039E415 /* TripListViewController.swift */,
+				2B4789681BFE8D05005499DA /* SelectImageViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -212,12 +218,14 @@
 				2BE5F3911BFB01EF004CAB2A /* SecondViewController.swift in Sources */,
 				2B4789611BFD8E67005499DA /* PersonTableViewCell.swift in Sources */,
 				2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */,
+				2B4789691BFE8D05005499DA /* SelectImageViewController.swift in Sources */,
 				2B4789631BFD8E90005499DA /* InviteeCollectionViewCell.swift in Sources */,
 				2BE5F3A11BFB0C9C004CAB2A /* MidwayStartViewController.swift in Sources */,
 				5A06E0B61BFC3A570039E415 /* EditTripViewController.swift in Sources */,
 				2B4789651BFD8EA4005499DA /* ActivityTableViewCell.swift in Sources */,
 				5A06E0B41BFC395E0039E415 /* TripSummaryViewController.swift in Sources */,
 				5A06E0C81BFC53F50039E415 /* Constants.swift in Sources */,
+				2B47896B1BFE8D4A005499DA /* SelectImageCollectionViewCell.swift in Sources */,
 				5A06E0BA1BFC3AF00039E415 /* Trip.swift in Sources */,
 				5A06E0BC1BFC3CDA0039E415 /* Person.swift in Sources */,
 				5A06E0C61BFC43E50039E415 /* TripListViewController.swift in Sources */,
