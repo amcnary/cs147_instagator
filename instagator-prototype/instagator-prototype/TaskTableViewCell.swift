@@ -10,9 +10,15 @@ import Foundation
 import UIKit
 
 class TaskTableViewCell: UITableViewCell {
+
+    // MARK: constants
+    
+    static let reuseIdentifier = "TaskTableViewCell"
+    
+    
     // MARK: - interface outlets
     @IBOutlet weak var taskDescriptionLabel: UILabel!
     @IBOutlet weak var taskDeadlineLabel: UILabel!
-    @IBOutlet weak var taskInviteeProgressLabel: UIView!
+    @IBOutlet weak var taskInviteeProgressLabel: UILabel!
     
 }

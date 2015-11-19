@@ -10,9 +10,15 @@ import Foundation
 import UIKit
 
 class Trip: NSObject {
+    enum RSVPStatus {
+        case Pending
+        case Accepted
+        case Maybe
+    }
     
     var Name: String
     var Description: String
+    var Destination: String
     var Image: UIImage
     
     var CreationDate: NSDate
@@ -22,13 +28,17 @@ class Trip: NSObject {
     var FullyCreated: Bool = false
     var Events: [Event] = []
     var Polls: [Poll] = []
+    var Tasks:  [Task] = []
     
-    var Members: [Person] = []
+    var Members: [(member: Person, memberRSVPStatus: RSVPStatus)] = []
     var Admins: [Person] = []
     
-    init(name:String, description:String, image:UIImage, startDate:NSDate, endDate:NSDate, fullyCreated:Bool, events:[Event], polls:[Poll], members:[Person], admins:[Person]) {
+    init(name: String, destination: String, description: String, image: UIImage, startDate: NSDate, endDate: NSDate,
+        fullyCreated: Bool, events: [Event], polls: [Poll], tasks: [Task], members: [(member: Person, memberRSVPStatus: RSVPStatus)],
+        admins: [Person]) {
             
             self.Name = name
+            self.Destination = destination
             self.Description = description
             self.Image = image
             
@@ -39,6 +49,7 @@ class Trip: NSObject {
             self.FullyCreated = fullyCreated
             self.Events = events
             self.Polls = polls
+            self.Tasks = tasks
             
             self.Members = members
             self.Admins = admins

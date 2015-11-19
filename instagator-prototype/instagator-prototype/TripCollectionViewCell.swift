@@ -11,6 +11,8 @@ import UIKit
 
 class TripCollectionViewCell: UICollectionViewCell {
 
+    static let reuseIdentifier = "TripCollectionViewCell"
+
     // MARK: - interface objects
     @IBOutlet weak var tripImageView: UIImageView!
     @IBOutlet weak var tripNameLabel: UILabel!

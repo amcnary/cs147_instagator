@@ -10,7 +10,13 @@ import Foundation
 import UIKit
 
 class ActivityTableViewCell: UITableViewCell {
-    // MARK: - Outlets
+    
+    // MARK: constants
+    
+    static let reuseIdentifier = "ActivityTableViewCell"
+    
+    
+    // MARK: - interface outlets
     @IBOutlet weak var activityNameLabel: UILabel!
     @IBOutlet weak var activityDateLabel: UILabel!
     @IBOutlet weak var activityPollStatusLabel: UILabel!

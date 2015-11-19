@@ -11,14 +11,15 @@ import UIKit
 
 class Event {
     
-    var Name: String?
-    var Description: String?
+    var Name: String
+    var Description: String
     var Pic: UIImage?
     var Cost: Float?
-    var StartDate: NSDate?
-    var EndDate: NSDate?
+    var StartDate: NSDate
+    var EndDate: NSDate
+    var EventPoll: Poll?
     
-    init(name:String, description:String, pic:UIImage, cost:Float, startDate:NSDate, endDate:NSDate) {
+    init(name: String, description: String = "", pic: UIImage, cost: Float? = nil, startDate: NSDate, endDate: NSDate, poll: Poll? = nil) {
         
         self.Name = name
         self.Description = description
@@ -26,5 +27,6 @@ class Event {
         self.Cost = cost
         self.StartDate = startDate
         self.EndDate = endDate
+        self.EventPoll = poll
     }
 }

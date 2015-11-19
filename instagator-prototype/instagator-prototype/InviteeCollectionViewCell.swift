@@ -10,10 +10,16 @@ import Foundation
 import UIKit
 
 class InviteeCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: constants
+    
+    static let reuseIdentifier = "InviteeCollectionViewCell"
+    
+    
     // MARK: - interface outlets
+    
     @IBOutlet weak var inviteeImageView: UIImageView!
     @IBOutlet weak var inviteeNameLabel: UILabel!
     @IBOutlet weak var inviteeRSVPStatusLabel: UILabel!
     @IBOutlet weak var inviteeTasksToDoLabel: UILabel!
-    
 }
