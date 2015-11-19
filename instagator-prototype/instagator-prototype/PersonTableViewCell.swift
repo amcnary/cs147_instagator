@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 
 class PersonTableViewCell: UITableViewCell {
-   
+    
+    // MARK: - constants
+    
+    static let reuseIdentifier = "TripCollectionViewCell"
+    
     // MARK: - interface outlets
     @IBOutlet weak var personImageView: UIView!
     @IBOutlet weak var personNameLabel: UIView!

@@ -56,7 +56,22 @@ UITableViewDataSource, UITableViewDelegate {
             tripActivitiesTableView.tableFooterView = UIView(frame: CGRectZero)
             tripTasksTableView.tableFooterView      = UIView(frame: CGRectZero)
         }
+        
+//        if let unwrappedNavController = navigationController {
+//            let editTripButton    = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: Selector("editTripButtonTapped"))
+//            let navigationBarItem = UINavigationItem(title: "Trip Summary")
+//            navigationBarItem.rightBarButtonItem = editTripButton
+//            self.navigationItem = navigationBarItem
+////            unwrappedNavController.navigationBar.pushNavigationItem(navigationBarItem, animated: false)
+//        }
     }
+    
+//    func editTripButtonTapped(){
+//        let alertController         = UIAlertController(title: "Not Implemented", message: "Editting trips is not yet implemented (but it will be!)", preferredStyle: .Alert)
+//        let confirmAction           = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+//        alertController.addAction(confirmAction)
+//        self.presentViewController(alertController, animated: true, completion: nil)
+//    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
