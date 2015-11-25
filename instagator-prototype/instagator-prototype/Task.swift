@@ -16,11 +16,13 @@ class Task {
         case Completed
     }
     
+    var Name: String
     var Description: String
     var DueDate: NSDate
-    var UserTaskStatus: [String:Status]
+    var UserTaskStatus: [Int:Status]
     
-    init(description:String, dueDate:NSDate, userTaskStatus:[String:Status]) {
+    init(name:String, description:String, dueDate:NSDate, userTaskStatus:[Int:Status]) {
+        self.Name = name
         self.Description = description
         self.DueDate = dueDate
         self.UserTaskStatus = userTaskStatus

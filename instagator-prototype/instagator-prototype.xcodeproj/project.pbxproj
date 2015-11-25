@@ -30,6 +30,9 @@
 		5A06E0C21BFC3F870039E415 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0C11BFC3F870039E415 /* Event.swift */; };
 		5A06E0C61BFC43E50039E415 /* TripListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0C51BFC43E50039E415 /* TripListViewController.swift */; };
 		5A06E0C81BFC53F50039E415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06E0C71BFC53F50039E415 /* Constants.swift */; };
+		5ABC0BF01C0568DA001882A3 /* CreateActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC0BEF1C0568DA001882A3 /* CreateActivityViewController.swift */; };
+		5ABC0BF21C056B55001882A3 /* PollActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC0BF11C056B55001882A3 /* PollActivityViewController.swift */; };
+		5ABC0BF41C0576DD001882A3 /* MemberStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC0BF31C0576DD001882A3 /* MemberStatusViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,9 @@
 		5A06E0C11BFC3F870039E415 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5A06E0C51BFC43E50039E415 /* TripListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripListViewController.swift; sourceTree = "<group>"; };
 		5A06E0C71BFC53F50039E415 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5ABC0BEF1C0568DA001882A3 /* CreateActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateActivityViewController.swift; sourceTree = "<group>"; };
+		5ABC0BF11C056B55001882A3 /* PollActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollActivityViewController.swift; sourceTree = "<group>"; };
+		5ABC0BF31C0576DD001882A3 /* MemberStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberStatusViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +132,9 @@
 				2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */,
 				5A06E0C51BFC43E50039E415 /* TripListViewController.swift */,
 				2B4789681BFE8D05005499DA /* SelectImageViewController.swift */,
+				5ABC0BEF1C0568DA001882A3 /* CreateActivityViewController.swift */,
+				5ABC0BF11C056B55001882A3 /* PollActivityViewController.swift */,
+				5ABC0BF31C0576DD001882A3 /* MemberStatusViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -213,13 +222,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ABC0BF21C056B55001882A3 /* PollActivityViewController.swift in Sources */,
 				5A06E0C01BFC3D050039E415 /* Poll.swift in Sources */,
 				5A06E0C21BFC3F870039E415 /* Event.swift in Sources */,
 				2BE5F3911BFB01EF004CAB2A /* SecondViewController.swift in Sources */,
 				2B4789611BFD8E67005499DA /* PersonTableViewCell.swift in Sources */,
 				2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */,
+				5ABC0BF41C0576DD001882A3 /* MemberStatusViewController.swift in Sources */,
 				2B4789691BFE8D05005499DA /* SelectImageViewController.swift in Sources */,
 				2B4789631BFD8E90005499DA /* InviteeCollectionViewCell.swift in Sources */,
+				5ABC0BF01C0568DA001882A3 /* CreateActivityViewController.swift in Sources */,
 				2BE5F3A11BFB0C9C004CAB2A /* MidwayStartViewController.swift in Sources */,
 				5A06E0B61BFC3A570039E415 /* EditTripViewController.swift in Sources */,
 				2B4789651BFD8EA4005499DA /* ActivityTableViewCell.swift in Sources */,
