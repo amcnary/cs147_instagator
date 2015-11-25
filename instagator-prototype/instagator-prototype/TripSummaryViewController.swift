@@ -118,7 +118,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
                     
                     let currentActivity                 = tripEvents[indexPath.item]
                     cell.activityNameLabel.text         = currentActivity.Name
-                    cell.activityPollStatusLabel.text   = currentActivity.EventPoll == nil ? "Set Event" : "Poll Event"
+                    cell.activityPollStatusLabel.text   = currentActivity.EventPoll == nil ? "Fixed Event" : "Poll Event"
                     let startDateString                 = dateTimeFormatter.stringFromDate(currentActivity.StartDate)
                     let endDateString                   = dateTimeFormatter.stringFromDate(currentActivity.EndDate)
                     cell.activityDateLabel.text         = "\(startDateString) to \(endDateString)"
