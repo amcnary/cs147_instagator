@@ -7,3 +7,11 @@
 //
 
 import Foundation
+import UIKit
+
+class CreateTaskViewController: UIViewController {
+    // MARK: Interface Outlets
+    @IBOutlet weak var taskNameTextView: UITextField!
+    @IBOutlet weak var taskDescriptionTextView: UITextView!
+    @IBOutlet weak var taskDueDatePicker: UIDatePicker!
+}

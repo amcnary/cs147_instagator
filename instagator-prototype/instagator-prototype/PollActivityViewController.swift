@@ -11,5 +11,8 @@ import UIKit
 
 
 class PollActivityViewController: UIViewController {
+    // MARK: Interface Outlets
+    @IBOutlet weak var pollActivityOptionsTableView: UILabel!
+    @IBOutlet weak var pollActivityMembersTableView: UITableView!
     
 }

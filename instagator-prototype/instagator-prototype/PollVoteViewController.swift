@@ -7,3 +7,14 @@
 //
 
 import Foundation
+import UIKit
+
+class PollVoteViewController: UIViewController {
+
+    // MARK: Interface Outlets
+    
+    @IBOutlet weak var pollVoteTitleLabel: UILabel!
+    @IBOutlet weak var pollOptionsTableView: UITableView!
+    
+    
+}

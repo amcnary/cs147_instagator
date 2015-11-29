@@ -12,4 +12,12 @@ import UIKit
 
 class MemberStatusViewController: UIViewController {
     
+    // MARK: Interface Outlets
+    @IBOutlet weak var memberImageView: UIImageView!
+    @IBOutlet weak var memberNameLabel: UILabel!
+    @IBOutlet weak var memberRSVPStatusLabel: UILabel!
+    @IBOutlet weak var memberChangeAdminStatusButton: UIButton!
+    @IBOutlet weak var memberTasksTableView: UITableView!
+    
+    
 }
