@@ -58,6 +58,11 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
             self.tripEndDatePicker.setDate(unwrappedTrip.EndDate, animated: false)
             self.tripInviteesHeaderLabel.text = "Invitees (\(unwrappedTrip.Members.count) total)"
         }
+        
+        // tell the table view to load a custom cell from a nib
+        let personTableViewCellNib = UINib(nibName: PersonTableViewCell.reuseIdentifier, bundle: nil)
+        self.tripInviteesTableView.registerNib(personTableViewCellNib,
+            forCellReuseIdentifier: PersonTableViewCell.reuseIdentifier)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

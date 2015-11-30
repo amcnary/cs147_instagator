@@ -10,21 +10,20 @@ import Foundation
 
 class Task {
     
-    enum Status {
-        case NotStarted
-        case Started
-        case Completed
+    enum Status: String {
+        case Incomplete = "Incomplete"
+        case Complete = "Complete"
     }
     
     var Name: String
     var Description: String
     var DueDate: NSDate
-    var UserTaskStatus: [Int:Status]
+    var MemberTaskStatus: [(member: Person, memberTaskStatus: Status)]
     
-    init(name:String, description:String, dueDate:NSDate, userTaskStatus:[Int:Status]) {
+    init(name:String, description:String, dueDate:NSDate, memberTaskStatus: [(member: Person, memberTaskStatus: Status)]) {
         self.Name = name
         self.Description = description
         self.DueDate = dueDate
-        self.UserTaskStatus = userTaskStatus
+        self.MemberTaskStatus = memberTaskStatus
     }
 }

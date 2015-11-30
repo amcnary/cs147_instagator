@@ -14,4 +14,20 @@ class CreateTaskViewController: UIViewController {
     @IBOutlet weak var taskNameTextView: UITextField!
     @IBOutlet weak var taskDescriptionTextView: UITextView!
     @IBOutlet weak var taskDueDatePicker: UIDatePicker!
+    
+    
+    // MARK: other variables
+    
+    var task: Task?
+    
+    // MARK: lifecycle
+    
+    override func viewDidLoad() {
+        if let unwrappedTask = task {
+            self.taskNameTextView.text = unwrappedTask.Name
+            self.taskDescriptionTextView.text = unwrappedTask.Description
+            self.taskDueDatePicker.date = unwrappedTask.DueDate
+        }
+    }
+    
 }

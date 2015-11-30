@@ -6,15 +6,54 @@
 //  Copyright © 2015 ThePenguins. All rights reserved.
 //
 
+// TODO: make cells reorderable
+
 import Foundation
 import UIKit
 
-class PollVoteViewController: UIViewController {
+class PollVoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: Interface Outlets
     
     @IBOutlet weak var pollVoteTitleLabel: UILabel!
     @IBOutlet weak var pollOptionsTableView: UITableView!
     
+    
+    // MARK: other variables
+    
+    var poll: Poll?
+    
+    
+    // MARK: lifecycle
+    
+    override func viewDidLoad() {
+        let pollActivityOptionNib = UINib(nibName: PollOptionTableViewCell.reuseIdentifier, bundle: nil)
+        self.pollOptionsTableView.registerNib(pollActivityOptionNib, forCellReuseIdentifier: PollOptionTableViewCell.reuseIdentifier)
+        if let unwrappedPoll = poll {
+            self.pollVoteTitleLabel.text = "Vote on \(unwrappedPoll.Name)"
+        }
+    }
+    
+    
+    // MARK: UITableViewDataSource protocol
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if let unwrappedPoll = self.poll, cell = tableView.dequeueReusableCellWithIdentifier(
+            PollOptionTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? PollOptionTableViewCell {
+                let currentOption = unwrappedPoll.Options[indexPath.row]
+                cell.activityNameLabel.text = currentOption.Name
+                let startTime = dateTimeFormatter.stringFromDate(currentOption.StartDate)
+                let endTime = dateTimeFormatter.stringFromDate(currentOption.EndDate)
+                cell.activityDatesLabel.text = "\(startTime) to \(endTime)"
+                cell.activityProjectedCostLabel.text = "$\(currentOption.Cost)"
+                cell.activityDescriptionLabel.text = currentOption.Description
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return poll?.Options.count ?? 0
+    }
     
 }

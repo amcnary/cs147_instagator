@@ -11,6 +11,8 @@ import UIKit
 
 class PollOptionTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier = "PollOptionTableViewCell"
+    
     @IBOutlet weak var activityNameLabel: UILabel!
     @IBOutlet weak var activityDatesLabel: UILabel!
     @IBOutlet weak var activityProjectedCostLabel: UILabel!

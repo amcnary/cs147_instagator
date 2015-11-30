@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 class Trip: NSObject {
-    enum RSVPStatus {
-        case Pending
-        case Accepted
-        case Maybe
+    enum RSVPStatus: String {
+        case Pending = "Pending"
+        case Accepted = "Accepted"
+        case Maybe = "Maybe"
     }
     
     var Name: String

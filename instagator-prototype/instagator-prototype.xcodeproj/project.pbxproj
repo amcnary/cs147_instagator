@@ -19,9 +19,11 @@
 		2B81E7F71C0B8BB600AFC86D /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E7F61C0B8BB600AFC86D /* CreateTaskViewController.swift */; };
 		2B81E7F91C0B8F5700AFC86D /* PollOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E7F81C0B8F5700AFC86D /* PollOptionTableViewCell.swift */; };
 		2B81E7FB1C0B93AC00AFC86D /* PollResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E7FA1C0B93AC00AFC86D /* PollResultsTableViewCell.swift */; };
+		2B81E7FD1C0BA7EC00AFC86D /* PersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B81E7FC1C0BA7EC00AFC86D /* PersonTableViewCell.xib */; };
+		2B81E7FF1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B81E7FE1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib */; };
+		2B81E8011C0BE8F600AFC86D /* TaskStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8001C0BE8F600AFC86D /* TaskStatusTableViewCell.swift */; };
+		2B81E8031C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8021C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift */; };
 		2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */; };
-		2BE5F38F1BFB01EF004CAB2A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */; };
-		2BE5F3911BFB01EF004CAB2A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F3901BFB01EF004CAB2A /* SecondViewController.swift */; };
 		2BE5F3941BFB01EF004CAB2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3921BFB01EF004CAB2A /* Main.storyboard */; };
 		2BE5F3961BFB01EF004CAB2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3951BFB01EF004CAB2A /* Assets.xcassets */; };
 		2BE5F3991BFB01EF004CAB2A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3971BFB01EF004CAB2A /* LaunchScreen.storyboard */; };
@@ -53,10 +55,12 @@
 		2B81E7F61C0B8BB600AFC86D /* CreateTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
 		2B81E7F81C0B8F5700AFC86D /* PollOptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollOptionTableViewCell.swift; sourceTree = "<group>"; };
 		2B81E7FA1C0B93AC00AFC86D /* PollResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollResultsTableViewCell.swift; sourceTree = "<group>"; };
+		2B81E7FC1C0BA7EC00AFC86D /* PersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonTableViewCell.xib; sourceTree = "<group>"; };
+		2B81E7FE1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PollOptionTableViewCell.xib; sourceTree = "<group>"; };
+		2B81E8001C0BE8F600AFC86D /* TaskStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskStatusTableViewCell.swift; sourceTree = "<group>"; };
+		2B81E8021C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollActivityResultTableViewCell.swift; sourceTree = "<group>"; };
 		2BE5F3891BFB01EF004CAB2A /* instagator-prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagator-prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		2BE5F3901BFB01EF004CAB2A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		2BE5F3931BFB01EF004CAB2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2BE5F3951BFB01EF004CAB2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2BE5F3981BFB01EF004CAB2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -90,14 +94,18 @@
 		2B47895D1BFD8E3B005499DA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2B81E8021C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift */,
+				2B81E8001C0BE8F600AFC86D /* TaskStatusTableViewCell.swift */,
 				2B81E7FA1C0B93AC00AFC86D /* PollResultsTableViewCell.swift */,
 				2B47895E1BFD8E4C005499DA /* TripCollectionViewCell.swift */,
+				2B81E7FC1C0BA7EC00AFC86D /* PersonTableViewCell.xib */,
 				2B4789661BFD8EB2005499DA /* TaskTableViewCell.swift */,
 				2B4789601BFD8E67005499DA /* PersonTableViewCell.swift */,
 				2B4789621BFD8E90005499DA /* InviteeCollectionViewCell.swift */,
 				2B4789641BFD8EA4005499DA /* ActivityTableViewCell.swift */,
 				2B47896A1BFE8D4A005499DA /* SelectImageCollectionViewCell.swift */,
 				2B81E7F81C0B8F5700AFC86D /* PollOptionTableViewCell.swift */,
+				2B81E7FE1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -142,8 +150,6 @@
 				2BE5F3A01BFB0C9C004CAB2A /* MidwayStartViewController.swift */,
 				5A06E0B51BFC3A570039E415 /* EditTripViewController.swift */,
 				5A06E0B31BFC395E0039E415 /* TripSummaryViewController.swift */,
-				2BE5F3901BFB01EF004CAB2A /* SecondViewController.swift */,
-				2BE5F38E1BFB01EF004CAB2A /* FirstViewController.swift */,
 				5A06E0C51BFC43E50039E415 /* TripListViewController.swift */,
 				2B4789681BFE8D05005499DA /* SelectImageViewController.swift */,
 				5ABC0BEF1C0568DA001882A3 /* CreateActivityViewController.swift */,
@@ -224,8 +230,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B81E7FF1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib in Resources */,
 				2BE5F3991BFB01EF004CAB2A /* LaunchScreen.storyboard in Resources */,
 				2BE5F3961BFB01EF004CAB2A /* Assets.xcassets in Resources */,
+				2B81E7FD1C0BA7EC00AFC86D /* PersonTableViewCell.xib in Resources */,
 				2BE5F3941BFB01EF004CAB2A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,11 +250,11 @@
 				5A06E0C01BFC3D050039E415 /* Poll.swift in Sources */,
 				5A06E0C21BFC3F870039E415 /* Event.swift in Sources */,
 				2B81E7F31C0B89F800AFC86D /* PollVoteViewController.swift in Sources */,
-				2BE5F3911BFB01EF004CAB2A /* SecondViewController.swift in Sources */,
 				2B4789611BFD8E67005499DA /* PersonTableViewCell.swift in Sources */,
 				2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */,
 				5ABC0BF41C0576DD001882A3 /* MemberStatusViewController.swift in Sources */,
 				2B81E7FB1C0B93AC00AFC86D /* PollResultsTableViewCell.swift in Sources */,
+				2B81E8031C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift in Sources */,
 				2B4789691BFE8D05005499DA /* SelectImageViewController.swift in Sources */,
 				2B4789631BFD8E90005499DA /* InviteeCollectionViewCell.swift in Sources */,
 				5ABC0BF01C0568DA001882A3 /* CreateActivityViewController.swift in Sources */,
@@ -255,6 +263,7 @@
 				2B81E7F91C0B8F5700AFC86D /* PollOptionTableViewCell.swift in Sources */,
 				2B4789651BFD8EA4005499DA /* ActivityTableViewCell.swift in Sources */,
 				5A06E0B41BFC395E0039E415 /* TripSummaryViewController.swift in Sources */,
+				2B81E8011C0BE8F600AFC86D /* TaskStatusTableViewCell.swift in Sources */,
 				5A06E0C81BFC53F50039E415 /* Constants.swift in Sources */,
 				2B47896B1BFE8D4A005499DA /* SelectImageCollectionViewCell.swift in Sources */,
 				5A06E0BA1BFC3AF00039E415 /* Trip.swift in Sources */,
@@ -263,7 +272,6 @@
 				2B81E7F71C0B8BB600AFC86D /* CreateTaskViewController.swift in Sources */,
 				5A06E0BE1BFC3CED0039E415 /* Task.swift in Sources */,
 				2B4789671BFD8EB2005499DA /* TaskTableViewCell.swift in Sources */,
-				2BE5F38F1BFB01EF004CAB2A /* FirstViewController.swift in Sources */,
 				2B47895F1BFD8E4C005499DA /* TripCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

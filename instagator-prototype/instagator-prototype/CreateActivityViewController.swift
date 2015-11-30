@@ -20,5 +20,19 @@ class CreateActivityViewController: UIViewController {
     @IBOutlet weak var activityDescriptionTextView: UITextView!
     @IBOutlet weak var activityProjectedCostTextField: UITextField!
     
+    // MARK: other variables
     
+    var activity: Event?
+    
+    // MARK: lifecycle
+    
+    override func viewDidLoad() {
+        if let unwrappedActivity = activity {
+            self.activityNameTextField.text = unwrappedActivity.Name
+            self.activityStartDatePicker.date = unwrappedActivity.StartDate
+            self.activityEndDatePicker.date = unwrappedActivity.EndDate
+            self.activityDescriptionTextView.text = unwrappedActivity.Description
+            self.activityProjectedCostTextField.text = "$\(unwrappedActivity.Cost)"
+        }
+    }
 }

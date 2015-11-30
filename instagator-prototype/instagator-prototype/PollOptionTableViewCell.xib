@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PollOptionTableViewCell" rowHeight="97" id="sFS-Ty-S2k" customClass="PollOptionTableViewCell" customModule="instagator_prototype" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="688" height="97"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sFS-Ty-S2k" id="OSY-on-sW9">
+                <rect key="frame" x="0.0" y="0.0" width="688" height="96.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqP-da-fty">
+                        <rect key="frame" x="10" y="10" width="112.5" height="21.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="Start Date - End Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4E-Cb-CzH">
+                        <rect key="frame" x="513.5" y="66" width="164.5" height="20.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,000,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbh-8v-sHe">
+                        <rect key="frame" x="591" y="10" width="87" height="20.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Activity Description where I hope this is long enough that it will become a multiline message..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tse-06-utJ">
+                        <rect key="frame" x="10" y="48" width="483.5" height="38.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="h4E-Cb-CzH" secondAttribute="bottom" constant="10" id="4HA-6w-wYb"/>
+                    <constraint firstItem="zbh-8v-sHe" firstAttribute="centerY" secondItem="zqP-da-fty" secondAttribute="centerY" id="7ZE-Zq-Del"/>
+                    <constraint firstAttribute="trailing" secondItem="zbh-8v-sHe" secondAttribute="trailing" constant="10" id="CJe-88-hjt"/>
+                    <constraint firstItem="zqP-da-fty" firstAttribute="leading" secondItem="OSY-on-sW9" secondAttribute="leading" constant="10" id="Wp5-dG-mXm"/>
+                    <constraint firstItem="zqP-da-fty" firstAttribute="top" secondItem="OSY-on-sW9" secondAttribute="top" constant="10" id="as4-9h-JO3"/>
+                    <constraint firstItem="tse-06-utJ" firstAttribute="top" secondItem="zqP-da-fty" secondAttribute="bottom" constant="4" id="ee0-YS-qz6"/>
+                    <constraint firstItem="h4E-Cb-CzH" firstAttribute="trailing" secondItem="zbh-8v-sHe" secondAttribute="trailing" id="f91-NS-YYC"/>
+                    <constraint firstItem="tse-06-utJ" firstAttribute="leading" secondItem="zqP-da-fty" secondAttribute="leading" id="fGT-oM-zCg"/>
+                    <constraint firstItem="h4E-Cb-CzH" firstAttribute="leading" secondItem="tse-06-utJ" secondAttribute="trailing" constant="20" id="fTk-9H-t9n"/>
+                    <constraint firstItem="tse-06-utJ" firstAttribute="bottom" secondItem="h4E-Cb-CzH" secondAttribute="bottom" id="qRv-SS-CvQ"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="ee0-YS-qz6"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="activityDatesLabel" destination="h4E-Cb-CzH" id="gXn-80-cPE"/>
+                <outlet property="activityDescriptionLabel" destination="tse-06-utJ" id="z9x-ez-RAh"/>
+                <outlet property="activityNameLabel" destination="zqP-da-fty" id="TPH-0M-Y6L"/>
+                <outlet property="activityProjectedCostLabel" destination="zbh-8v-sHe" id="o1G-kR-Ree"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
