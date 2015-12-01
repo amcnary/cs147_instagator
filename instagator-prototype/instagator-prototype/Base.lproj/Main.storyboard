@@ -1374,7 +1374,7 @@
         <scene sceneID="Zwc-2I-xd0">
             <objects>
                 <navigationController id="Egu-ps-ZTe" customClass="PlannedTripListNavigationController" customModule="instagator_prototype" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Trips I'm Planning" id="X4r-Zf-1wJ"/>
+                    <tabBarItem key="tabBarItem" title="Trips I'm Planning" image="Planning" selectedImage="Planning" id="X4r-Zf-1wJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cct-7U-5bp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1387,7 +1387,6 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpS-d5-gag" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tabBarItem image="second" id="a1f-yw-5hf"/>
             </objects>
             <point key="canvasLocation" x="692" y="-92"/>
         </scene>
@@ -1517,7 +1516,7 @@
         <scene sceneID="Ryi-CA-n5K">
             <objects>
                 <navigationController id="Ho3-eu-ERj" customClass="AttendingTripListNavigationController" customModule="instagator_prototype" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Trips I'm Attending" id="v2v-XZ-mYp"/>
+                    <tabBarItem key="tabBarItem" title="Trips I'm Attending" image="Attending" selectedImage="Attending" id="v2v-XZ-mYp"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cYb-h7-tN5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1530,7 +1529,6 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qS3-IK-SsP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tabBarItem image="first" id="Crx-7p-nW8"/>
             </objects>
             <point key="canvasLocation" x="692" y="1328"/>
         </scene>
@@ -1954,8 +1952,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Attending" width="75" height="75"/>
         <image name="Image" width="341" height="227"/>
-        <image name="first" width="30" height="30"/>
+        <image name="Planning" width="75" height="75"/>
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>

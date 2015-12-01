@@ -65,7 +65,7 @@ var plannedTrips: [Trip] = [
                 startDate: NSDate().dateByAddingTimeInterval(2.3*60*60*24),
                 endDate: NSDate().dateByAddingTimeInterval(2.4*60*60*24)
             ),
-            Poll(name: "Saturday Morning with the Hosts",
+            Poll(name: "Saturday Morning",
                 description: "Not sure if we want to get started with some fun stuff or eat our brains out. Braiinnssss",
                 options: [
                     Event(name: "Brunch!!",
@@ -91,7 +91,7 @@ var plannedTrips: [Trip] = [
                     people[0],
                     people[1],
                     people[2],
-                    people[4]
+                    people[3]
                 ]
             )
         ],
@@ -103,14 +103,14 @@ var plannedTrips: [Trip] = [
                         people[0]: .Incomplete,
                         people[1]: .Complete,
                         people[2]: .Complete,
-                        people[4]: .Incomplete
+                        people[3]: .Incomplete
                 ])
         ],
         members: [
             people[0]: .Accepted,
             people[1]: .Accepted,
             people[2]: .Accepted,
-            people[4]: .Pending
+            people[3]: .Pending
         ],
         admins: [
             people[1]
