@@ -11,6 +11,10 @@
 import Foundation
 import UIKit
 
+protocol PollVoteViewControllerDelegate {
+    func pollVoteViewControllerSubmitPressed(pollVoteViewController: PollVoteViewController)
+}
+
 class PollVoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: Interface Outlets
@@ -22,6 +26,7 @@ class PollVoteViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: other variables
     
     var poll: Poll?
+    var delegate: PollVoteViewControllerDelegate?
     
     
     // MARK: lifecycle
@@ -32,6 +37,7 @@ class PollVoteViewController: UIViewController, UITableViewDataSource, UITableVi
         if let unwrappedPoll = poll {
             self.pollVoteTitleLabel.text = "Vote on \(unwrappedPoll.Name)"
         }
+        super.viewDidLoad()
     }
     
     
@@ -46,8 +52,11 @@ class PollVoteViewController: UIViewController, UITableViewDataSource, UITableVi
                 let startTime = dateTimeFormatter.stringFromDate(currentOption.StartDate)
                 let endTime = dateTimeFormatter.stringFromDate(currentOption.EndDate)
                 cell.activityDatesLabel.text = "\(startTime) to \(endTime)"
-                cell.activityProjectedCostLabel.text = "$\(currentOption.Cost)"
                 cell.activityDescriptionLabel.text = currentOption.Description
+                
+                if let projectedCost = currentOption.Cost {
+                    cell.activityProjectedCostLabel.text = "$\(projectedCost)"
+                }
         }
         return UITableViewCell()
     }
@@ -56,4 +65,10 @@ class PollVoteViewController: UIViewController, UITableViewDataSource, UITableVi
         return poll?.Options.count ?? 0
     }
     
+    
+    // MARK: interface actions
+    
+    @IBAction func submitButtonTapped(sender: AnyObject) {
+        delegate?.pollVoteViewControllerSubmitPressed(self)
+    }
 }

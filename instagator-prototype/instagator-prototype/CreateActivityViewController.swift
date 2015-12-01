@@ -39,5 +39,6 @@ class CreateActivityViewController: UIViewController {
             }
             self.navigationBarItem.title = "Edit Event"
         }
+        super.viewDidLoad()
     }
 }

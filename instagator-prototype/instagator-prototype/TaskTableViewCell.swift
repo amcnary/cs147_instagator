@@ -17,7 +17,7 @@ class TaskTableViewCell: UITableViewCell {
     
     
     // MARK: - interface outlets
-    @IBOutlet weak var taskDescriptionLabel: UILabel!
+    @IBOutlet weak var taskTitleLabel: UILabel!
     @IBOutlet weak var taskDeadlineLabel: UILabel!
     @IBOutlet weak var taskInviteeProgressLabel: UILabel!
     

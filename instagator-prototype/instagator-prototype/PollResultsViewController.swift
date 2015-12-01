@@ -45,6 +45,7 @@ class PollResultsViewController: UIViewController, UITableViewDataSource {
                 self.pollTopActivityProjectedCostLabel.text = "$\(projectedCost)"
             }
         }
+        super.viewDidLoad()
     }
     
     // MARK: UITableViewDataSource protocol methods
@@ -54,7 +55,7 @@ class PollResultsViewController: UIViewController, UITableViewDataSource {
         if let unwrappedPoll = poll, cell = tableView.dequeueReusableCellWithIdentifier(PollActivityResultTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? PollActivityResultTableViewCell {
             let currentOption = unwrappedPoll.Options[indexPath.row]
             cell.activityNameLabel.text = currentOption.Name
-            cell.activitySatisfactionLabel.text = "Satisfaction: \(unwrappedPoll.Results[indexPath.row])%"
+            cell.activitySatisfactionLabel.text = "Satisfaction: \(unwrappedPoll.Results[indexPath.row] * 10)%"
             return cell
         }
         return UITableViewCell()

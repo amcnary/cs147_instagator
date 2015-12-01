@@ -32,28 +32,26 @@ class MemberStatusViewController: UIViewController, UITableViewDataSource {
             self.memberNameLabel.text = "\(unwrappedMember.FirstName) \(unwrappedMember.LastName)"
             
             // find and use the member's RSVP status
-            let memberIndex = indexOfPerson(unwrappedMember)
-            if memberIndex != NSNotFound {
-                self.memberRSVPStatusLabel.text = unwrappedTrip.Members[memberIndex].memberRSVPStatus.rawValue
-            }
-            
-            // register the TaskTableViewCell
-            
+//            let memberIndex = indexOfPerson(unwrappedMember)
+//            if memberIndex != NSNotFound {
+                self.memberRSVPStatusLabel.text = unwrappedTrip.Members[unwrappedMember]?.rawValue
+//            }
         }
+        super.viewDidLoad()
     }
 
-    private func indexOfPerson(person: Person) -> Int {
-        if let unwrappedTrip = self.trip {
-            var currentIndex = 0
-            for (member, _) in unwrappedTrip.Members {
-                if member.Id == person.Id {
-                    return currentIndex
-                }
-                currentIndex++
-            }
-        }
-        return NSNotFound
-    }
+//    private func indexOfPerson(person: Person) -> Int {
+//        if let unwrappedTrip = self.trip {
+//            var currentIndex = 0
+//            for (member, _) in unwrappedTrip.Members {
+//                if member.Id == person.Id {
+//                    return currentIndex
+//                }
+//                currentIndex++
+//            }
+//        }
+//        return NSNotFound
+//    }
     
     // MARK: UITableViewDataSource protocol
     
@@ -64,8 +62,8 @@ class MemberStatusViewController: UIViewController, UITableViewDataSource {
                 let currentTask = unwrappedTrip.Tasks[indexPath.row]
                 taskCell.taskDueDateLabel.text = "Deadline: \(dateFormatter.stringFromDate(currentTask.DueDate))"
                 taskCell.taskNameLabel.text = currentTask.Name
-                let memberIndex = indexOfPerson(unwrappedMember)
-                if currentTask.MemberTaskStatus[memberIndex].memberTaskStatus == .Complete {
+//                let memberIndex = indexOfPerson(unwrappedMember)
+                if currentTask.MemberTaskStatuses[unwrappedMember] == .Complete {
                     taskCell.taskSendReminderButton.enabled = false
                 }
         }

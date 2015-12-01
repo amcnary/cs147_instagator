@@ -36,10 +36,15 @@ var people: [Person] = [
            lastName: "Gilligan",
            pic: UIImage(named: "Tanner")!,
            tasks: []
-    )
+    ),
+    Person(firstName: "You",
+        lastName: "",
+        pic: UIImage(named: "Amanda")!,
+        tasks: []
+    ),
 ]
 
-var trips: [Trip] = [
+var plannedTrips: [Trip] = [
     Trip(name: "Canada",
         destination: "Ontario",
         description: "We're going to Canada!",
@@ -60,29 +65,28 @@ var trips: [Trip] = [
                 startDate: NSDate().dateByAddingTimeInterval(2.3*60*60*24),
                 endDate: NSDate().dateByAddingTimeInterval(2.4*60*60*24)
             ),
-            Poll(name: "Saturday Morning?",
+            Poll(name: "Saturday Morning with the Hosts",
                 description: "Not sure if we want to get started with some fun stuff or eat our brains out. Braiinnssss",
                 options: [
-                    Event(name: "Hiking",
-                        description: "Go check out the wilderness and stuff. Pretty strenuous.",
-                        cost: 10.00,
-                        startDate: NSDate().dateByAddingTimeInterval(2.35*60*60*24),
-                        endDate: NSDate().dateByAddingTimeInterval(2.37*60*60*24)
-                    ),
                     Event(name: "Brunch!!",
                         description: "There's a really cool place down the road from our hotel that serves bottomless mimosas",
                         cost: 80.00,
                         startDate: NSDate().dateByAddingTimeInterval(2.35*60*60*24),
                         endDate: NSDate().dateByAddingTimeInterval(2.37*60*60*24)
+                    ),                    Event(name: "Hiking",
+                        description: "Go check out the wilderness and stuff. Pretty strenuous.",
+                        cost: 10.00,
+                        startDate: NSDate().dateByAddingTimeInterval(2.35*60*60*24),
+                        endDate: NSDate().dateByAddingTimeInterval(2.37*60*60*24)
                     ),
-                    Event(name: "Duck tour long title lets think of lots of things to do and stuff like that",
+                    Event(name: "Duck Tour",
                         description: "Looking at ducks. Then shooting ducks.",
                         cost: 150.00,
                         startDate: NSDate().dateByAddingTimeInterval(2.35*60*60*24),
                         endDate: NSDate().dateByAddingTimeInterval(2.37*60*60*24)
                     )
                 ],
-                results: [0.63, 0.90, 0.10],
+                results: [0.90, 0.63, 0.10],
                 people: [
                     people[0],
                     people[1],
@@ -93,19 +97,104 @@ var trips: [Trip] = [
         ],
         tasks: [
             Task(   name: "Submit deposit",
-                    description: "Submit yo shiite right meow",
+                    description: "Submit it NOW!",
                     dueDate: NSDate().dateByAddingTimeInterval(2.32*60*60*24),
-                    memberTaskStatus: [(member: people[0], memberTaskStatus: .Incomplete),
-                        (member: people[1], memberTaskStatus: .Complete),
-                        (member: people[2], memberTaskStatus: .Complete),
-                        (member: people[4], memberTaskStatus: .Incomplete)
+                    memberTaskStatuses: [
+                        people[0]: .Incomplete,
+                        people[1]: .Complete,
+                        people[2]: .Complete,
+                        people[4]: .Incomplete
                 ])
         ],
         members: [
-            (people[0], .Accepted),
-            (people[1], .Accepted),
-            (people[2], .Accepted),
-            (people[4], .Pending)
+            people[0]: .Accepted,
+            people[1]: .Accepted,
+            people[2]: .Accepted,
+            people[4]: .Pending
+        ],
+        admins: [
+            people[1]
+        ]
+    )
+]
+
+var attendingTrips: [Trip] = [
+    Trip(name: "Spring Break 2016",
+        destination: "Mexicoco",
+        description: "Getting some spring break relaxation with mai tais and ALL the water sports",
+        image: UIImage(named: "Beach")!,
+        startDate: NSDate().dateByAddingTimeInterval(75*60*60*24),
+        endDate: NSDate().dateByAddingTimeInterval(85*60*60*24),
+        fullyCreated: true,
+        activities: [
+            Event(name: "Swimming",
+                description: "Heard that the water is super nice",
+                cost: 9.99,
+                startDate: NSDate().dateByAddingTimeInterval(75.1*60*60*24),
+                endDate: NSDate().dateByAddingTimeInterval(75.2*60*60*24)
+            ),
+            Event(name: "Island Tour",
+                description: "Turns out, we'll be at an island. Mexico is an island. Or like, where we will be is anyway.",
+                cost: 190.00,
+                startDate: NSDate().dateByAddingTimeInterval(77.3*60*60*24),
+                endDate: NSDate().dateByAddingTimeInterval(77.4*60*60*24)
+            ),
+            Poll(name: "Friday Afternoon",
+                description: "Not sure if we want to get started with some fun stuff or eat our brains out. Braiinnssss",
+                options: [
+                    Event(name: "Hiking",
+                        description: "Go check out the wilderness and stuff. Pretty strenuous.",
+                        cost: 10.00,
+                        startDate: NSDate().dateByAddingTimeInterval(76.35*60*60*24),
+                        endDate: NSDate().dateByAddingTimeInterval(76.5*60*60*24)
+                    ),
+                    Event(name: "Brunch!!",
+                        description: "Tacos and Huevos",
+                        cost: 30.00,
+                        startDate: NSDate().dateByAddingTimeInterval(76.4*60*60*24),
+                        endDate: NSDate().dateByAddingTimeInterval(76.3*60*60*24)
+                    ),
+                    Event(name: "Nails and Massages",
+                        description: "Spa day because we gotta treat yo self.",
+                        cost: 150.00,
+                        startDate: NSDate().dateByAddingTimeInterval(76.35*60*60*24),
+                        endDate: NSDate().dateByAddingTimeInterval(76.55*60*60*24)
+                    )
+                ],
+                results: [0.63, 0.90, 0.10],
+                people: [
+                    people[5],
+                    people[3],
+                    people[1],
+                    people[4]
+                ]
+            )
+        ],
+        tasks: [
+            Task(   name: "Submit deposit",
+                description: "You have to submit it NOW",
+                dueDate: NSDate().dateByAddingTimeInterval(22.32*60*60*24),
+                memberTaskStatuses: [
+                    people[5]: .Complete,
+                    people[3]: .Incomplete,
+                    people[1]: .Complete,
+                    people[4]: .Incomplete
+                ]),
+            Task(   name: "Passport Photocopy",
+                description: "Submit yo shiite right meow",
+                dueDate: NSDate().dateByAddingTimeInterval(26.32*60*60*24),
+                memberTaskStatuses: [
+                    people[5]: .Incomplete,
+                    people[3]: .Incomplete,
+                    people[1]: .Complete,
+                    people[4]: .Incomplete
+                ])
+        ],
+        members: [
+            people[5]: .Accepted,
+            people[3]: .Accepted,
+            people[1]: .Accepted,
+            people[4]: .Pending
         ],
         admins: [
             people[1]
@@ -122,7 +211,7 @@ var dateFormatter: NSDateFormatter {
 
 var dateTimeFormatter: NSDateFormatter {
     let formatter           = NSDateFormatter()
-    formatter.dateFormat    = "EEE. MMM (HH:MM)"
+    formatter.dateFormat    = "MMM dd (H:MM)"
     formatter.locale        = NSLocale(localeIdentifier: "en_US")
     return formatter
 }

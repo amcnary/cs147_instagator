@@ -9,12 +9,25 @@
 import Foundation
 import UIKit
 
-class Person {
+// MARK: - Equatable protocol methods
+func == (lhs: Person, rhs: Person) -> Bool {
+    return lhs.Id == rhs.Id
+}
+
+// MARK: -
+
+class Person: Hashable {
     var FirstName: String
     var LastName: String
     var Pic: UIImage
     var Tasks: [Task] = []
     var Id: Int
+    
+    // MARK: Hashable protocol properties
+    
+    var hashValue: Int {
+        return self.Id
+    }
     
     init(firstName:String, lastName:String, pic:UIImage, tasks:[Task]) {
         self.FirstName = firstName

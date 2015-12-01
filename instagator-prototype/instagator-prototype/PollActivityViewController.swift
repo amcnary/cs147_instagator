@@ -19,6 +19,7 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
     
     var poll: Poll?
     var trip: Trip?
+    private var invitedPeople: [Person: Trip.RSVPStatus] = [:]
     
     // MARK: lifecycle
     
@@ -30,6 +31,8 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
         let personTableViewCellNib = UINib(nibName: PersonTableViewCell.reuseIdentifier, bundle: nil)
         self.pollActivityMembersTableView.registerNib(personTableViewCellNib,
             forCellReuseIdentifier: PersonTableViewCell.reuseIdentifier)
+        
+        super.viewDidLoad()
     }
     
     
@@ -44,19 +47,23 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
                     let currentOption = unwrappedPoll.Options[indexPath.row]
                     pollOptionCell.activityNameLabel.text = currentOption.Name
                     pollOptionCell.activityDescriptionLabel.text = currentOption.Description
-                    pollOptionCell.activityProjectedCostLabel.text = "$\(currentOption.Cost)"
                     let startTime = dateTimeFormatter.stringFromDate(currentOption.StartDate)
                     let endTime = dateTimeFormatter.stringFromDate(currentOption.EndDate)
                     pollOptionCell.activityDatesLabel.text = "\(startTime) to \(endTime)"
+                    if let projectedCost = currentOption.Cost {
+                        pollOptionCell.activityProjectedCostLabel.text = "$\(projectedCost)"
+                    }
                     return pollOptionCell
             }
             
         case self.pollActivityMembersTableView:
             if let unwrappedTrip = self.trip, pollActivityMemberCell = tableView.dequeueReusableCellWithIdentifier(
                 PersonTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? PersonTableViewCell {
-                    let currentMember = unwrappedTrip.Members[indexPath.row].member
-                    pollActivityMemberCell.personImageView.image = currentMember.Pic
-                    pollActivityMemberCell.personNameLabel.text = "\(currentMember.FirstName) \(currentMember.LastName)"
+                    let currentMember = people[indexPath.item]
+//                    TODO: fix this so it polls the right people
+                    pollActivityMemberCell.accessoryType = self.invitedPeople[currentMember] == nil ? .None : .Checkmark
+                    pollActivityMemberCell.personImageView.image      = currentMember.Pic
+                    pollActivityMemberCell.personNameLabel.text       = "\(currentMember.FirstName) \(currentMember.LastName)"
                     return pollActivityMemberCell
             }
         default:
@@ -81,8 +88,23 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: UITableViewDelegate protocol methods
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        return
+        switch tableView {
+        case self.pollActivityOptionsTableView:
+            return
+        case self.pollActivityMembersTableView:
+            let selectedMember = people[indexPath.item]
+            if self.invitedPeople[selectedMember] == nil {
+                // invite the person!
+                invitedPeople[selectedMember] = .Pending
+            } else {
+                // uninvite the person
+                invitedPeople.removeValueForKey(selectedMember)
+            }
+            self.pollActivityMembersTableView.reloadData()
+        default:
+            return
+        }
     }
-
+    
 
 }

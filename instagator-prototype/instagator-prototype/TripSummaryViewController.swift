@@ -30,16 +30,34 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
     @IBOutlet weak var tripInviteesCollectionView: UICollectionView!
     @IBOutlet weak var tripActivitiesTableView: UITableView!
     @IBOutlet weak var tripTasksTableView: UITableView!
+    @IBOutlet weak var navigationBarItem: UINavigationItem!
+    @IBOutlet var plannedTripExclusiveViews: [UIButton]!
+    @IBOutlet weak var inviteeTasksLabel: UILabel!
     
 
-    // MARK: properties
+    // MARK: other properties
     
     var trip: Trip?
     var delegate: TripSummaryViewControllerDelegate?
+    var tripOwnershipType: TripListViewController.TripOwnershipType = .Planning
     
     // MARK: helper utility functions
+    
     func updateUI() {
         if let unwrappedTrip = trip {
+            switch self.tripOwnershipType {
+            case .Planning:
+                let acceptedMembers = unwrappedTrip.Members.filter({ $0.1 == .Accepted })
+                let pendingMembers = unwrappedTrip.Members.filter({ $0.1 == .Pending })
+                inviteesHeaderLabel.text    = "Invitees (\(acceptedMembers.count) attending, \(pendingMembers.count) awaiting response)"
+            case .Attending:
+                for plannedTripExclusiveView in self.plannedTripExclusiveViews {
+                    plannedTripExclusiveView.hidden = true
+                }
+                inviteesHeaderLabel.text    = "Who's Going"
+                navigationBarItem.rightBarButtonItems = nil
+                inviteeTasksLabel.text      = "Your Tasks"
+            }
             tripTitleLabel.text         = unwrappedTrip.Name
             tripImageView.image         = unwrappedTrip.Image
             tripDestinationLabel.text   = unwrappedTrip.Destination
@@ -52,19 +70,8 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
             tripActivitiesTableView.reloadData()
             tripTasksTableView.reloadData()
             
-            let acceptedMembers      = unwrappedTrip.Members.filter({ (memberInfo: (member: Person, memberRSVPStatus: Trip.RSVPStatus)) -> Bool in
-                return memberInfo.memberRSVPStatus == .Accepted
-            })
-            let pendingMembers       = unwrappedTrip.Members.filter({ (memberInfo: (member: Person, memberRSVPStatus: Trip.RSVPStatus)) -> Bool in
-                return memberInfo.memberRSVPStatus == .Pending
-            })
-            
-            inviteesHeaderLabel.text    = "Invitees (\(acceptedMembers.count) attending, \(pendingMembers.count) awaiting response)"
-            
             tripActivitiesTableView.tableFooterView = UIView(frame: CGRectZero)
             tripTasksTableView.tableFooterView      = UIView(frame: CGRectZero)
-            
-
         }
     }
     
@@ -73,6 +80,16 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
     
     override func viewDidLoad() {
         updateUI()
+        switch self.tripOwnershipType {
+        case .Planning:
+            break
+        case .Attending:
+            for plannedTripExclusiveView in self.plannedTripExclusiveViews {
+                plannedTripExclusiveView.hidden = true
+            }
+            navigationBarItem.rightBarButtonItems = nil
+        }
+        super.viewDidLoad()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -132,10 +149,9 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-        if let tripMembers = self.trip?.Members, cell = collectionView.dequeueReusableCellWithReuseIdentifier(
+        if let currentMember = self.tripMemberAtIndexPath(indexPath), cell = collectionView.dequeueReusableCellWithReuseIdentifier(
             InviteeCollectionViewCell.reuseIdentifier, forIndexPath: indexPath) as? InviteeCollectionViewCell {
                 
-                let currentMember = tripMembers[indexPath.item]
                 cell.inviteeImageView.image         = currentMember.member.Pic
                 cell.inviteeNameLabel.text          = "\(currentMember.member.FirstName)"
                 cell.inviteeTasksToDoLabel.text     = "No ToDos!"
@@ -159,7 +175,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let memberStatusViewController = UIStoryboard(name: "Main",
             bundle: nil).instantiateViewControllerWithIdentifier("MemberStatusViewController") as? MemberStatusViewController,
-            currentMember = self.trip?.Members[indexPath.item] {
+            currentMember = self.tripMemberAtIndexPath(indexPath) {
                 memberStatusViewController.member = currentMember.member
                 memberStatusViewController.modalPresentationStyle = .Popover
                 if let popoverController = memberStatusViewController.popoverPresentationController {
@@ -170,6 +186,10 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
                 memberStatusViewController.trip = self.trip
                 self.presentViewController(memberStatusViewController, animated: true, completion: nil)
         }
+    }
+    
+    private func tripMemberAtIndexPath(indexPath: NSIndexPath) -> (member: Person, memberRSVPStatus: Trip.RSVPStatus)? {
+        return self.trip?.Members.map({ return $0 })[indexPath.row]
     }
     
     
@@ -199,6 +219,14 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
                     case _ as Poll:
                         cell.activityPollStatusLabel.text = "Poll Event"
                         cell.activityDateLabel.hidden = true
+                        switch self.tripOwnershipType {
+                        case .Planning:
+                            break
+//                            cell.viewResultsButton.setTitle("View Results", forState: .Normal)
+                        case .Attending:
+                            cell.viewResultsButton.enabled = false
+//                            cell.viewResultsButton.setTitle("Tap to Vote", forState: .Normal)
+                        }
                     default:
                         break
                     }
@@ -212,8 +240,15 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
                     
                     let currentTask = tripTasks[indexPath.item]
                     cell.taskDeadlineLabel.text         = "Due: \(dateTimeFormatter.stringFromDate(currentTask.DueDate))"
-                    cell.taskDescriptionLabel.text      = currentTask.Description
-                    cell.taskInviteeProgressLabel.text  = "\(currentTask.NumUsersCompleted)/\(currentTask.MemberTaskStatus.count)"
+                    cell.taskTitleLabel.text      = currentTask.Name
+                    
+                    switch self.tripOwnershipType {
+                    case .Planning:
+                        cell.taskInviteeProgressLabel.text  = "\(currentTask.NumUsersCompleted)/\(currentTask.MemberTaskStatuses.count)"
+                    case .Attending:
+                        cell.taskInviteeProgressLabel.hidden = true//text  = currentTask.MemberTaskStatuses[currentUser]?.rawValue
+                        cell.accessoryType = currentTask.MemberTaskStatuses[people[5]] == .Complete ? .Checkmark : .None
+                    }
                     
                     return cell
             }
@@ -261,7 +296,19 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
                         self.presentViewController(editActivityViewController, animated: true, completion: nil)
                 }
                 
-            case let poll as Poll:
+            case let poll as Poll where self.tripOwnershipType == .Attending:
+                if let pollVoteViewController = UIStoryboard(name: "Main",
+                    bundle: nil).instantiateViewControllerWithIdentifier("PollVoteViewController")
+                    as? PollVoteViewController {
+                        
+                        pollVoteViewController.poll = poll
+                        pollVoteViewController.modalPresentationStyle = .Popover
+                        pollVoteViewController.popoverPresentationController?.delegate = self
+                        pollVoteViewController.popoverPresentationController?.sourceView = tableView
+                        pollVoteViewController.popoverPresentationController?.sourceRect = tableView.frame
+                        self.presentViewController(pollVoteViewController, animated: true, completion: nil)
+                }
+            case let poll as Poll where self.tripOwnershipType == .Planning:
                 if let pollActivityViewController = UIStoryboard(name: "Main",
                     bundle: nil).instantiateViewControllerWithIdentifier("PollActivityViewController")
                     as? PollActivityViewController {
@@ -325,11 +372,3 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
             }
     }
 }
-
-
-
-
-
-
-
-

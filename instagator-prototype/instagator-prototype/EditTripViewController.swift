@@ -36,13 +36,14 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
     
     // MARK: other properties
     
-    private var invitedPeople: [(member: Person, memberRSVPStatus: Trip.RSVPStatus)] = []
+    private var invitedPeople: [Person: Trip.RSVPStatus] = [:]
     var trip: Trip? {
         didSet {
-            self.invitedPeople = trip?.Members ?? []
+            self.invitedPeople = trip?.Members ?? [:]
         }
     }
     var delegate: EditTripViewControllerDelegate?
+    var numberInvitees: Int = 0
     
     
     // MARK: lifecycle
@@ -56,13 +57,18 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
             self.tripImageButton.setTitle(nil, forState: .Normal)
             self.tripStartDatePicker.setDate(unwrappedTrip.StartDate, animated: false)
             self.tripEndDatePicker.setDate(unwrappedTrip.EndDate, animated: false)
+            numberInvitees = unwrappedTrip.Members.count
             self.tripInviteesHeaderLabel.text = "Invitees (\(unwrappedTrip.Members.count) total)"
+        } else {
+            self.tripInviteesHeaderLabel.text = "No invitees yet!"
         }
         
         // tell the table view to load a custom cell from a nib
         let personTableViewCellNib = UINib(nibName: PersonTableViewCell.reuseIdentifier, bundle: nil)
         self.tripInviteesTableView.registerNib(personTableViewCellNib,
             forCellReuseIdentifier: PersonTableViewCell.reuseIdentifier)
+        
+        super.viewDidLoad()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -131,7 +137,7 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
             as? PersonTableViewCell {
                 
                 let currentMember = people[indexPath.item]
-                cell.accessoryType = self.indexOfInvitedPerson(currentMember) == NSNotFound ? .None : .Checkmark
+                cell.accessoryType = self.invitedPeople[currentMember] == nil ? .None : .Checkmark
                 cell.personImageView.image      = currentMember.Pic
                 cell.personNameLabel.text       = "\(currentMember.FirstName) \(currentMember.LastName)"
                 return cell
@@ -140,16 +146,16 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
         return UITableViewCell()
     }
     
-    private func indexOfInvitedPerson(person: Person) -> Int {
-        var currentIndex = 0
-        for (member, _) in self.invitedPeople {
-            if member.Id == person.Id {
-                return currentIndex
-            }
-            currentIndex++
-        }
-        return NSNotFound
-    }
+//    private func indexOfInvitedPerson(person: Person) -> Int {
+//        var currentIndex = 0
+//        for (member, _) in self.invitedPeople {
+//            if member.Id == person.Id {
+//                return currentIndex
+//            }
+//            currentIndex++
+//        }
+//        return NSNotFound
+//    }
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -161,15 +167,17 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedMember = people[indexPath.item]
-        let indexOfInvitedPerson = self.indexOfInvitedPerson(selectedMember)
-        if indexOfInvitedPerson == NSNotFound {
+        if self.invitedPeople[selectedMember] == nil {
             // invite the person!
-            invitedPeople.append((member: selectedMember, memberRSVPStatus: .Pending))
+            invitedPeople[selectedMember] = .Pending
+            numberInvitees++
         } else {
             // uninvite the person
-            invitedPeople.removeAtIndex(indexOfInvitedPerson)
+            invitedPeople.removeValueForKey(selectedMember)
+            numberInvitees--
         }
         self.tripInviteesTableView.reloadData()
+        self.tripInviteesHeaderLabel.text = "Invitees (\(numberInvitees) total)"
         return
     }
     

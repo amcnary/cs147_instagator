@@ -18,18 +18,18 @@ class Task {
     var Name: String
     var Description: String
     var DueDate: NSDate
-    var MemberTaskStatus: [(member: Person, memberTaskStatus: Status)]
+    var MemberTaskStatuses: [Person: Status]
     
     var NumUsersCompleted: Int {
-        return self.MemberTaskStatus.filter({ (taskStatus: (member: Person, memberTaskStatus: Task.Status)) -> Bool in
-            return taskStatus.memberTaskStatus == .Complete
+        return self.MemberTaskStatuses.filter({ (taskStatus: (Person, Status)) -> Bool in
+            return taskStatus.1 == .Complete
         }).count
     }
     
-    init(name:String, description:String, dueDate:NSDate, memberTaskStatus: [(member: Person, memberTaskStatus: Status)]) {
+    init(name: String, description: String, dueDate: NSDate, memberTaskStatuses: [Person: Status]) {
         self.Name = name
         self.Description = description
         self.DueDate = dueDate
-        self.MemberTaskStatus = memberTaskStatus
+        self.MemberTaskStatuses = memberTaskStatuses
     }
 }

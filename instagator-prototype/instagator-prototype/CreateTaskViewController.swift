@@ -30,11 +30,12 @@ class CreateTaskViewController: UIViewController {
             self.taskDescriptionTextView.text = unwrappedTask.Description
             self.taskDueDatePicker.date = unwrappedTask.DueDate
             self.taskResponseProgressLabel.hidden = false
-            self.taskResponseProgressLabel.text = "\(unwrappedTask.NumUsersCompleted)/\(unwrappedTask.MemberTaskStatus.count) Responded"
-            if unwrappedTask.NumUsersCompleted != unwrappedTask.MemberTaskStatus.count {
+            self.taskResponseProgressLabel.text = "\(unwrappedTask.NumUsersCompleted)/\(unwrappedTask.MemberTaskStatuses.count) Responded"
+            if unwrappedTask.NumUsersCompleted != unwrappedTask.MemberTaskStatuses.count {
                 self.taskSendReminderButton.hidden = false
             }
         }
+        super.viewDidLoad()
     }
     
 }
