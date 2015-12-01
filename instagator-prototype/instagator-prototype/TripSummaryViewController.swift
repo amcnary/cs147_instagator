@@ -14,9 +14,10 @@ protocol TripSummaryViewControllerDelegate {
 }
 
 class TripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,
-UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
+UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, ActivityTableViewCellDelegate {
     
     static let storyboardId = "TripSummaryViewController"
+    
     
     // MARK: interface outlets
 
@@ -83,6 +84,50 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     }
     
     
+    // MARK: interface actions
+    
+    @IBAction func addActivityButtonTapped(sender: UIButton) {
+        let alertController = UIAlertController(title: "Select New Event Type", message: "", preferredStyle: .Alert)
+        
+        func eventTypeHandler(alertAction: UIAlertAction) {
+            if let title = alertAction.title {
+                
+                switch title {
+                    
+                case "Static":
+                    if let createActivityViewController = UIStoryboard(name: "Main",
+                        bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
+                        as? CreateActivityViewController {
+                            createActivityViewController.modalPresentationStyle = .Popover
+                            createActivityViewController.popoverPresentationController?.delegate = self
+                            createActivityViewController.popoverPresentationController?.sourceView = sender
+                            createActivityViewController.popoverPresentationController?.sourceRect = sender.frame
+                            self.presentViewController(createActivityViewController, animated: true, completion: nil)
+                    }
+                    
+                case "Poll":
+                    if let pollActivityViewController = UIStoryboard(name: "Main",
+                        bundle: nil).instantiateViewControllerWithIdentifier("PollActivityViewController")
+                        as? PollActivityViewController {
+                            pollActivityViewController.trip = self.trip
+                            self.navigationController?.pushViewController(pollActivityViewController, animated: true)
+                    }
+                    
+                default:
+                    break
+                }
+                
+            }
+        }
+        let staticEventTypeAction = UIAlertAction(title: "Static", style: .Default, handler: eventTypeHandler)
+        let pollEventTypeAction = UIAlertAction(title: "Poll", style: .Default, handler: eventTypeHandler)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(staticEventTypeAction)
+        alertController.addAction(pollEventTypeAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: UICollectionViewDataSource protocol methods
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -108,23 +153,56 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
         return trip?.Members.count ?? 0
     }
     
+    
+    // MARK: UICollectionView delegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let memberStatusViewController = UIStoryboard(name: "Main",
+            bundle: nil).instantiateViewControllerWithIdentifier("MemberStatusViewController") as? MemberStatusViewController,
+            currentMember = self.trip?.Members[indexPath.item] {
+                memberStatusViewController.member = currentMember.member
+                memberStatusViewController.modalPresentationStyle = .Popover
+                if let popoverController = memberStatusViewController.popoverPresentationController {
+                    popoverController.sourceView = collectionView
+                    popoverController.sourceRect = collectionView.frame
+                    popoverController.delegate   = self
+                }
+                memberStatusViewController.trip = self.trip
+                self.presentViewController(memberStatusViewController, animated: true, completion: nil)
+        }
+    }
+    
+    
     // MARK: UITableViewDataSource protocol methods
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         switch tableView {
         case self.tripActivitiesTableView:
-            if let tripEvents = self.trip?.Events, cell = tableView.dequeueReusableCellWithIdentifier(ActivityTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? ActivityTableViewCell {
+            if let tripActivities = self.trip?.Activities, cell = tableView.dequeueReusableCellWithIdentifier(
+                ActivityTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? ActivityTableViewCell {
                     
-                    let currentActivity                 = tripEvents[indexPath.item]
+                    let currentActivity                 = tripActivities[indexPath.item]
+                    cell.delegate                       = self
+                    cell.indexPath                      = indexPath
                     cell.activityNameLabel.text         = currentActivity.Name
-                    cell.activityPollStatusLabel.text   = currentActivity.EventPoll == nil ? "Fixed Event" : "Poll Event"
-                    let startDateString                 = dateTimeFormatter.stringFromDate(currentActivity.StartDate)
-                    let endDateString                   = dateTimeFormatter.stringFromDate(currentActivity.EndDate)
-                    cell.activityDateLabel.text         = "\(startDateString) to \(endDateString)"
-                    if(currentActivity.EventPoll == nil){
+                    
+                    // populate the cell based on what kind of activity is being displayed
+                    switch currentActivity {
+                    case let event as Event:
+                        cell.activityPollStatusLabel.text = "Fixed Event"
+                        let startDateString                 = dateTimeFormatter.stringFromDate(event.StartDate)
+                        let endDateString                   = dateTimeFormatter.stringFromDate(event.EndDate)
+                        cell.activityDateLabel.text         = "\(startDateString) to \(endDateString)"
                         cell.viewResultsButton.hidden = true
+                        
+                    case _ as Poll:
+                        cell.activityPollStatusLabel.text = "Poll Event"
+                        cell.activityDateLabel.hidden = true
+                    default:
+                        break
                     }
+
                     return cell
             }
             
@@ -135,7 +213,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
                     let currentTask = tripTasks[indexPath.item]
                     cell.taskDeadlineLabel.text         = "Due: \(dateTimeFormatter.stringFromDate(currentTask.DueDate))"
                     cell.taskDescriptionLabel.text      = currentTask.Description
-                    cell.taskInviteeProgressLabel.text  = "4/4"
+                    cell.taskInviteeProgressLabel.text  = "\(currentTask.NumUsersCompleted)/\(currentTask.MemberTaskStatus.count)"
                     
                     return cell
             }
@@ -149,7 +227,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case self.tripActivitiesTableView:
-            return self.trip?.Events.count ?? 0
+            return self.trip?.Activities.count ?? 0
         case self.tripTasksTableView:
             return self.trip?.Tasks.count ?? 0
         default:
@@ -161,7 +239,59 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     // MARK: UITableViewDelegate protocol methods
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        return
+        switch tableView {
+        case self.tripActivitiesTableView:
+            
+            guard let currentActivity = self.trip?.Activities[indexPath.row] else {
+                return
+            }
+            
+            // present a different view controller for polls and static events
+            switch currentActivity {
+                
+            case let event as Event:
+                if let editActivityViewController = UIStoryboard(name: "Main",
+                    bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
+                    as? CreateActivityViewController {
+                        editActivityViewController.event = event
+                        editActivityViewController.modalPresentationStyle = .Popover
+                        editActivityViewController.popoverPresentationController?.delegate = self
+                        editActivityViewController.popoverPresentationController?.sourceView = tableView
+                        editActivityViewController.popoverPresentationController?.sourceRect = tableView.frame
+                        self.presentViewController(editActivityViewController, animated: true, completion: nil)
+                }
+                
+            case let poll as Poll:
+                if let pollActivityViewController = UIStoryboard(name: "Main",
+                    bundle: nil).instantiateViewControllerWithIdentifier("PollActivityViewController")
+                    as? PollActivityViewController {
+                        
+                        pollActivityViewController.trip = self.trip
+                        pollActivityViewController.poll = poll
+                        self.navigationController?.pushViewController(pollActivityViewController, animated: true)
+                }
+                
+            default:
+                break
+            }
+            
+            
+        case self.tripTasksTableView:
+            if let editTaskViewController = UIStoryboard(name: "Main",
+                bundle: nil).instantiateViewControllerWithIdentifier("CreateTaskViewController") as? CreateTaskViewController,
+                task = self.trip?.Tasks[indexPath.row] {
+                    editTaskViewController.task = task
+                    editTaskViewController.modalPresentationStyle = .Popover
+                    if let popoverController = editTaskViewController.popoverPresentationController {
+                        popoverController.sourceView = tableView
+                        popoverController.sourceRect = tableView.frame
+                        popoverController.delegate   = self
+                    }
+                    self.presentViewController(editTaskViewController, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
     }
     
     
@@ -181,7 +311,19 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate {
     }
     
     
+    // MARK: ActivityTableViewCellDelegate protocol methods
     
+    func activityTableViewCell(activityTableViewCell: ActivityTableViewCell,
+        viewPollResultsTappedAtIndexPath indexPath: NSIndexPath) {
+            if let poll = self.trip?.Activities[indexPath.row] as? Poll,
+                pollResultsViewController = UIStoryboard(name: "Main",
+                    bundle: nil).instantiateViewControllerWithIdentifier("PollResultsViewController")
+                    as? PollResultsViewController {
+                        
+                        pollResultsViewController.poll = poll
+                        self.navigationController?.pushViewController(pollResultsViewController, animated: true)
+            }
+    }
 }
 
 

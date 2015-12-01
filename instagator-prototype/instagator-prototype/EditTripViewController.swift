@@ -112,7 +112,7 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
             tripToReturn.EndDate = tripEndDate
             tripToReturn.Members = self.invitedPeople
         } else {
-            tripToReturn = Trip(name: tripName, destination: tripDestination, description: tripDescription, image: tripImage, startDate: tripStartDate, endDate: tripEndDate, fullyCreated: true, events: [], polls: [], tasks: [], members: self.invitedPeople, admins: [])
+            tripToReturn = Trip(name: tripName, destination: tripDestination, description: tripDescription, image: tripImage, startDate: tripStartDate, endDate: tripEndDate, fullyCreated: true, activities: [], tasks: [], members: self.invitedPeople, admins: [])
         }
         
         self.delegate?.editTripConroller(self, savedTrip: tripToReturn)

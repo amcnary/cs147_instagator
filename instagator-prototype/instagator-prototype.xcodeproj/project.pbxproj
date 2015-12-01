@@ -23,6 +23,7 @@
 		2B81E7FF1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B81E7FE1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib */; };
 		2B81E8011C0BE8F600AFC86D /* TaskStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8001C0BE8F600AFC86D /* TaskStatusTableViewCell.swift */; };
 		2B81E8031C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8021C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift */; };
+		2B81E8051C0D7FBA00AFC86D /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8041C0D7FBA00AFC86D /* Activity.swift */; };
 		2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */; };
 		2BE5F3941BFB01EF004CAB2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3921BFB01EF004CAB2A /* Main.storyboard */; };
 		2BE5F3961BFB01EF004CAB2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3951BFB01EF004CAB2A /* Assets.xcassets */; };
@@ -59,6 +60,7 @@
 		2B81E7FE1C0BC0DE00AFC86D /* PollOptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PollOptionTableViewCell.xib; sourceTree = "<group>"; };
 		2B81E8001C0BE8F600AFC86D /* TaskStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskStatusTableViewCell.swift; sourceTree = "<group>"; };
 		2B81E8021C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollActivityResultTableViewCell.swift; sourceTree = "<group>"; };
+		2B81E8041C0D7FBA00AFC86D /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		2BE5F3891BFB01EF004CAB2A /* instagator-prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagator-prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BE5F3931BFB01EF004CAB2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				5A06E0BD1BFC3CED0039E415 /* Task.swift */,
 				5A06E0BF1BFC3D050039E415 /* Poll.swift */,
 				5A06E0C11BFC3F870039E415 /* Event.swift */,
+				2B81E8041C0D7FBA00AFC86D /* Activity.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				5A06E0BC1BFC3CDA0039E415 /* Person.swift in Sources */,
 				5A06E0C61BFC43E50039E415 /* TripListViewController.swift in Sources */,
 				2B81E7F71C0B8BB600AFC86D /* CreateTaskViewController.swift in Sources */,
+				2B81E8051C0D7FBA00AFC86D /* Activity.swift in Sources */,
 				5A06E0BE1BFC3CED0039E415 /* Task.swift in Sources */,
 				2B4789671BFD8EB2005499DA /* TaskTableViewCell.swift in Sources */,
 				2B47895F1BFD8E4C005499DA /* TripCollectionViewCell.swift in Sources */,

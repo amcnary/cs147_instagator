@@ -20,6 +20,12 @@ class Task {
     var DueDate: NSDate
     var MemberTaskStatus: [(member: Person, memberTaskStatus: Status)]
     
+    var NumUsersCompleted: Int {
+        return self.MemberTaskStatus.filter({ (taskStatus: (member: Person, memberTaskStatus: Task.Status)) -> Bool in
+            return taskStatus.memberTaskStatus == .Complete
+        }).count
+    }
+    
     init(name:String, description:String, dueDate:NSDate, memberTaskStatus: [(member: Person, memberTaskStatus: Status)]) {
         self.Name = name
         self.Description = description

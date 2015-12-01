@@ -47,7 +47,7 @@ var trips: [Trip] = [
         startDate: NSDate().dateByAddingTimeInterval(2*60*60*24),
         endDate: NSDate().dateByAddingTimeInterval(9*60*60*24),
         fullyCreated: true,
-        events: [
+        activities: [
             Event(name: "Moose Petting",
                 description: "We're gonna go pet us some Moose!",
                 cost: 999.99,
@@ -60,16 +60,8 @@ var trips: [Trip] = [
                 startDate: NSDate().dateByAddingTimeInterval(2.3*60*60*24),
                 endDate: NSDate().dateByAddingTimeInterval(2.4*60*60*24)
             ),
-            Event(name: "Saturday Morning",
-                description: "Debating between brunch, board games, and water sports. Not sure what you guys are up for!",
-                cost: 150.00,
-                startDate: NSDate().dateByAddingTimeInterval(2.35*60*60*24),
-                endDate: NSDate().dateByAddingTimeInterval(2.37*60*60*24)
-            ),
-        ],
-        polls: [
             Poll(name: "Saturday Morning?",
-                 description: "Not sure if we want to get started with some fun stuff or eat our brains out. Braiinnssss",
+                description: "Not sure if we want to get started with some fun stuff or eat our brains out. Braiinnssss",
                 options: [
                     Event(name: "Hiking",
                         description: "Go check out the wilderness and stuff. Pretty strenuous.",
@@ -83,20 +75,26 @@ var trips: [Trip] = [
                         startDate: NSDate().dateByAddingTimeInterval(2.35*60*60*24),
                         endDate: NSDate().dateByAddingTimeInterval(2.37*60*60*24)
                     ),
-                    Event(name: "Duck tour",
+                    Event(name: "Duck tour long title lets think of lots of things to do and stuff like that",
                         description: "Looking at ducks. Then shooting ducks.",
                         cost: 150.00,
                         startDate: NSDate().dateByAddingTimeInterval(2.35*60*60*24),
                         endDate: NSDate().dateByAddingTimeInterval(2.37*60*60*24)
                     )
-                 ],
-                results: [0.63, 0.90, 0.10]
+                ],
+                results: [0.63, 0.90, 0.10],
+                people: [
+                    people[0],
+                    people[1],
+                    people[2],
+                    people[4]
+                ]
             )
         ],
         tasks: [
             Task(   name: "Submit deposit",
                     description: "Submit yo shiite right meow",
-                    dueDate: NSDate(),
+                    dueDate: NSDate().dateByAddingTimeInterval(2.32*60*60*24),
                     memberTaskStatus: [(member: people[0], memberTaskStatus: .Incomplete),
                         (member: people[1], memberTaskStatus: .Complete),
                         (member: people[2], memberTaskStatus: .Complete),
@@ -128,6 +126,32 @@ var dateTimeFormatter: NSDateFormatter {
     formatter.locale        = NSLocale(localeIdentifier: "en_US")
     return formatter
 }
+
+extension UIViewController: UIPopoverPresentationControllerDelegate {
+    public func adaptivePresentationStyleForPresentationController(
+        controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .None
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

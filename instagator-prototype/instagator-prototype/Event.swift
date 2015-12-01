@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Event {
+class Event: Activity {
     
     var Name: String
     var Description: String
@@ -18,7 +18,6 @@ class Event {
     var EndDate: NSDate
     
     init(name: String, description: String = "", cost: Float? = nil, startDate: NSDate, endDate: NSDate) {
-        
         self.Name = name
         self.Description = description
         self.Cost = cost

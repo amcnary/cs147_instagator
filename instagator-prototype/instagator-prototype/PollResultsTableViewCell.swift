@@ -9,7 +9,10 @@
 import Foundation
 import UIKit
 
-class PollResultsTableViewCell: UITableViewCell{
+class PollResultsTableViewCell: UITableViewCell {
+    
+    static let reuseIdentifier = "PollResultsTableViewCell"
+    
     @IBOutlet weak var activityNameLabel: UILabel!
     @IBOutlet weak var activitySatisfactionLabel: UILabel!
     

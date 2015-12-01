@@ -19,20 +19,25 @@ class CreateActivityViewController: UIViewController {
     @IBOutlet weak var activityEndDatePicker: UIDatePicker!
     @IBOutlet weak var activityDescriptionTextView: UITextView!
     @IBOutlet weak var activityProjectedCostTextField: UITextField!
+    @IBOutlet weak var navigationBarItem: UINavigationItem!
+    
     
     // MARK: other variables
     
-    var activity: Event?
+    var event: Event?
     
     // MARK: lifecycle
     
     override func viewDidLoad() {
-        if let unwrappedActivity = activity {
-            self.activityNameTextField.text = unwrappedActivity.Name
-            self.activityStartDatePicker.date = unwrappedActivity.StartDate
-            self.activityEndDatePicker.date = unwrappedActivity.EndDate
-            self.activityDescriptionTextView.text = unwrappedActivity.Description
-            self.activityProjectedCostTextField.text = "$\(unwrappedActivity.Cost)"
+        if let unwrappedEvent = event {
+            self.activityNameTextField.text = unwrappedEvent.Name
+            self.activityStartDatePicker.date = unwrappedEvent.StartDate
+            self.activityEndDatePicker.date = unwrappedEvent.EndDate
+            self.activityDescriptionTextView.text = unwrappedEvent.Description
+            if let eventCost = unwrappedEvent.Cost {
+                self.activityProjectedCostTextField.text = "\(eventCost)"
+            }
+            self.navigationBarItem.title = "Edit Event"
         }
     }
 }

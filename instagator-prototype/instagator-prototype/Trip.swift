@@ -26,15 +26,14 @@ class Trip: NSObject {
     var EndDate: NSDate
     
     var FullyCreated: Bool = false
-    var Events: [Event] = []
-    var Polls: [Poll] = []
+    var Activities: [Activity] = []
     var Tasks:  [Task] = []
     
     var Members: [(member: Person, memberRSVPStatus: RSVPStatus)] = []
     var Admins: [Person] = []
     
     init(name: String, destination: String, description: String, image: UIImage, startDate: NSDate, endDate: NSDate,
-        fullyCreated: Bool, events: [Event], polls: [Poll], tasks: [Task], members: [(member: Person, memberRSVPStatus: RSVPStatus)],
+        fullyCreated: Bool, activities: [Activity], tasks: [Task], members: [(member: Person, memberRSVPStatus: RSVPStatus)],
         admins: [Person]) {
             
             self.Name = name
@@ -47,8 +46,7 @@ class Trip: NSObject {
             self.EndDate = endDate
             
             self.FullyCreated = fullyCreated
-            self.Events = events
-            self.Polls = polls
+            self.Activities = activities
             self.Tasks = tasks
             
             self.Members = members

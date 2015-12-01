@@ -10,23 +10,30 @@ import Foundation
 import UIKit
 
 class CreateTaskViewController: UIViewController {
+
     // MARK: Interface Outlets
     @IBOutlet weak var taskNameTextView: UITextField!
     @IBOutlet weak var taskDescriptionTextView: UITextView!
     @IBOutlet weak var taskDueDatePicker: UIDatePicker!
+    @IBOutlet weak var taskSendReminderButton: UIButton!
+    @IBOutlet weak var taskResponseProgressLabel: UILabel!
     
     
     // MARK: other variables
-    
     var task: Task?
     
-    // MARK: lifecycle
     
+    // MARK: lifecycle
     override func viewDidLoad() {
         if let unwrappedTask = task {
             self.taskNameTextView.text = unwrappedTask.Name
             self.taskDescriptionTextView.text = unwrappedTask.Description
             self.taskDueDatePicker.date = unwrappedTask.DueDate
+            self.taskResponseProgressLabel.hidden = false
+            self.taskResponseProgressLabel.text = "\(unwrappedTask.NumUsersCompleted)/\(unwrappedTask.MemberTaskStatus.count) Responded"
+            if unwrappedTask.NumUsersCompleted != unwrappedTask.MemberTaskStatus.count {
+                self.taskSendReminderButton.hidden = false
+            }
         }
     }
     

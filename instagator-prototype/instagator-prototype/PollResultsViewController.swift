@@ -41,7 +41,9 @@ class PollResultsViewController: UIViewController, UITableViewDataSource {
             let startTime = dateTimeFormatter.stringFromDate(winningOption.StartDate)
             let endTime = dateTimeFormatter.stringFromDate(winningOption.EndDate)
             self.pollTopActivityDatesLabel.text = "\(startTime) to \(endTime)"
-            self.pollTopActivityProjectedCostLabel.text = "$\(winningOption.Cost)"
+            if let projectedCost = winningOption.Cost {
+                self.pollTopActivityProjectedCostLabel.text = "$\(projectedCost)"
+            }
         }
     }
     
@@ -49,7 +51,7 @@ class PollResultsViewController: UIViewController, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // TODO: dequeue the cell we want, fill its subviews, and return it
-        if let unwrappedPoll = poll, cell = tableView.dequeueReusableCellWithIdentifier(PollOptionTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? PollResultsTableViewCell {
+        if let unwrappedPoll = poll, cell = tableView.dequeueReusableCellWithIdentifier(PollActivityResultTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? PollActivityResultTableViewCell {
             let currentOption = unwrappedPoll.Options[indexPath.row]
             cell.activityNameLabel.text = currentOption.Name
             cell.activitySatisfactionLabel.text = "Satisfaction: \(unwrappedPoll.Results[indexPath.row])%"

@@ -36,6 +36,9 @@ class MemberStatusViewController: UIViewController, UITableViewDataSource {
             if memberIndex != NSNotFound {
                 self.memberRSVPStatusLabel.text = unwrappedTrip.Members[memberIndex].memberRSVPStatus.rawValue
             }
+            
+            // register the TaskTableViewCell
+            
         }
     }
 
@@ -57,12 +60,14 @@ class MemberStatusViewController: UIViewController, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if let unwrappedTrip = self.trip, unwrappedMember = member, taskCell = tableView.dequeueReusableCellWithIdentifier(
-            TaskTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? TaskTableViewCell {
+            TaskStatusTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? TaskStatusTableViewCell {
                 let currentTask = unwrappedTrip.Tasks[indexPath.row]
-                taskCell.taskDeadlineLabel.text = "Deadline: \(dateFormatter.stringFromDate(currentTask.DueDate))"
-                taskCell.taskDescriptionLabel.text = currentTask.Description
+                taskCell.taskDueDateLabel.text = "Deadline: \(dateFormatter.stringFromDate(currentTask.DueDate))"
+                taskCell.taskNameLabel.text = currentTask.Name
                 let memberIndex = indexOfPerson(unwrappedMember)
-                taskCell.taskInviteeProgressLabel.text = currentTask.MemberTaskStatus[memberIndex].memberTaskStatus.rawValue
+                if currentTask.MemberTaskStatus[memberIndex].memberTaskStatus == .Complete {
+                    taskCell.taskSendReminderButton.enabled = false
+                }
         }
         return UITableViewCell()
     }
