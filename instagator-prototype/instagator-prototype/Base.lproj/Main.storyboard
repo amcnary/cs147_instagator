@@ -309,7 +309,7 @@
                                 </constraints>
                                 <color key="tintColor" red="0.39558414339999998" green="0.63904246789999997" blue="0.3093041386" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <segue destination="tXr-zV-Hh0" kind="popoverPresentation" popoverAnchorView="5D2-y5-4gw" id="Uhy-z8-5i9">
+                                    <segue destination="tXr-zV-Hh0" kind="popoverPresentation" identifier="presentCreateTaskViewControllerSegue" popoverAnchorView="5D2-y5-4gw" id="Uhy-z8-5i9">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
@@ -417,7 +417,7 @@
                             </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149467801" blue="0.98279239241040051" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="rhx-cV-7vs" firstAttribute="top" secondItem="uRI-zL-9lw" secondAttribute="bottom" constant="10" id="3ao-vJ-wxr"/>
                             <constraint firstItem="Wid-MR-HyA" firstAttribute="leading" secondItem="rp6-fD-vYi" secondAttribute="trailing" id="48q-0P-Qba"/>
@@ -569,6 +569,9 @@
                                                     <state key="disabled" title="Done!">
                                                         <color key="titleColor" red="0.46666666670000001" green="0.29411764709999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="taskSendReminderButtonTapped:" destination="R5N-Iy-7ih" eventType="touchUpInside" id="HMU-N5-RDQ"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNE-zn-uxw">
                                                     <rect key="frame" x="12" y="40.5" width="33.5" height="25"/>
@@ -614,6 +617,9 @@
                                 <state key="normal" title="Remove from Trip">
                                     <color key="titleColor" red="0.39558414339999998" green="0.63904246789999997" blue="0.3093041386" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="memberRemoveFromTripButtonTapped:" destination="RvM-rL-bPi" eventType="touchUpInside" id="VJg-Jb-GuK"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWV-l4-WA1">
                                 <rect key="frame" x="474" y="547" width="86" height="33"/>
@@ -622,6 +628,9 @@
                                 <state key="normal" title="Make Admin">
                                     <color key="titleColor" red="0.39558414339999998" green="0.63904246789999997" blue="0.3093041386" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="memberChangeAdminStatusButtonTapped:" destination="RvM-rL-bPi" eventType="touchUpInside" id="bLn-jS-NXa"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMx-kw-WCG">
                                 <rect key="frame" x="40" y="250" width="520" height="33"/>
@@ -639,7 +648,7 @@
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="FaZ-yn-bqX" secondAttribute="trailing" constant="20" id="9mK-Mm-Eme"/>
                             <constraint firstItem="FMx-kw-WCG" firstAttribute="trailing" secondItem="FaZ-yn-bqX" secondAttribute="trailing" id="M7H-Ef-yP6"/>
@@ -676,6 +685,7 @@
                         <outlet property="memberImageView" destination="FaZ-yn-bqX" id="sPj-yl-eR7"/>
                         <outlet property="memberNameLabel" destination="i4V-C0-5Yr" id="GSx-bV-fte"/>
                         <outlet property="memberRSVPStatusLabel" destination="EIR-hd-8cg" id="FrN-Sd-pz9"/>
+                        <outlet property="memberRemoveFromTripButton" destination="mNE-Tc-kbQ" id="ghj-gP-9t1"/>
                         <outlet property="memberTasksTableView" destination="VL8-IC-Ry1" id="AXm-sW-Mpz"/>
                     </connections>
                 </viewController>
@@ -702,7 +712,7 @@
                                 <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="26"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Task Description" translatesAutoresizingMaskIntoConstraints="NO" id="t2S-c8-PEq">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Task Description (optional)" translatesAutoresizingMaskIntoConstraints="NO" id="t2S-c8-PEq">
                                 <rect key="frame" x="20" y="104" width="560" height="150"/>
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -741,6 +751,9 @@
                                     <navigationItem title="Create Task" id="sfN-it-i1n">
                                         <barButtonItem key="rightBarButtonItem" title="Save" id="VRz-c1-r09">
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="taskSaveButtonTapped:" destination="tXr-zV-Hh0" id="6kd-Ip-Yqj"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -749,6 +762,9 @@
                                 <rect key="frame" x="475" y="555" width="105" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Send Reminder"/>
+                                <connections>
+                                    <action selector="taskSendReminderButtonTapped:" destination="tXr-zV-Hh0" eventType="touchUpInside" id="MWb-k5-qxl"/>
+                                </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X/X Responded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAq-Zw-jZI">
                                 <rect key="frame" x="316" y="557" width="133.5" height="26"/>
@@ -759,7 +775,7 @@
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xMb-wX-hbo" firstAttribute="top" secondItem="bUb-XP-D6W" secondAttribute="bottom" constant="15" id="6CD-ld-Uqm"/>
                             <constraint firstItem="bUb-XP-D6W" firstAttribute="top" secondItem="ace-6z-DFt" secondAttribute="topMargin" id="9Op-AJ-oWB"/>
@@ -796,6 +812,7 @@
                     <value key="contentSizeForViewInPopover" type="size" width="600" height="600"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="navigationBarItem" destination="sfN-it-i1n" id="nOD-Hz-eif"/>
                         <outlet property="taskDescriptionTextView" destination="t2S-c8-PEq" id="QpU-2P-Mcs"/>
                         <outlet property="taskDueDatePicker" destination="Alv-KW-7bh" id="Ts3-q2-TdX"/>
                         <outlet property="taskNameTextView" destination="xMb-wX-hbo" id="Rtw-Ya-OTg"/>
@@ -957,7 +974,7 @@
                             </navigationBar>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Kc2-gy-bJe" firstAttribute="leading" secondItem="30F-r3-3gR" secondAttribute="leading" constant="20" id="0tv-kr-Kah"/>
@@ -1055,7 +1072,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="15" id="4Up-Sx-hMp">
                             <size key="itemSize" width="225" height="225"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1151,6 +1168,9 @@
                                 <state key="normal" title="Select and Close Poll">
                                     <color key="titleColor" red="0.39558414339999998" green="0.63904246789999997" blue="0.3093041386" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="pollSelectAndCloseButtonTapped:" destination="zgK-yb-uwv" eventType="touchUpInside" id="xmp-zb-add"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity Description where I hope this is long enough that it will become a multiline message..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJz-3n-qVa">
                                 <rect key="frame" x="40" y="287" width="688" height="75"/>
@@ -1230,6 +1250,9 @@
                                 <state key="normal" title="Delete Poll">
                                     <color key="titleColor" red="0.46666666670000001" green="0.29411764709999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="deletePollButtonTapped:" destination="zgK-yb-uwv" eventType="touchUpInside" id="Yok-Wy-FiZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWu-vF-B4y">
                                 <rect key="frame" x="189.5" y="94" width="150" height="33"/>
@@ -1238,6 +1261,9 @@
                                 <state key="normal" title="Send a Vote Reminder">
                                     <color key="titleColor" red="0.39558414339999998" green="0.63904246789999997" blue="0.3093041386" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendVoteReminderTapped:" destination="zgK-yb-uwv" eventType="touchUpInside" id="4c4-wo-2Q7"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date to End Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJG-gl-k9c">
                                 <rect key="frame" x="40" y="244.5" width="203.5" height="27.5"/>
@@ -1248,7 +1274,7 @@
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459409713745" green="0.98748528957366943" blue="0.94990551471710205" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="GXB-Zl-UMf" firstAttribute="leading" secondItem="NZD-9h-EBF" secondAttribute="leading" id="0dy-xn-bK0"/>
                             <constraint firstItem="u85-iM-i3H" firstAttribute="trailing" secondItem="xJz-3n-qVa" secondAttribute="trailing" id="5cU-yb-chg"/>
@@ -1302,7 +1328,7 @@
                         <outlet property="pollDetailedResultsTableView" destination="CfH-67-PIi" id="0LG-bg-67u"/>
                         <outlet property="pollResponseProgressLabel" destination="NZD-9h-EBF" id="Q4l-UZ-CdV"/>
                         <outlet property="pollResultsTitleLabel" destination="l5H-uU-CKX" id="LLz-hW-ZMv"/>
-                        <outlet property="pollSelectTopActivityButton" destination="u85-iM-i3H" id="DHK-TQ-bWn"/>
+                        <outlet property="pollSelectAndCloseButton" destination="u85-iM-i3H" id="cOZ-Oj-woZ"/>
                         <outlet property="pollSendReminderButton" destination="xWu-vF-B4y" id="bQ1-yJ-iwI"/>
                         <outlet property="pollTopActivityDatesLabel" destination="GJG-gl-k9c" id="6qc-yP-bwf"/>
                         <outlet property="pollTopActivityDescriptionLabel" destination="xJz-3n-qVa" id="iyP-5S-sDg"/>
@@ -1366,7 +1392,7 @@
                             </navigationBar>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="cwU-ll-lbR" firstAttribute="top" secondItem="Mbm-Ih-JrD" secondAttribute="bottom" constant="10" id="5Mq-s8-Cjf"/>
                             <constraint firstItem="hK6-SI-yUu" firstAttribute="top" secondItem="cwU-ll-lbR" secondAttribute="bottom" constant="10" id="6v2-He-joa"/>
@@ -1432,7 +1458,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.87012528450000004" green="1" blue="0.79721317800000002" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="15" id="61N-jE-xTF">
                             <size key="itemSize" width="225" height="330"/>
@@ -1709,29 +1735,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who to Poll" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s29-qR-ba1">
-                                <rect key="frame" x="40" y="518.5" width="125.5" height="33"/>
+                                <rect key="frame" x="20" y="620.5" width="125.5" height="33"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
                                 <color key="textColor" red="0.28235294119999998" green="0.1843137255" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbZ-DU-0Ti">
-                                <rect key="frame" x="641" y="522" width="87" height="26"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <state key="normal" title="Unselect All">
-                                    <color key="titleColor" red="0.46666666670000001" green="0.29411764709999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Poll Options" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xf3-Nh-YnS">
-                                <rect key="frame" x="40" y="40" width="193" height="39.5"/>
+                                <rect key="frame" x="20" y="255" width="132.5" height="33"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="34"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
                                 <color key="textColor" red="0.28235294119999998" green="0.1843137255" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="plA-f7-hm7">
+                                <rect key="frame" x="20" y="663.5" width="728" height="297"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="RjP-2K-vGI" id="Brc-9R-4lw"/>
+                                    <outlet property="delegate" destination="RjP-2K-vGI" id="rgd-tg-t7F"/>
+                                </connections>
+                            </tableView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="enter poll description (optional)" translatesAutoresizingMaskIntoConstraints="NO" id="OjF-XQ-zDR" userLabel="Poll Description Text View">
+                                <rect key="frame" x="20" y="80" width="728" height="150"/>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="d4I-1x-S3L"/>
+                                </constraints>
+                                <color key="textColor" red="0.2470588235" green="0.40000000000000002" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter poll title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y0e-u9-Qku" userLabel="Poll Title Text View">
+                                <rect key="frame" x="20" y="40" width="728" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="28"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="97" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cPN-3f-vJR" userLabel="Poll Options Table View">
+                                <rect key="frame" x="20" y="298" width="728" height="297.5"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="RjP-2K-vGI" id="yEa-Kc-T4g"/>
+                                    <outlet property="delegate" destination="RjP-2K-vGI" id="yiP-9k-9fM"/>
+                                </connections>
+                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaB-4x-6ro">
-                                <rect key="frame" x="706" y="49" width="22" height="22"/>
+                                <rect key="frame" x="726" y="260.5" width="22" height="22"/>
                                 <animations/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.46666666670000001" green="0.29411764709999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1742,66 +1795,47 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="plA-f7-hm7">
-                                <rect key="frame" x="40" y="566.5" width="688" height="393.5"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="RjP-2K-vGI" id="Brc-9R-4lw"/>
-                                    <outlet property="delegate" destination="RjP-2K-vGI" id="rgd-tg-t7F"/>
-                                </connections>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="97" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cPN-3f-vJR" userLabel="Poll Options Table View">
-                                <rect key="frame" x="40" y="94.5" width="688" height="394"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="RjP-2K-vGI" id="yEa-Kc-T4g"/>
-                                    <outlet property="delegate" destination="RjP-2K-vGI" id="yiP-9k-9fM"/>
-                                </connections>
-                            </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="plA-f7-hm7" firstAttribute="top" secondItem="s29-qR-ba1" secondAttribute="bottom" constant="15" id="3V6-Pw-5oK"/>
-                            <constraint firstItem="plA-f7-hm7" firstAttribute="trailing" secondItem="T7y-ky-p3k" secondAttribute="trailingMargin" constant="20" id="9TW-6R-qr6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SaB-4x-6ro" secondAttribute="trailing" constant="20" id="Hni-K4-v3e"/>
-                            <constraint firstItem="s29-qR-ba1" firstAttribute="leading" secondItem="plA-f7-hm7" secondAttribute="leading" id="KhS-Ly-ZGK"/>
-                            <constraint firstItem="EbZ-DU-0Ti" firstAttribute="centerY" secondItem="s29-qR-ba1" secondAttribute="centerY" id="N9x-yS-d3p"/>
-                            <constraint firstItem="Xf3-Nh-YnS" firstAttribute="leading" secondItem="T7y-ky-p3k" secondAttribute="leadingMargin" constant="20" id="Ohr-Mx-cie"/>
-                            <constraint firstItem="cPN-3f-vJR" firstAttribute="trailing" secondItem="EbZ-DU-0Ti" secondAttribute="trailing" id="Qpb-rR-5Za"/>
-                            <constraint firstItem="SaB-4x-6ro" firstAttribute="centerY" secondItem="Xf3-Nh-YnS" secondAttribute="centerY" id="Z6e-gS-MrH"/>
-                            <constraint firstItem="Xf3-Nh-YnS" firstAttribute="leading" secondItem="cPN-3f-vJR" secondAttribute="leading" id="bJP-f1-F4Z"/>
-                            <constraint firstItem="cPN-3f-vJR" firstAttribute="height" secondItem="plA-f7-hm7" secondAttribute="height" id="cBU-wS-mWf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SaB-4x-6ro" secondAttribute="trailing" constant="100" id="dbb-14-XmA"/>
-                            <constraint firstItem="cPN-3f-vJR" firstAttribute="leading" secondItem="s29-qR-ba1" secondAttribute="leading" id="dld-WM-BR4"/>
-                            <constraint firstItem="s29-qR-ba1" firstAttribute="top" secondItem="cPN-3f-vJR" secondAttribute="bottom" constant="30" id="drj-V1-IBt"/>
-                            <constraint firstItem="SaB-4x-6ro" firstAttribute="leading" secondItem="Xf3-Nh-YnS" secondAttribute="trailing" constant="20" id="gHW-tV-ifj"/>
-                            <constraint firstItem="SaB-4x-6ro" firstAttribute="trailing" secondItem="cPN-3f-vJR" secondAttribute="trailing" id="kNL-vw-M7A"/>
-                            <constraint firstItem="EbZ-DU-0Ti" firstAttribute="trailing" secondItem="plA-f7-hm7" secondAttribute="trailing" id="kRN-u6-KPH"/>
-                            <constraint firstItem="nIk-Z9-Jpu" firstAttribute="top" secondItem="plA-f7-hm7" secondAttribute="bottom" constant="20" id="oXj-TT-5Tq"/>
-                            <constraint firstItem="cPN-3f-vJR" firstAttribute="top" secondItem="Xf3-Nh-YnS" secondAttribute="bottom" constant="15" id="rZf-cP-A08"/>
-                            <constraint firstItem="Xf3-Nh-YnS" firstAttribute="top" secondItem="URz-SL-FnD" secondAttribute="bottom" constant="20" id="uEG-U9-xxA"/>
+                            <constraint firstItem="cPN-3f-vJR" firstAttribute="trailing" secondItem="plA-f7-hm7" secondAttribute="trailing" id="AeN-QN-eKV"/>
+                            <constraint firstItem="cPN-3f-vJR" firstAttribute="leading" secondItem="Xf3-Nh-YnS" secondAttribute="leading" id="Dvb-fX-8xV"/>
+                            <constraint firstItem="OjF-XQ-zDR" firstAttribute="top" secondItem="y0e-u9-Qku" secondAttribute="bottom" constant="10" id="JSu-fx-Y27"/>
+                            <constraint firstItem="OjF-XQ-zDR" firstAttribute="leading" secondItem="y0e-u9-Qku" secondAttribute="leading" id="Kj9-Pe-tsZ"/>
+                            <constraint firstItem="Xf3-Nh-YnS" firstAttribute="centerY" secondItem="SaB-4x-6ro" secondAttribute="centerY" id="QJT-l7-sG0"/>
+                            <constraint firstItem="nIk-Z9-Jpu" firstAttribute="top" secondItem="plA-f7-hm7" secondAttribute="bottom" constant="20" id="R1L-cD-y1x"/>
+                            <constraint firstItem="s29-qR-ba1" firstAttribute="leading" secondItem="cPN-3f-vJR" secondAttribute="leading" id="SP5-C2-8jE"/>
+                            <constraint firstItem="y0e-u9-Qku" firstAttribute="leading" secondItem="T7y-ky-p3k" secondAttribute="leading" constant="20" id="SgZ-4B-Pju"/>
+                            <constraint firstItem="s29-qR-ba1" firstAttribute="top" secondItem="cPN-3f-vJR" secondAttribute="bottom" constant="25" id="Vku-1Y-r1x"/>
+                            <constraint firstItem="Xf3-Nh-YnS" firstAttribute="leading" secondItem="OjF-XQ-zDR" secondAttribute="leading" id="WAJ-xC-Wq6"/>
+                            <constraint firstItem="Xf3-Nh-YnS" firstAttribute="top" secondItem="OjF-XQ-zDR" secondAttribute="bottom" constant="25" id="Zvh-3c-mHB"/>
+                            <constraint firstItem="y0e-u9-Qku" firstAttribute="trailing" secondItem="OjF-XQ-zDR" secondAttribute="trailing" id="a1v-g3-zhS"/>
+                            <constraint firstItem="cPN-3f-vJR" firstAttribute="top" secondItem="Xf3-Nh-YnS" secondAttribute="bottom" constant="10" id="cgz-aM-0xk"/>
+                            <constraint firstItem="plA-f7-hm7" firstAttribute="top" secondItem="s29-qR-ba1" secondAttribute="bottom" constant="10" id="enO-SV-By7"/>
+                            <constraint firstItem="OjF-XQ-zDR" firstAttribute="trailing" secondItem="SaB-4x-6ro" secondAttribute="trailing" id="g2x-JI-qN3"/>
+                            <constraint firstItem="y0e-u9-Qku" firstAttribute="top" secondItem="URz-SL-FnD" secondAttribute="bottom" constant="20" id="hba-kS-XCd"/>
+                            <constraint firstAttribute="trailing" secondItem="y0e-u9-Qku" secondAttribute="trailing" constant="20" id="nmG-DQ-bMD"/>
+                            <constraint firstItem="plA-f7-hm7" firstAttribute="leading" secondItem="s29-qR-ba1" secondAttribute="leading" id="sRJ-pa-idy"/>
+                            <constraint firstItem="SaB-4x-6ro" firstAttribute="trailing" secondItem="cPN-3f-vJR" secondAttribute="trailing" id="yHc-lX-QNs"/>
+                            <constraint firstItem="cPN-3f-vJR" firstAttribute="height" secondItem="plA-f7-hm7" secondAttribute="height" id="yNm-Pf-SkP"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="9TW-6R-qr6"/>
-                                <exclude reference="dbb-14-XmA"/>
-                                <exclude reference="gHW-tV-ifj"/>
-                            </mask>
-                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Poll" id="GfN-gJ-9bW">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="lZA-Jb-aso" userLabel="Save">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="RjP-2K-vGI" id="dC6-FM-Wvx"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="pollActivityDescriptionTextView" destination="OjF-XQ-zDR" id="X1m-Zi-VW3"/>
                         <outlet property="pollActivityMembersTableView" destination="plA-f7-hm7" id="Nks-Wb-l6m"/>
+                        <outlet property="pollActivityNameTextView" destination="y0e-u9-Qku" id="In2-cs-iSK"/>
                         <outlet property="pollActivityOptionsTableView" destination="cPN-3f-vJR" id="bU5-xw-zOx"/>
                     </connections>
                 </viewController>
@@ -1907,7 +1941,7 @@
                             </datePicker>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.99375412149999998" blue="0.98279239240000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qua-P5-KfP" firstAttribute="leading" secondItem="ubU-7p-aPj" secondAttribute="trailing" constant="10" id="1Cb-PR-deT"/>
                             <constraint firstItem="qXr-dH-41Z" firstAttribute="leading" secondItem="dUj-Dd-7FC" secondAttribute="leading" constant="20" id="6dJ-0A-Qr3"/>
@@ -2004,7 +2038,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Lxc-sd-L7Y"/>
-        <segue reference="qGU-Wz-10S"/>
+        <segue reference="0se-AH-npk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.67843137249999996" green="0.71764705880000002" blue="0.48627450979999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

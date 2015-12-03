@@ -28,7 +28,8 @@ class CreateActivityViewController: UIViewController {
     // MARK: other variables
     var event: Event?
     var delegate: CreateActivityViewControllerDelegate?
-    
+    var tripOwnershipType: TripListViewController.TripOwnershipType = .Planning
+
     // MARK: lifecycle
     
     override func viewDidLoad() {
@@ -40,7 +41,18 @@ class CreateActivityViewController: UIViewController {
             if let eventCost = unwrappedEvent.Cost {
                 self.activityProjectedCostTextField.text = "\(eventCost)"
             }
-            self.navigationBarItem.title = "Edit Event"
+
+            if self.tripOwnershipType == .Attending {
+                self.navigationBarItem.rightBarButtonItems = nil
+                self.navigationBarItem.title = "View Event"
+                self.activityNameTextField.userInteractionEnabled = false
+                self.activityDescriptionTextView.userInteractionEnabled = false
+                self.activityStartDatePicker.userInteractionEnabled = false
+                self.activityEndDatePicker.userInteractionEnabled = false
+                self.activityProjectedCostTextField.userInteractionEnabled = false
+            } else {
+                self.navigationBarItem.title = "Edit Event"
+            }
         } else {
             self.navigationBarItem.title = "Create Event"
         }

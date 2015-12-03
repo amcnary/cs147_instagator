@@ -92,7 +92,8 @@ var plannedTrips: [Trip] = [
                     people[1],
                     people[2],
                     people[3]
-                ]
+                ],
+                numPeopleResponded: 3
             )
         ],
         tasks: [
@@ -161,13 +162,14 @@ var attendingTrips: [Trip] = [
                         endDate: NSDate().dateByAddingTimeInterval(76.55*60*60*24)
                     )
                 ],
-                results: [0.63, 0.90, 0.10],
+                results: [0.90, 0.63, 0.10],
                 people: [
                     people[5],
                     people[3],
                     people[1],
                     people[4]
-                ]
+                ],
+                numPeopleResponded: 3
             )
         ],
         tasks: [
@@ -223,10 +225,15 @@ extension UIViewController: UIPopoverPresentationControllerDelegate {
     }
 }
 
-
-
-
-
+extension UIViewController {
+    func presentConfirmationMessage(message: String) {
+        let confirmationMessageAlertController = UIAlertController(title: "Confirmation",
+            message: message, preferredStyle: .Alert)
+        let continueAction = UIAlertAction(title: "Thanks!", style: .Default, handler: nil)
+        confirmationMessageAlertController.addAction(continueAction)
+        self.presentViewController(confirmationMessageAlertController, animated: true, completion: nil)
+    }
+}
 
 
 

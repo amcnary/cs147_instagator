@@ -14,12 +14,14 @@ class Poll: Activity {
     var Options: [Event]
     var Results: [Double]
     var People: [Person]
+    var NumPeopleResponded: Int
     
-    init(name: String, description: String, options: [Event], results: [Double], people: [Person]) {
+    init(name: String, description: String, options: [Event], results: [Double], people: [Person], numPeopleResponded: Int) {
         self.Name = name
         self.Description = description
         self.Options = options
         self.Results = results
         self.People = people
+        self.NumPeopleResponded = numPeopleResponded
     }
 }

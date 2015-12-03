@@ -9,10 +9,15 @@
 import Foundation
 import UIKit
 
+protocol PollActivityViewControllerDelegate {
+    func pollActivityViewController(pollActivityViewController: PollActivityViewController, savedPoll: Poll)
+}
 
 class PollActivityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
 CreateActivityViewControllerDelegate {
     // MARK: Interface Outlets
+    @IBOutlet weak var pollActivityNameTextView: UITextField!
+    @IBOutlet weak var pollActivityDescriptionTextView: UITextView!
     @IBOutlet weak var pollActivityOptionsTableView: UITableView!
     @IBOutlet weak var pollActivityMembersTableView: UITableView!
     
@@ -22,7 +27,6 @@ CreateActivityViewControllerDelegate {
         didSet {
             if let unwrappedPoll = self.poll {
                 self.pollOptions = unwrappedPoll.Options
-                
                 // set the participants set
                 var newParticipants: Set<Person> = []
                 for participant in unwrappedPoll.People {
@@ -39,6 +43,8 @@ CreateActivityViewControllerDelegate {
             }
         }
     }
+    
+    var delegate: PollActivityViewControllerDelegate?
     var tripMembers: [Person] = []
     var pollOptions: [Event] = []
     private var pollParticipants: Set<Person> = []
@@ -51,10 +57,16 @@ CreateActivityViewControllerDelegate {
         let pollActivityOptionNib = UINib(nibName: PollOptionTableViewCell.reuseIdentifier,
             bundle: nil)
         self.pollActivityOptionsTableView.registerNib(pollActivityOptionNib, forCellReuseIdentifier: PollOptionTableViewCell.reuseIdentifier)
-
         let personTableViewCellNib = UINib(nibName: PersonTableViewCell.reuseIdentifier, bundle: nil)
         self.pollActivityMembersTableView.registerNib(personTableViewCellNib,
             forCellReuseIdentifier: PersonTableViewCell.reuseIdentifier)
+        if let unwrappedPoll = self.poll {
+            self.pollActivityNameTextView.text = unwrappedPoll.Name
+            self.pollActivityDescriptionTextView.text = unwrappedPoll.Description == "" ? "Poll description (optional)" : unwrappedPoll.Description
+        }
+        
+        self.pollActivityOptionsTableView.reloadData()
+        self.pollActivityMembersTableView.reloadData()
         
         super.viewDidLoad()
     }
@@ -130,8 +142,9 @@ CreateActivityViewControllerDelegate {
                     editActivityViewController.delegate = self
                     editActivityViewController.modalPresentationStyle = .Popover
                     editActivityViewController.popoverPresentationController?.delegate = self
-                    editActivityViewController.popoverPresentationController?.sourceView = tableView
-                    editActivityViewController.popoverPresentationController?.sourceRect = tableView.frame
+                    editActivityViewController.popoverPresentationController?.canOverlapSourceViewRect = true
+                    editActivityViewController.popoverPresentationController?.sourceView = tableView.cellForRowAtIndexPath(indexPath)
+                    editActivityViewController.popoverPresentationController?.sourceRect = tableView.cellForRowAtIndexPath(indexPath)?.bounds ?? tableView.frame
                     selectedEventIndexPath = indexPath
                     self.presentViewController(editActivityViewController, animated: true, completion: nil)
             }
@@ -164,5 +177,62 @@ CreateActivityViewControllerDelegate {
             self.pollOptions.append(event)
         }
         self.pollActivityOptionsTableView.reloadData()
+    }
+    
+    
+    // MARK: interface outlets
+    
+    @IBAction func saveButtonTapped(sender: AnyObject) {
+        let formErrorAlertController = UIAlertController(title: "Form Error", message: "", preferredStyle: .Alert)
+        let confirmAction = UIAlertAction(title: "Got it", style: .Default, handler: nil)
+        formErrorAlertController.addAction(confirmAction)
+        
+        // make sure required fields have been set by the user
+        if self.pollOptions.count <= 0 {
+            formErrorAlertController.message = "You must add event options to the poll!"
+            self.presentViewController(formErrorAlertController, animated: true, completion: nil)
+            return
+        }
+        if self.pollParticipants.count <= 0 {
+            formErrorAlertController.message = "You must add poll participants to the poll!"
+            self.presentViewController(formErrorAlertController, animated: true, completion: nil)
+            return
+        }
+        guard let pollName = self.pollActivityNameTextView.text where pollName != "" else {
+            formErrorAlertController.message = "You must set a poll name!"
+            self.presentViewController(formErrorAlertController, animated: true, completion: nil)
+            return
+        }
+        
+        // create the new poll object
+        let pollDescription = (self.pollActivityDescriptionTextView.text != "Poll description (optional)") ? self.pollActivityDescriptionTextView.text : ""
+        let pollOptions = self.pollOptions
+        let pollParticipants = self.pollParticipants.map({ return $0 })
+        
+        let pollToReturn = Poll(
+            name: pollName,
+            description: pollDescription ?? "",
+            options: pollOptions,
+            results: [Double](count: pollOptions.count, repeatedValue: 0.0),
+            people: pollParticipants,
+            numPeopleResponded: 0
+        )
+
+        // if the poll will change, alert the user
+        if self.poll != nil {
+            let pollChangeAlertController = UIAlertController(title: "Warning",
+                message: "Changing this poll will reset the poll responses. Continue?", preferredStyle: .Alert)
+            let continueAction = UIAlertAction(title: "Continue", style: .Default, handler: { _ in
+                self.delegate?.pollActivityViewController(self, savedPoll: pollToReturn)
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            
+            pollChangeAlertController.addAction(cancelAction)
+            pollChangeAlertController.addAction(continueAction)
+            self.presentViewController(pollChangeAlertController, animated: true, completion: nil)
+        } else {
+            // a new poll is being created, so just save it
+            self.delegate?.pollActivityViewController(self, savedPoll: pollToReturn)
+        }
     }
 }

@@ -15,7 +15,8 @@ protocol TripSummaryViewControllerDelegate {
 
 class TripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,
 UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, ActivityTableViewCellDelegate,
-CreateActivityViewControllerDelegate {
+CreateActivityViewControllerDelegate, PollActivityViewControllerDelegate, PollResultsViewControllerDelegate,
+CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
     
     static let storyboardId = "TripSummaryViewController"
     
@@ -42,6 +43,8 @@ CreateActivityViewControllerDelegate {
     var delegate: TripSummaryViewControllerDelegate?
     var tripOwnershipType: TripListViewController.TripOwnershipType = .Planning
     var selectedActivityIndexPath: NSIndexPath?
+    var selectedMemberIndexPath: NSIndexPath?
+    var selectedTaskIndexPath: NSIndexPath?
     
     // MARK: helper utility functions
     
@@ -99,6 +102,11 @@ CreateActivityViewControllerDelegate {
         if let id = segue.identifier, editViewController = segue.destinationViewController as? EditTripViewController where id == "SummaryToEditSegue" {
             editViewController.trip = self.trip
             editViewController.delegate = self
+        } else if let id = segue.identifier, createTaskController = segue.destinationViewController as? CreateTaskViewController where id == "presentCreateTaskViewControllerSegue" {
+            createTaskController.delegate = self
+            if let unwrappedTrip = self.trip {
+                createTaskController.trip = unwrappedTrip
+            }
         }
     }
     
@@ -120,6 +128,7 @@ CreateActivityViewControllerDelegate {
                             createActivityViewController.delegate = self
                             createActivityViewController.modalPresentationStyle = .Popover
                             createActivityViewController.popoverPresentationController?.delegate = self
+                            createActivityViewController.popoverPresentationController?.canOverlapSourceViewRect = true
                             createActivityViewController.popoverPresentationController?.sourceView = sender
                             createActivityViewController.popoverPresentationController?.sourceRect = sender.frame
                             self.presentViewController(createActivityViewController, animated: true, completion: nil)
@@ -130,6 +139,7 @@ CreateActivityViewControllerDelegate {
                         bundle: nil).instantiateViewControllerWithIdentifier("PollActivityViewController")
                         as? PollActivityViewController {
                             pollActivityViewController.trip = self.trip
+                            pollActivityViewController.delegate = self
                             self.navigationController?.pushViewController(pollActivityViewController, animated: true)
                     }
                     
@@ -179,11 +189,15 @@ CreateActivityViewControllerDelegate {
         if let memberStatusViewController = UIStoryboard(name: "Main",
             bundle: nil).instantiateViewControllerWithIdentifier("MemberStatusViewController") as? MemberStatusViewController,
             currentMember = self.tripMemberAtIndexPath(indexPath) {
+                selectedMemberIndexPath = indexPath
                 memberStatusViewController.member = currentMember.member
+                memberStatusViewController.delegate = self
+                memberStatusViewController.tripOwnershipType = tripOwnershipType
                 memberStatusViewController.modalPresentationStyle = .Popover
                 if let popoverController = memberStatusViewController.popoverPresentationController {
-                    popoverController.sourceView = collectionView
-                    popoverController.sourceRect = collectionView.frame
+                    popoverController.canOverlapSourceViewRect = true
+                    popoverController.sourceView = collectionView.cellForItemAtIndexPath(indexPath)
+                    popoverController.sourceRect = collectionView.cellForItemAtIndexPath(indexPath)?.bounds ?? collectionView.frame
                     popoverController.delegate   = self
                 }
                 memberStatusViewController.trip = self.trip
@@ -293,10 +307,12 @@ CreateActivityViewControllerDelegate {
                     as? CreateActivityViewController {
                         editActivityViewController.event = event
                         editActivityViewController.delegate = self
+                        editActivityViewController.tripOwnershipType = .Attending
                         editActivityViewController.modalPresentationStyle = .Popover
+                        editActivityViewController.popoverPresentationController?.canOverlapSourceViewRect = true
                         editActivityViewController.popoverPresentationController?.delegate = self
-                        editActivityViewController.popoverPresentationController?.sourceView = tableView
-                        editActivityViewController.popoverPresentationController?.sourceRect = tableView.frame
+                        editActivityViewController.popoverPresentationController?.sourceView = tableView.cellForRowAtIndexPath(indexPath)
+                        editActivityViewController.popoverPresentationController?.sourceRect = tableView.cellForRowAtIndexPath(indexPath)?.bounds ?? tableView.frame
                         selectedActivityIndexPath = indexPath
                         self.presentViewController(editActivityViewController, animated: true, completion: nil)
                 }
@@ -309,8 +325,9 @@ CreateActivityViewControllerDelegate {
                         pollVoteViewController.poll = poll
                         pollVoteViewController.modalPresentationStyle = .Popover
                         pollVoteViewController.popoverPresentationController?.delegate = self
-                        pollVoteViewController.popoverPresentationController?.sourceView = tableView
-                        pollVoteViewController.popoverPresentationController?.sourceRect = tableView.frame
+                        pollVoteViewController.popoverPresentationController?.canOverlapSourceViewRect = true
+                        pollVoteViewController.popoverPresentationController?.sourceView = tableView.cellForRowAtIndexPath(indexPath)
+                        pollVoteViewController.popoverPresentationController?.sourceRect = tableView.cellForRowAtIndexPath(indexPath)?.bounds ?? tableView.frame
                         self.presentViewController(pollVoteViewController, animated: true, completion: nil)
                 }
             case let poll as Poll where self.tripOwnershipType == .Planning:
@@ -318,8 +335,10 @@ CreateActivityViewControllerDelegate {
                     bundle: nil).instantiateViewControllerWithIdentifier("PollActivityViewController")
                     as? PollActivityViewController {
                         
+                        pollActivityViewController.delegate = self
                         pollActivityViewController.trip = self.trip
                         pollActivityViewController.poll = poll
+                        selectedActivityIndexPath = indexPath
                         self.navigationController?.pushViewController(pollActivityViewController, animated: true)
                 }
                 
@@ -333,12 +352,19 @@ CreateActivityViewControllerDelegate {
                 bundle: nil).instantiateViewControllerWithIdentifier("CreateTaskViewController") as? CreateTaskViewController,
                 task = self.trip?.Tasks[indexPath.row] {
                     editTaskViewController.task = task
+                    editTaskViewController.delegate = self
+                    editTaskViewController.tripOwnershipType = self.tripOwnershipType
+                    if let unwrappedTrip = self.trip {
+                        editTaskViewController.trip = unwrappedTrip
+                    }
                     editTaskViewController.modalPresentationStyle = .Popover
                     if let popoverController = editTaskViewController.popoverPresentationController {
-                        popoverController.sourceView = tableView
-                        popoverController.sourceRect = tableView.frame
+                        popoverController.canOverlapSourceViewRect = true
+                        popoverController.sourceView = tableView.cellForRowAtIndexPath(indexPath)
+                        popoverController.sourceRect = tableView.cellForRowAtIndexPath(indexPath)?.bounds ?? tableView.frame
                         popoverController.delegate   = self
                     }
+                    selectedTaskIndexPath = indexPath
                     self.presentViewController(editTaskViewController, animated: true, completion: nil)
             }
         default:
@@ -371,8 +397,9 @@ CreateActivityViewControllerDelegate {
                 pollResultsViewController = UIStoryboard(name: "Main",
                     bundle: nil).instantiateViewControllerWithIdentifier("PollResultsViewController")
                     as? PollResultsViewController {
-                        
+                        pollResultsViewController.delegate = self
                         pollResultsViewController.poll = poll
+                        selectedActivityIndexPath = indexPath
                         self.navigationController?.pushViewController(pollResultsViewController, animated: true)
             }
     }
@@ -390,4 +417,61 @@ CreateActivityViewControllerDelegate {
     }
 
 
+    // MARK: PollActivityViewControllerDelegate protocol methods
+    
+    func pollActivityViewController(pollActivityViewController: PollActivityViewController, savedPoll: Poll) {
+        self.navigationController?.popViewControllerAnimated(true)
+        if let indexPath = selectedActivityIndexPath {
+            trip?.Activities[indexPath.row] = savedPoll
+            selectedActivityIndexPath = nil
+        } else {
+            trip?.Activities.append(savedPoll)
+        }
+        updateUI()
+    }
+    
+    // MARK: PollResultsViewControllerDelegate protocol methods
+    func pollResultsViewController(pollResultsViewController: PollResultsViewController, selectAndSaveButtonTappedForEvent event: Event) {
+        self.navigationController?.popViewControllerAnimated(true)
+        if let indexPath = selectedActivityIndexPath {
+            trip?.Activities[indexPath.row] = event
+            selectedActivityIndexPath = nil
+        }
+        updateUI()
+    }
+    
+    // MARK: CreateTaskViewControllerDelegate protocol methods
+    func createTaskControllerSaveTapped(createTaskViewController: CreateTaskViewController, savedTask task: Task) {
+        dismissViewControllerAnimated(true, completion: nil)
+        if let indexPath = selectedTaskIndexPath {
+            trip?.Tasks[indexPath.row] = task
+            selectedTaskIndexPath = nil
+        } else {
+            trip?.Tasks.append(task)
+        }
+        updateUI()
+        
+    }
+    
+    // MARK: MemberStatusControllerDelegate protocol methods
+    func memberChangeAdminStatusButtonTapped(memberStatusViewController: MemberStatusViewController) {
+        if let indexPath = self.selectedMemberIndexPath, unwrappedTrip = self.trip, memberToUpdate = self.tripMemberAtIndexPath(indexPath) {
+            if unwrappedTrip.Admins.contains(memberToUpdate.member) {
+                unwrappedTrip.Admins.remove(memberToUpdate.member)
+            } else {
+                unwrappedTrip.Admins.insert(memberToUpdate.member)
+            }
+            updateUI()
+        }
+    }
+    
+    func memberRemoveFromTripButtonTapped(memberStatusViewController: MemberStatusViewController) {
+        dismissViewControllerAnimated(true, completion: nil)
+        if let indexPath = self.selectedMemberIndexPath, memberToRemove = self.tripMemberAtIndexPath(indexPath) {
+            self.selectedMemberIndexPath = nil
+            self.trip?.Members.removeValueForKey(memberToRemove.member)
+            updateUI()
+        }
+    }
+    
 }

@@ -30,11 +30,11 @@ class Trip: NSObject {
     var Tasks: [Task]
     
     var Members: [Person: RSVPStatus]
-    var Admins: [Person]
+    var Admins: Set<Person>
     
     init(name: String, destination: String, description: String, image: UIImage, startDate: NSDate, endDate: NSDate,
         fullyCreated: Bool, activities: [Activity], tasks: [Task], members: [Person: RSVPStatus],
-        admins: [Person]) {
+        admins: Set<Person>) {
             
             self.Name = name
             self.Destination = destination
