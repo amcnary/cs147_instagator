@@ -51,7 +51,7 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
                     let endTime = dateTimeFormatter.stringFromDate(currentOption.EndDate)
                     pollOptionCell.activityDatesLabel.text = "\(startTime) to \(endTime)"
                     if let projectedCost = currentOption.Cost {
-                        pollOptionCell.activityProjectedCostLabel.text = "$\(projectedCost)"
+                        pollOptionCell.activityProjectedCostLabel.text = "$\(projectedCost)0"
                     }
                     return pollOptionCell
             }

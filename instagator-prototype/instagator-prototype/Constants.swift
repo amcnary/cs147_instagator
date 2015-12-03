@@ -48,7 +48,7 @@ var plannedTrips: [Trip] = [
     Trip(name: "Canada",
         destination: "Ontario",
         description: "We're going to Canada!",
-        image: UIImage(named: "CanadaImage")!,
+        image: UIImage(named: "Mountains")!,
         startDate: NSDate().dateByAddingTimeInterval(2*60*60*24),
         endDate: NSDate().dateByAddingTimeInterval(9*60*60*24),
         fullyCreated: true,

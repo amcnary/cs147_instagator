@@ -55,7 +55,7 @@ class PollVoteViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.activityDescriptionLabel.text = currentOption.Description
                 
                 if let projectedCost = currentOption.Cost {
-                    cell.activityProjectedCostLabel.text = "$\(projectedCost)"
+                    cell.activityProjectedCostLabel.text = "$\(projectedCost)0"
                 }
         }
         return UITableViewCell()
