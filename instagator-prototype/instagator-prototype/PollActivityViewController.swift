@@ -10,16 +10,40 @@ import Foundation
 import UIKit
 
 
-class PollActivityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PollActivityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
+CreateActivityViewControllerDelegate {
     // MARK: Interface Outlets
     @IBOutlet weak var pollActivityOptionsTableView: UITableView!
     @IBOutlet weak var pollActivityMembersTableView: UITableView!
     
     // MARK: other variables
     
-    var poll: Poll?
-    var trip: Trip?
-    private var invitedPeople: [Person: Trip.RSVPStatus] = [:]
+    var poll: Poll? {
+        didSet {
+            if let unwrappedPoll = self.poll {
+                self.pollOptions = unwrappedPoll.Options
+                
+                // set the participants set
+                var newParticipants: Set<Person> = []
+                for participant in unwrappedPoll.People {
+                    newParticipants.insert(participant)
+                }
+                self.pollParticipants = newParticipants
+            }
+        }
+    }
+    var trip: Trip? {
+        didSet {
+            if let unwrappedTrip = self.trip {
+                self.tripMembers = unwrappedTrip.Members.map({ return $0.0 })
+            }
+        }
+    }
+    var tripMembers: [Person] = []
+    var pollOptions: [Event] = []
+    private var pollParticipants: Set<Person> = []
+    var selectedEventIndexPath: NSIndexPath?
+    static let presentCreateActivityViewControllerSegueIdentifier = "presentCreateActivityViewControllerSegue"
     
     // MARK: lifecycle
     
@@ -35,6 +59,13 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == PollActivityViewController.presentCreateActivityViewControllerSegueIdentifier,
+            let createActivityViewController = segue.destinationViewController as? CreateActivityViewController {
+                createActivityViewController.delegate = self
+        }
+        super.prepareForSegue(segue, sender: sender)
+    }
     
     // MARK: UITableViewDataSource protocol methods
     
@@ -42,9 +73,9 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
         
         switch tableView {
         case self.pollActivityOptionsTableView:
-            if let unwrappedPoll = self.poll, pollOptionCell = tableView.dequeueReusableCellWithIdentifier(
+            if let pollOptionCell = tableView.dequeueReusableCellWithIdentifier(
                 PollOptionTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? PollOptionTableViewCell {
-                    let currentOption = unwrappedPoll.Options[indexPath.row]
+                    let currentOption = pollOptions[indexPath.row]
                     pollOptionCell.activityNameLabel.text = currentOption.Name
                     pollOptionCell.activityDescriptionLabel.text = currentOption.Description
                     let startTime = dateTimeFormatter.stringFromDate(currentOption.StartDate)
@@ -52,18 +83,20 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
                     pollOptionCell.activityDatesLabel.text = "\(startTime) to \(endTime)"
                     if let projectedCost = currentOption.Cost {
                         pollOptionCell.activityProjectedCostLabel.text = "$\(projectedCost)0"
+                    } else {
+                        pollOptionCell.activityProjectedCostLabel.hidden = true
                     }
                     return pollOptionCell
             }
             
         case self.pollActivityMembersTableView:
-            if let unwrappedTrip = self.trip, pollActivityMemberCell = tableView.dequeueReusableCellWithIdentifier(
+            if let pollActivityMemberCell = tableView.dequeueReusableCellWithIdentifier(
                 PersonTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? PersonTableViewCell {
-                    let currentMember = people[indexPath.item]
-//                    TODO: fix this so it polls the right people
-                    pollActivityMemberCell.accessoryType = self.invitedPeople[currentMember] == nil ? .None : .Checkmark
-                    pollActivityMemberCell.personImageView.image      = currentMember.Pic
-                    pollActivityMemberCell.personNameLabel.text       = "\(currentMember.FirstName) \(currentMember.LastName)"
+                    
+                    let currentMember = self.tripMembers[indexPath.row]
+                    pollActivityMemberCell.accessoryType = self.pollParticipants.contains(currentMember) ? .Checkmark : .None
+                    pollActivityMemberCell.personImageView.image    = currentMember.Pic
+                    pollActivityMemberCell.personNameLabel.text     = "\(currentMember.FirstName) \(currentMember.LastName)"
                     return pollActivityMemberCell
             }
         default:
@@ -76,9 +109,9 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case self.pollActivityOptionsTableView:
-            return self.poll?.Options.count ?? 0
+            return self.pollOptions.count
         case self.pollActivityMembersTableView:
-            return self.trip?.Members.count ?? 0
+            return self.tripMembers.count
         default:
             return 0
         }
@@ -90,15 +123,28 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch tableView {
         case self.pollActivityOptionsTableView:
+            if let editActivityViewController = UIStoryboard(name: "Main",
+                bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
+                as? CreateActivityViewController {
+                    editActivityViewController.event = self.poll?.Options[indexPath.row]
+                    editActivityViewController.delegate = self
+                    editActivityViewController.modalPresentationStyle = .Popover
+                    editActivityViewController.popoverPresentationController?.delegate = self
+                    editActivityViewController.popoverPresentationController?.sourceView = tableView
+                    editActivityViewController.popoverPresentationController?.sourceRect = tableView.frame
+                    selectedEventIndexPath = indexPath
+                    self.presentViewController(editActivityViewController, animated: true, completion: nil)
+            }
             return
+            
         case self.pollActivityMembersTableView:
-            let selectedMember = people[indexPath.item]
-            if self.invitedPeople[selectedMember] == nil {
-                // invite the person!
-                invitedPeople[selectedMember] = .Pending
+            let selectedMember = tripMembers[indexPath.item]
+            if self.pollParticipants.contains(selectedMember) {
+                // remove the person from the poll
+                self.pollParticipants.remove(selectedMember)
             } else {
-                // uninvite the person
-                invitedPeople.removeValueForKey(selectedMember)
+                // include the person in the poll!
+                self.pollParticipants.insert(selectedMember)
             }
             self.pollActivityMembersTableView.reloadData()
         default:
@@ -106,5 +152,17 @@ class PollActivityViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-
+    
+    // MARK: CreateActivityViewControllerDelegate protocol methods
+    
+    func createActivityControllerSaveTapped(createActivityController: CreateActivityViewController, savedEvent event: Event){
+        dismissViewControllerAnimated(true, completion: nil)
+        if let indexPath = selectedEventIndexPath {
+            self.pollOptions[indexPath.row] = event
+            selectedEventIndexPath = nil
+        } else {
+            self.pollOptions.append(event)
+        }
+        self.pollActivityOptionsTableView.reloadData()
+    }
 }

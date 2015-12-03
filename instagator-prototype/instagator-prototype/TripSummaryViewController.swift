@@ -14,7 +14,8 @@ protocol TripSummaryViewControllerDelegate {
 }
 
 class TripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,
-UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, ActivityTableViewCellDelegate {
+UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, ActivityTableViewCellDelegate,
+CreateActivityViewControllerDelegate {
     
     static let storyboardId = "TripSummaryViewController"
     
@@ -40,6 +41,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
     var trip: Trip?
     var delegate: TripSummaryViewControllerDelegate?
     var tripOwnershipType: TripListViewController.TripOwnershipType = .Planning
+    var selectedActivityIndexPath: NSIndexPath?
     
     // MARK: helper utility functions
     
@@ -115,6 +117,7 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
                     if let createActivityViewController = UIStoryboard(name: "Main",
                         bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
                         as? CreateActivityViewController {
+                            createActivityViewController.delegate = self
                             createActivityViewController.modalPresentationStyle = .Popover
                             createActivityViewController.popoverPresentationController?.delegate = self
                             createActivityViewController.popoverPresentationController?.sourceView = sender
@@ -289,10 +292,12 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
                     bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
                     as? CreateActivityViewController {
                         editActivityViewController.event = event
+                        editActivityViewController.delegate = self
                         editActivityViewController.modalPresentationStyle = .Popover
                         editActivityViewController.popoverPresentationController?.delegate = self
                         editActivityViewController.popoverPresentationController?.sourceView = tableView
                         editActivityViewController.popoverPresentationController?.sourceRect = tableView.frame
+                        selectedActivityIndexPath = indexPath
                         self.presentViewController(editActivityViewController, animated: true, completion: nil)
                 }
                 
@@ -371,4 +376,18 @@ UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, Acti
                         self.navigationController?.pushViewController(pollResultsViewController, animated: true)
             }
     }
+    
+    // MARK: CreateActivityViewControllerDelegate protocol methods
+    func createActivityControllerSaveTapped(createActivityController: CreateActivityViewController, savedEvent event: Event){
+        dismissViewControllerAnimated(true, completion: nil)
+        if let indexPath = selectedActivityIndexPath {
+            trip?.Activities[indexPath.row] = event
+            selectedActivityIndexPath = nil
+        } else {
+            trip?.Activities.append(event)
+        }
+        updateUI()
+    }
+
+
 }
