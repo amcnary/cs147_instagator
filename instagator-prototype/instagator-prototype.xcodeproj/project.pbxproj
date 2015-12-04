@@ -25,6 +25,7 @@
 		2B81E8031C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8021C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift */; };
 		2B81E8051C0D7FBA00AFC86D /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8041C0D7FBA00AFC86D /* Activity.swift */; };
 		2B81E8071C0D91A300AFC86D /* TabNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81E8061C0D91A300AFC86D /* TabNavigationController.swift */; };
+		2BD41B471C110B2F00E11A8D /* PendingPoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD41B461C110B2F00E11A8D /* PendingPoll.swift */; };
 		2BE5F38D1BFB01EF004CAB2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */; };
 		2BE5F3941BFB01EF004CAB2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3921BFB01EF004CAB2A /* Main.storyboard */; };
 		2BE5F3961BFB01EF004CAB2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5F3951BFB01EF004CAB2A /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		2B81E8021C0BEA3000AFC86D /* PollActivityResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollActivityResultTableViewCell.swift; sourceTree = "<group>"; };
 		2B81E8041C0D7FBA00AFC86D /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		2B81E8061C0D91A300AFC86D /* TabNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabNavigationController.swift; sourceTree = "<group>"; };
+		2BD41B461C110B2F00E11A8D /* PendingPoll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingPoll.swift; sourceTree = "<group>"; };
 		2BE5F3891BFB01EF004CAB2A /* instagator-prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagator-prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BE5F38C1BFB01EF004CAB2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BE5F3931BFB01EF004CAB2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				5A06E0C11BFC3F870039E415 /* Event.swift */,
 				5A06E0BB1BFC3CDA0039E415 /* Person.swift */,
 				5A06E0BF1BFC3D050039E415 /* Poll.swift */,
+				2BD41B461C110B2F00E11A8D /* PendingPoll.swift */,
 				5A06E0B91BFC3AF00039E415 /* Trip.swift */,
 				5A06E0BD1BFC3CED0039E415 /* Task.swift */,
 			);
@@ -265,6 +268,7 @@
 				2B4789631BFD8E90005499DA /* InviteeCollectionViewCell.swift in Sources */,
 				2B81E8071C0D91A300AFC86D /* TabNavigationController.swift in Sources */,
 				5ABC0BF01C0568DA001882A3 /* CreateActivityViewController.swift in Sources */,
+				2BD41B471C110B2F00E11A8D /* PendingPoll.swift in Sources */,
 				2BE5F3A11BFB0C9C004CAB2A /* MidwayStartViewController.swift in Sources */,
 				5A06E0B61BFC3A570039E415 /* EditTripViewController.swift in Sources */,
 				2B81E7F91C0B8F5700AFC86D /* PollOptionTableViewCell.swift in Sources */,

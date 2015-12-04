@@ -9,15 +9,19 @@
 import Foundation
 import UIKit
 
+protocol TaskStatusTableViewCellDelegate {
+    func TaskStatusCellSendReminderTapped(taskStatusTableViewCell: TaskStatusTableViewCell)
+}
+
 class TaskStatusTableViewCell: UITableViewCell {
     @IBOutlet weak var taskNameLabel: UILabel!
     @IBOutlet weak var taskDueDateLabel: UILabel!
     @IBOutlet weak var taskSendReminderButton: UIButton!
     @IBAction func taskSendReminderButtonTapped(sender: AnyObject) {
-        
+        self.delegate?.TaskStatusCellSendReminderTapped(self)
     }
     
     static let reuseIdentifier = "TaskStatusTableViewCell"
     
-    
+    var delegate: TaskStatusTableViewCellDelegate?
 }

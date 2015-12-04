@@ -145,21 +145,10 @@ UITableViewDataSource, SelectImageViewControllerDelegate {
         
         return UITableViewCell()
     }
-    
-//    private func indexOfInvitedPerson(person: Person) -> Int {
-//        var currentIndex = 0
-//        for (member, _) in self.invitedPeople {
-//            if member.Id == person.Id {
-//                return currentIndex
-//            }
-//            currentIndex++
-//        }
-//        return NSNotFound
-//    }
-    
+
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return people.count
+        return people.count - 1
     }
     
     

@@ -98,14 +98,27 @@ class MemberStatusViewController: UIViewController, UITableViewDataSource {
                 let currentTask = unwrappedTrip.Tasks[indexPath.row]
                 taskCell.taskDueDateLabel.text = "Deadline: \(dateFormatter.stringFromDate(currentTask.DueDate))"
                 taskCell.taskNameLabel.text = currentTask.Name
-                if currentTask.MemberTaskStatuses[unwrappedMember] == .Complete || self.tripOwnershipType == .Attending {
+                if currentTask.MemberTaskStatuses[unwrappedMember] == .Complete {
                     taskCell.taskSendReminderButton.enabled = false
+                }
+                if self.tripOwnershipType == .Attending {
+                    taskCell.taskSendReminderButton.enabled = false
+                    taskCell.taskSendReminderButton.setTitle(currentTask.MemberTaskStatuses[unwrappedMember]?.rawValue, forState: .Disabled)
                 }
         }
         return UITableViewCell()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.trip?.Tasks.count ?? 0
+        if let unwrappedMember = member, unwrappedTrip = trip, memberRSVPStatus = unwrappedTrip.Members[unwrappedMember] where memberRSVPStatus == .Accepted {
+            return self.trip?.Tasks.count ?? 0
+        }
+        return 0
+    }
+    
+    
+    // MARK: TaskStatusTableViewCellDelegate protocol methods
+    func TaskStatusCellSendReminderTapped(taskStatusTableViewCell: TaskStatusTableViewCell) {
+        self.presentConfirmationMessage("Reminder sent!")
     }
 }

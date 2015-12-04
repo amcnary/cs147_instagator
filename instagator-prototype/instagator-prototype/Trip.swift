@@ -52,4 +52,14 @@ class Trip: NSObject {
             self.Members = members
             self.Admins = admins
     }
+    
+    func numTasksCompletedByMember(member: Person) -> Int {
+        var numTasksCompleted = 0
+        for task in self.Tasks {
+            if task.memberHasCompletedTask(member) {
+                numTasksCompleted++
+            }
+        }
+        return numTasksCompleted
+    }
 }

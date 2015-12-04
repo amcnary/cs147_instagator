@@ -26,6 +26,7 @@ class CreateActivityViewController: UIViewController {
     
     
     // MARK: other variables
+    var trip: Trip?
     var event: Event?
     var delegate: CreateActivityViewControllerDelegate?
     var tripOwnershipType: TripListViewController.TripOwnershipType = .Planning
@@ -33,10 +34,16 @@ class CreateActivityViewController: UIViewController {
     // MARK: lifecycle
     
     override func viewDidLoad() {
-        if let unwrappedEvent = event {
+        if let unwrappedEvent = event, unwrappedTrip = self.trip {
             self.activityNameTextField.text = unwrappedEvent.Name
+            
+            // set date stuff
             self.activityStartDatePicker.date = unwrappedEvent.StartDate
             self.activityEndDatePicker.date = unwrappedEvent.EndDate
+            self.activityStartDatePicker.minimumDate = unwrappedTrip.StartDate
+            self.activityEndDatePicker.minimumDate = unwrappedTrip.StartDate
+            self.activityStartDatePicker.maximumDate = unwrappedTrip.EndDate
+            self.activityEndDatePicker.maximumDate = unwrappedTrip.EndDate
             self.activityDescriptionTextView.text = unwrappedEvent.Description
             if let eventCost = unwrappedEvent.Cost {
                 self.activityProjectedCostTextField.text = "\(eventCost)"

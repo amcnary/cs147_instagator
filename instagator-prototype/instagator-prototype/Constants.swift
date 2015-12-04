@@ -227,7 +227,7 @@ extension UIViewController: UIPopoverPresentationControllerDelegate {
 
 extension UIViewController {
     func presentConfirmationMessage(message: String) {
-        let confirmationMessageAlertController = UIAlertController(title: "Confirmation",
+        let confirmationMessageAlertController = UIAlertController(title: "Message",
             message: message, preferredStyle: .Alert)
         let continueAction = UIAlertAction(title: "Thanks!", style: .Default, handler: nil)
         confirmationMessageAlertController.addAction(continueAction)

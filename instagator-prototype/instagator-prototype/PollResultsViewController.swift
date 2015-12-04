@@ -17,6 +17,9 @@ class PollResultsViewController: UIViewController, UITableViewDataSource {
     
     // MARK: Interface Outlets
     
+    @IBAction func pollResultInfoButtonTapped(sender: AnyObject) {
+        self.presentConfirmationMessage("Satisfaction rates are calculated by weighting the preferences of the different options from each poll response. First place votes are given the most weight, followed by second place, and so on.")
+    }
     @IBOutlet weak var pollResultsTitleLabel: UILabel!
     @IBOutlet weak var pollResponseProgressLabel: UILabel!
     @IBOutlet weak var pollSendReminderButton: UIButton!
@@ -37,7 +40,7 @@ class PollResultsViewController: UIViewController, UITableViewDataSource {
     @IBAction func deletePollButtonTapped(sender: AnyObject) {
     }
     @IBAction func sendVoteReminderTapped(sender: AnyObject) {
-        self.sendVoteReminderTapped("Reminder sent!")
+        self.presentConfirmationMessage("Reminder sent!")
     }
     
     

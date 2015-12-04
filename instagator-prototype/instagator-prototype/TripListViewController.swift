@@ -92,7 +92,6 @@ class TripListViewController: UICollectionViewController, EditTripViewController
         }
     }
     
-    
     // MARK: UICollecionViewDelegate protocol methods
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

@@ -32,4 +32,11 @@ class Task {
         self.DueDate = dueDate
         self.MemberTaskStatuses = memberTaskStatuses
     }
+    
+    func memberHasCompletedTask(member: Person) -> Bool {
+        if let taskStatus = self.MemberTaskStatuses[member] {
+            return taskStatus == .Complete
+        }
+        return false
+    }
 }

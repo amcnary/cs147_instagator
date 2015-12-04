@@ -11,12 +11,17 @@ import UIKit
 
 protocol TripSummaryViewControllerDelegate {
     func tripSummaryViewControllerEditedTrip(tripSummaryViewController: TripSummaryViewController)
+//    func tripSummaryRemovedPlannedTrip(tripSummaryViewController: TripSummaryViewController)
+//    func tripSummaryRemovedAttendingTrip(tripSummaryViewController: TripSummaryViewController)
+    
 }
+
+
 
 class TripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,
 UITableViewDataSource, UITableViewDelegate, EditTripViewControllerDelegate, ActivityTableViewCellDelegate,
 CreateActivityViewControllerDelegate, PollActivityViewControllerDelegate, PollResultsViewControllerDelegate,
-CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
+CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewControllerDelegate {
     
     static let storyboardId = "TripSummaryViewController"
     
@@ -36,6 +41,26 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
     @IBOutlet var plannedTripExclusiveViews: [UIButton]!
     @IBOutlet weak var inviteeTasksLabel: UILabel!
     
+    @IBOutlet var abandonTripButton: UIView!
+    @IBAction func abandonTripButtonTapped(sender: AnyObject) {
+        // alert the user that they are about to commit a dick move
+        if let unwrappedTrip = self.trip {
+            let alertController = UIAlertController(title: "Warning", message: "You are about to abandon \(unwrappedTrip.Name). Continue?", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            let continueAction = UIAlertAction(title: "Continue", style: .Default, handler: { _ in
+//                if self.tripOwnershipType == .Planning {
+//                    self.delegate?.tripSummaryRemovePlannedTrip(self)
+//                } else {
+//                    self.delegate?.tripSummaryRemoveAttendingTrip(self)
+//                }
+                return
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(continueAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
 
     // MARK: other properties
     
@@ -126,6 +151,7 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
                         bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
                         as? CreateActivityViewController {
                             createActivityViewController.delegate = self
+                            createActivityViewController.trip = self.trip
                             createActivityViewController.modalPresentationStyle = .Popover
                             createActivityViewController.popoverPresentationController?.delegate = self
                             createActivityViewController.popoverPresentationController?.canOverlapSourceViewRect = true
@@ -162,15 +188,30 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-        if let currentMember = self.tripMemberAtIndexPath(indexPath), cell = collectionView.dequeueReusableCellWithReuseIdentifier(
+        if let currentMember = self.tripMemberAtIndexPath(indexPath), unwrappedTrip = self.trip,
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier(
             InviteeCollectionViewCell.reuseIdentifier, forIndexPath: indexPath) as? InviteeCollectionViewCell {
-                
                 cell.inviteeImageView.image         = currentMember.member.Pic
                 cell.inviteeNameLabel.text          = "\(currentMember.member.FirstName)"
-                cell.inviteeTasksToDoLabel.text     = "No ToDos!"
-                cell.inviteeRSVPStatusLabel.text    = currentMember.memberRSVPStatus == .Accepted ? "Attending!" : "Awaiting Response"
                 
-                cell.inviteeRSVPStatusLabel.textColor = currentMember.memberRSVPStatus == .Accepted ? UIColor(red: 80/255.0, green: 220/255.0, blue: 80/255.0, alpha: 0.9) : UIColor(red: 100/255.0, green: 100/255.0, blue: 100/255.0, alpha: 0.8)
+                if currentMember.memberRSVPStatus == .Accepted {
+                    let tasksLeft                       = unwrappedTrip.Tasks.count -
+                                                            unwrappedTrip.numTasksCompletedByMember(currentMember.member)
+                    switch tasksLeft {
+                    case 0:
+                        cell.inviteeTasksToDoLabel.text   = " "
+                    case 1:
+                        cell.inviteeTasksToDoLabel.text   = "\(tasksLeft) task outstanding"
+                    default:
+                        cell.inviteeTasksToDoLabel.text   = "\(tasksLeft) tasks outstanding"
+                    }
+                    cell.inviteeRSVPStatusLabel.text      = "Attending"
+                    cell.inviteeRSVPStatusLabel.textColor = UIColor(red: 80/255.0, green: 150/255.0, blue: 80/255.0, alpha: 0.9)
+                    
+                } else {
+                    cell.inviteeRSVPStatusLabel.text      = "Awaiting Response"
+                    cell.inviteeRSVPStatusLabel.textColor = UIColor(red: 100/255.0, green: 100/255.0, blue: 100/255.0, alpha: 0.8)
+                }
 
                 return cell
         }
@@ -181,6 +222,7 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trip?.Members.count ?? 0
     }
+
     
     
     // MARK: UICollectionView delegate
@@ -239,11 +281,18 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
                         switch self.tripOwnershipType {
                         case .Planning:
                             break
-//                            cell.viewResultsButton.setTitle("View Results", forState: .Normal)
                         case .Attending:
                             cell.viewResultsButton.enabled = false
-//                            cell.viewResultsButton.setTitle("Tap to Vote", forState: .Normal)
+                            cell.viewResultsButton.setTitle("Tap to Vote", forState: .Disabled)
+                            cell.viewResultsButton.setTitleColor(UIColor.redColor(), forState: .Disabled)
                         }
+                        
+                    case _ as PendingPoll:
+                        cell.viewResultsButton.hidden       = true
+                        cell.activityPollStatusLabel.text   = "Awaiting Results"
+                        cell.activityDateLabel.hidden       = true
+                        cell.userInteractionEnabled = false
+
                     default:
                         break
                     }
@@ -252,18 +301,19 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
             }
             
         case self.tripTasksTableView:
-            if let tripTasks = self.trip?.Tasks, cell = tableView.dequeueReusableCellWithIdentifier(
+            if let unwrappedTrip = self.trip, cell = tableView.dequeueReusableCellWithIdentifier(
                 TaskTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? TaskTableViewCell {
                     
-                    let currentTask = tripTasks[indexPath.item]
+                    let currentTask = unwrappedTrip.Tasks[indexPath.item]
                     cell.taskDeadlineLabel.text         = "Due: \(dateTimeFormatter.stringFromDate(currentTask.DueDate))"
                     cell.taskTitleLabel.text      = currentTask.Name
                     
                     switch self.tripOwnershipType {
                     case .Planning:
-                        cell.taskInviteeProgressLabel.text  = "\(currentTask.NumUsersCompleted)/\(currentTask.MemberTaskStatuses.count)"
+                        let numAcceptedMembers = unwrappedTrip.Members.filter({ $0.1 == .Accepted }).count
+                        cell.taskInviteeProgressLabel.text  = "\(currentTask.NumUsersCompleted)/\(numAcceptedMembers)"
                     case .Attending:
-                        cell.taskInviteeProgressLabel.hidden = true//text  = currentTask.MemberTaskStatuses[currentUser]?.rawValue
+                        cell.taskInviteeProgressLabel.hidden = true
                         cell.accessoryType = currentTask.MemberTaskStatuses[people[5]] == .Complete ? .Checkmark : .None
                     }
                     
@@ -306,6 +356,7 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
                     bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
                     as? CreateActivityViewController {
                         editActivityViewController.event = event
+                        editActivityViewController.trip = self.trip
                         editActivityViewController.delegate = self
                         editActivityViewController.tripOwnershipType = .Attending
                         editActivityViewController.modalPresentationStyle = .Popover
@@ -323,6 +374,8 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
                     as? PollVoteViewController {
                         
                         pollVoteViewController.poll = poll
+                        pollVoteViewController.delegate = self
+                        selectedActivityIndexPath = indexPath
                         pollVoteViewController.modalPresentationStyle = .Popover
                         pollVoteViewController.popoverPresentationController?.delegate = self
                         pollVoteViewController.popoverPresentationController?.canOverlapSourceViewRect = true
@@ -372,6 +425,25 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
         }
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return self.tripOwnershipType == .Planning
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            if let unwrappedTrip = self.trip {
+                switch tableView {
+                case self.tripActivitiesTableView:
+                    unwrappedTrip.Activities.removeAtIndex(indexPath.row)
+                case self.tripTasksTableView:
+                    unwrappedTrip.Tasks.removeAtIndex(indexPath.row)
+                default:
+                    break
+                }
+                updateUI()
+            }
+        }
+    }
     
     // MARK: EditTripViewControllerDelegate protocol methods
     
@@ -405,7 +477,7 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
     }
     
     // MARK: CreateActivityViewControllerDelegate protocol methods
-    func createActivityControllerSaveTapped(createActivityController: CreateActivityViewController, savedEvent event: Event){
+    func createActivityControllerSaveTapped(createActivityController: CreateActivityViewController, savedEvent event: Event) {
         dismissViewControllerAnimated(true, completion: nil)
         if let indexPath = selectedActivityIndexPath {
             trip?.Activities[indexPath.row] = event
@@ -472,6 +544,17 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate {
             self.trip?.Members.removeValueForKey(memberToRemove.member)
             updateUI()
         }
+    }
+    
+    // MARK: PollVoteViewControllerDelegate
+    func pollVoteViewControllerSubmitPressed(pollVoteViewController: PollVoteViewController) {
+        dismissViewControllerAnimated(true, completion: nil)
+        if let indexPath = selectedActivityIndexPath, var tripActivities = self.trip?.Activities {
+            let newFixedEvent: PendingPoll = PendingPoll(name: tripActivities[indexPath.row].Name, description: "Awaiting poll results!")
+            self.trip?.Activities[indexPath.row] = newFixedEvent
+            updateUI()
+        }
+        selectedActivityIndexPath = nil
     }
     
 }

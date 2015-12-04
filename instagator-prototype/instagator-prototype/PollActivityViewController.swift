@@ -75,6 +75,7 @@ CreateActivityViewControllerDelegate {
         if segue.identifier == PollActivityViewController.presentCreateActivityViewControllerSegueIdentifier,
             let createActivityViewController = segue.destinationViewController as? CreateActivityViewController {
                 createActivityViewController.delegate = self
+                createActivityViewController.trip = self.trip
         }
         super.prepareForSegue(segue, sender: sender)
     }
@@ -129,6 +130,17 @@ CreateActivityViewControllerDelegate {
         }
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            pollOptions.removeAtIndex(indexPath.row)
+            tableView.reloadData()
+        }
+    }
+    
     
     // MARK: UITableViewDelegate protocol methods
     
@@ -139,6 +151,7 @@ CreateActivityViewControllerDelegate {
                 bundle: nil).instantiateViewControllerWithIdentifier("CreateActivityViewController")
                 as? CreateActivityViewController {
                     editActivityViewController.event = self.poll?.Options[indexPath.row]
+                    editActivityViewController.trip = self.trip
                     editActivityViewController.delegate = self
                     editActivityViewController.modalPresentationStyle = .Popover
                     editActivityViewController.popoverPresentationController?.delegate = self
