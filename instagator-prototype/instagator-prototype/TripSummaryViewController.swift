@@ -11,9 +11,8 @@ import UIKit
 
 protocol TripSummaryViewControllerDelegate {
     func tripSummaryViewControllerEditedTrip(tripSummaryViewController: TripSummaryViewController)
-//    func tripSummaryRemovedPlannedTrip(tripSummaryViewController: TripSummaryViewController)
-//    func tripSummaryRemovedAttendingTrip(tripSummaryViewController: TripSummaryViewController)
-    
+    func tripSummaryRemovePlannedTripPressed(tripSummaryViewController: TripSummaryViewController)
+    func tripSummaryRemoveAttendingTripPressed(tripSummaryViewController: TripSummaryViewController)
 }
 
 
@@ -28,6 +27,12 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewCo
     
     // MARK: interface outlets
 
+    @IBAction func tripTasksListInfoButtonTapped(sender: AnyObject) {
+        self.presentConfirmationMessage("Tasks are set by trip admins. An admin can tap to edit tasks or swipe left to delete items. Participants can tap to view details and swipe left to mark a task as completed. ")
+    }
+    @IBAction func tripActivitiesListInfoButtonTapped(sender: AnyObject) {
+        self.presentConfirmationMessage("Activities are either fixed, or not up for debate, or polls, which take into account user input. Admins can tap to view/edit activity details or swipe to delete. Attendees can tap to view static info or vote on poll events.")
+    }
     @IBOutlet weak var tripTitleLabel: UILabel!
     @IBOutlet weak var tripImageView: UIImageView!
     @IBOutlet weak var tripDestinationLabel: UILabel!
@@ -48,11 +53,11 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewCo
             let alertController = UIAlertController(title: "Warning", message: "You are about to abandon \(unwrappedTrip.Name). Continue?", preferredStyle: .Alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             let continueAction = UIAlertAction(title: "Continue", style: .Default, handler: { _ in
-//                if self.tripOwnershipType == .Planning {
-//                    self.delegate?.tripSummaryRemovePlannedTrip(self)
-//                } else {
-//                    self.delegate?.tripSummaryRemoveAttendingTrip(self)
-//                }
+                if self.tripOwnershipType == .Planning {
+                    self.delegate?.tripSummaryRemovePlannedTripPressed(self)
+                } else {
+                    self.delegate?.tripSummaryRemoveAttendingTripPressed(self)
+                }
                 return
             })
             
@@ -274,12 +279,14 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewCo
                         let endDateString                   = dateTimeFormatter.stringFromDate(event.EndDate)
                         cell.activityDateLabel.text         = "\(startDateString) to \(endDateString)"
                         cell.viewResultsButton.hidden = true
+                        cell.activityDateLabel.hidden = false
                         
                     case _ as Poll:
-                        cell.activityPollStatusLabel.text = "Poll Event"
-                        cell.activityDateLabel.hidden = true
+                        cell.activityPollStatusLabel.text   = "Poll Event"
+                        cell.activityDateLabel.hidden       = true
                         switch self.tripOwnershipType {
                         case .Planning:
+                            cell.viewResultsButton.hidden   = false
                             break
                         case .Attending:
                             cell.viewResultsButton.enabled = false
@@ -358,7 +365,7 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewCo
                         editActivityViewController.event = event
                         editActivityViewController.trip = self.trip
                         editActivityViewController.delegate = self
-                        editActivityViewController.tripOwnershipType = .Attending
+                        editActivityViewController.tripOwnershipType = self.tripOwnershipType
                         editActivityViewController.modalPresentationStyle = .Popover
                         editActivityViewController.popoverPresentationController?.canOverlapSourceViewRect = true
                         editActivityViewController.popoverPresentationController?.delegate = self
@@ -426,7 +433,10 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewCo
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return self.tripOwnershipType == .Planning
+        if let unwrappedTrip = self.trip {
+            return self.tripOwnershipType == .Planning || (tableView == self.tripTasksTableView && !unwrappedTrip.Tasks[indexPath.row].memberHasCompletedTask(people[5]))
+        }
+        return false
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -443,6 +453,29 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewCo
                 updateUI()
             }
         }
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        if self.tripOwnershipType == .Attending {
+            let completeTask = UITableViewRowAction(style: .Normal, title: "Complete") { action, index in
+                if let unwrappedTrip = self.trip {
+                    unwrappedTrip.Tasks[indexPath.row].MemberTaskStatuses[people[5]] = .Complete
+                    self.updateUI()
+                }
+            }
+            completeTask.backgroundColor = UIColor.greenColor()
+            return [completeTask]
+        }
+        
+        // return a single item for delete
+        let deleteTask = UITableViewRowAction(style: .Destructive, title: "Delete") { action, index in
+            if let unwrappedTrip = self.trip {
+                unwrappedTrip.Tasks.removeAtIndex(indexPath.row)
+                self.updateUI()
+            }
+        }
+//        deleteTask.backgroundColor = UIColor.blueColor()
+        return [deleteTask]
     }
     
     // MARK: EditTripViewControllerDelegate protocol methods
@@ -508,6 +541,7 @@ CreateTaskViewControllerDelegate, MemberStatusControllerDelegate, PollVoteViewCo
         if let indexPath = selectedActivityIndexPath {
             trip?.Activities[indexPath.row] = event
             selectedActivityIndexPath = nil
+            self.tripActivitiesTableView.reloadData()
         }
         updateUI()
     }

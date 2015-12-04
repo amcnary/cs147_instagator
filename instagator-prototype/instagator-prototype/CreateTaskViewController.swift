@@ -80,7 +80,7 @@ class CreateTaskViewController: UIViewController {
         let taskToReturn: Task = Task(name: taskName, description: taskDescription, dueDate: taskDueDate, memberTaskStatuses: taskStatuses)
         if self.task != nil {
             let taskChangeAlertController = UIAlertController(title: "Warning",
-                message: "Changing this poll will reset the task statuses. Continue?", preferredStyle: .Alert)
+                message: "Changing this task will force all users to redo this task. Continue?", preferredStyle: .Alert)
             let continueAction = UIAlertAction(title: "Continue", style: .Default, handler: { _ in
                 self.delegate?.createTaskControllerSaveTapped(self, savedTask: taskToReturn)
             })
@@ -90,6 +90,5 @@ class CreateTaskViewController: UIViewController {
             taskChangeAlertController.addAction(continueAction)
             self.presentViewController(taskChangeAlertController, animated: true, completion: nil)
         }
-        self.delegate?.createTaskControllerSaveTapped(self, savedTask: taskToReturn)
     }
 }

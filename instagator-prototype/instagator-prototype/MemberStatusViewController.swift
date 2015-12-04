@@ -14,7 +14,7 @@ protocol MemberStatusControllerDelegate {
     func memberRemoveFromTripButtonTapped(memberStatusViewController: MemberStatusViewController)
 }
 
-class MemberStatusViewController: UIViewController, UITableViewDataSource {
+class MemberStatusViewController: UIViewController, UITableViewDataSource, TaskStatusTableViewCellDelegate {
     
     // MARK: Interface Outlets
     @IBOutlet weak var memberImageView: UIImageView!
@@ -98,6 +98,7 @@ class MemberStatusViewController: UIViewController, UITableViewDataSource {
                 let currentTask = unwrappedTrip.Tasks[indexPath.row]
                 taskCell.taskDueDateLabel.text = "Deadline: \(dateFormatter.stringFromDate(currentTask.DueDate))"
                 taskCell.taskNameLabel.text = currentTask.Name
+                taskCell.delegate = self
                 if currentTask.MemberTaskStatuses[unwrappedMember] == .Complete {
                     taskCell.taskSendReminderButton.enabled = false
                 }
@@ -118,7 +119,7 @@ class MemberStatusViewController: UIViewController, UITableViewDataSource {
     
     
     // MARK: TaskStatusTableViewCellDelegate protocol methods
-    func TaskStatusCellSendReminderTapped(taskStatusTableViewCell: TaskStatusTableViewCell) {
+    func taskStatusCellSendReminderTapped(taskStatusTableViewCell: TaskStatusTableViewCell) {
         self.presentConfirmationMessage("Reminder sent!")
     }
 }

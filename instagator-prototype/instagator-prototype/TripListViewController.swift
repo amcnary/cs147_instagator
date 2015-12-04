@@ -29,6 +29,7 @@ class TripListViewController: UICollectionViewController, EditTripViewController
     // MARK: other properties
     
     var tripOwnershipType: TripOwnershipType = .Planning
+    var selectedIndex: NSIndexPath?
     
     
     // MARK: lifecycle
@@ -101,6 +102,7 @@ class TripListViewController: UICollectionViewController, EditTripViewController
             TripSummaryViewController.storyboardId) as? TripSummaryViewController {
             
                 let currentTrip: Trip
+                self.selectedIndex = indexPath
                 switch self.tripOwnershipType {
                 case .Planning:
                     currentTrip = plannedTrips[indexPath.item]
@@ -135,4 +137,24 @@ class TripListViewController: UICollectionViewController, EditTripViewController
     func tripSummaryViewControllerEditedTrip(tripSummaryViewController: TripSummaryViewController) {
         self.collectionView?.reloadData()
     }
+    
+    func tripSummaryRemovePlannedTripPressed(tripSummaryViewController: TripSummaryViewController) {
+        self.navigationController?.popViewControllerAnimated(true)
+        if let indexPath = self.selectedIndex {
+            plannedTrips.removeAtIndex(indexPath.item)
+            self.collectionView?.reloadData()
+        }
+        selectedIndex = nil
+        return
+    }
+    func tripSummaryRemoveAttendingTripPressed(tripSummaryViewController: TripSummaryViewController) {
+        self.navigationController?.popViewControllerAnimated(true)
+        if let indexPath = self.selectedIndex {
+            attendingTrips.removeAtIndex(indexPath.item)
+            self.collectionView?.reloadData()
+        }
+        selectedIndex = nil
+        return
+    }
+
 }

@@ -89,7 +89,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="175" id="uno-Md-Rhx"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="f8k-FH-XhM">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="f8k-FH-XhM">
                                     <size key="itemSize" width="125" height="182.5"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -97,7 +97,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="InviteeCollectionViewCell" id="cs6-PB-VHW" customClass="InviteeCollectionViewCell" customModule="instagator_prototype" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="182.5"/>
+                                        <rect key="frame" x="0.0" y="-4" width="125" height="182.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="182.5"/>
@@ -234,7 +234,7 @@
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <state key="normal" title="View Results">
-                                                        <color key="titleColor" red="0.67843137254901964" green="0.71764705882352942" blue="0.48627450980392156" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleColor" red="0.85486608743667603" green="0.22790020704269409" blue="0.25380221009254456" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="disabled" title="Tap to Vote"/>
                                                     <connections>
@@ -426,10 +426,31 @@
                                     <action selector="abandonTripButtonTapped:" destination="HVS-NK-UL6" eventType="touchUpInside" id="72g-Y5-PTw"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Jn-uc-vCd">
+                                <rect key="frame" x="181.5" y="555" width="22" height="22"/>
+                                <animations/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.52941176469999995" green="0.78823529410000004" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tripActivitiesListInfoButtonTapped:" destination="HVS-NK-UL6" eventType="touchUpInside" id="kqY-uA-i5v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbH-Vg-GMC">
+                                <rect key="frame" x="539.5" y="554.5" width="22" height="22"/>
+                                <animations/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.52941176469999995" green="0.78823529410000004" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tripTasksListInfoButtonTapped:" destination="HVS-NK-UL6" eventType="touchUpInside" id="hAz-kN-gpH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.99974459410000005" green="0.98748528960000004" blue="0.94990551469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="0Jn-uc-vCd" firstAttribute="leading" secondItem="bES-l6-I4R" secondAttribute="trailing" constant="10" id="0Dc-L5-H0Z"/>
                             <constraint firstItem="rhx-cV-7vs" firstAttribute="top" secondItem="uRI-zL-9lw" secondAttribute="bottom" constant="10" id="3ao-vJ-wxr"/>
                             <constraint firstItem="Wid-MR-HyA" firstAttribute="leading" secondItem="rp6-fD-vYi" secondAttribute="trailing" id="48q-0P-Qba"/>
                             <constraint firstItem="bES-l6-I4R" firstAttribute="centerY" secondItem="JvV-z5-SYt" secondAttribute="centerY" id="4T4-dM-Q9a"/>
@@ -441,6 +462,7 @@
                             <constraint firstAttribute="trailing" secondItem="Wid-MR-HyA" secondAttribute="trailing" constant="20" id="Daa-xC-bra"/>
                             <constraint firstItem="iWV-rF-KrP" firstAttribute="baseline" secondItem="bES-l6-I4R" secondAttribute="baseline" id="Dqd-Ee-lXc"/>
                             <constraint firstItem="iWV-rF-KrP" firstAttribute="leading" secondItem="51W-By-pci" secondAttribute="leading" id="DuT-4p-Fmb"/>
+                            <constraint firstItem="EbH-Vg-GMC" firstAttribute="leading" secondItem="iWV-rF-KrP" secondAttribute="trailing" constant="10" id="Egh-hT-FWh"/>
                             <constraint firstItem="5D2-y5-4gw" firstAttribute="centerY" secondItem="iWV-rF-KrP" secondAttribute="centerY" id="EpS-oM-QMC"/>
                             <constraint firstItem="21M-dw-1zw" firstAttribute="top" secondItem="51W-By-pci" secondAttribute="top" id="GFn-iW-E46"/>
                             <constraint firstItem="wAi-mQ-riQ" firstAttribute="top" secondItem="Wid-MR-HyA" secondAttribute="bottom" constant="20" id="GOS-dy-tko"/>
@@ -474,11 +496,13 @@
                             <constraint firstItem="GCA-dx-qQr" firstAttribute="trailing" secondItem="51W-By-pci" secondAttribute="trailing" id="lZ5-nY-Dqg"/>
                             <constraint firstItem="uRI-zL-9lw" firstAttribute="leading" secondItem="rhx-cV-7vs" secondAttribute="leading" id="mBL-od-nfx"/>
                             <constraint firstItem="uRI-zL-9lw" firstAttribute="top" secondItem="qdg-yD-g47" secondAttribute="bottom" constant="15" id="mmZ-py-PWu"/>
+                            <constraint firstItem="0Jn-uc-vCd" firstAttribute="centerY" secondItem="bES-l6-I4R" secondAttribute="centerY" id="p1c-9D-8Pz"/>
                             <constraint firstItem="Wid-MR-HyA" firstAttribute="top" secondItem="IaE-tB-GXR" secondAttribute="bottom" constant="20" id="qjn-v6-9IL"/>
                             <constraint firstItem="GCA-dx-qQr" firstAttribute="trailing" secondItem="wAi-mQ-riQ" secondAttribute="trailing" id="rFa-Fs-kJz"/>
                             <constraint firstItem="51W-By-pci" firstAttribute="leading" secondItem="21M-dw-1zw" secondAttribute="trailing" constant="25" id="rSG-as-S12"/>
                             <constraint firstItem="eC8-Uc-11f" firstAttribute="top" secondItem="Wid-MR-HyA" secondAttribute="bottom" constant="20" id="ro1-pG-tJ9"/>
                             <constraint firstItem="51W-By-pci" firstAttribute="width" secondItem="21M-dw-1zw" secondAttribute="width" id="ruz-ol-ula"/>
+                            <constraint firstItem="EbH-Vg-GMC" firstAttribute="centerY" secondItem="iWV-rF-KrP" secondAttribute="centerY" id="uOe-Lh-sdx"/>
                             <constraint firstItem="bES-l6-I4R" firstAttribute="top" secondItem="GCA-dx-qQr" secondAttribute="bottom" constant="25" id="uur-PP-8Qk"/>
                             <constraint firstItem="Wid-MR-HyA" firstAttribute="leading" secondItem="uRI-zL-9lw" secondAttribute="trailing" id="wsi-06-oIK"/>
                             <constraint firstItem="iWV-rF-KrP" firstAttribute="leading" secondItem="Wid-MR-HyA" secondAttribute="leading" id="xpc-g8-H3c"/>
@@ -722,7 +746,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Task Name" borderStyle="roundedRect" placeholder="enter activity name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xMb-wX-hbo">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter task name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xMb-wX-hbo">
                                 <rect key="frame" x="20" y="59" width="560" height="30"/>
                                 <animations/>
                                 <color key="textColor" red="0.28235294119999998" green="0.1843137255" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -937,7 +961,7 @@
                                     <outlet property="delegate" destination="6W9-OP-mUy" id="ZZb-ec-5Yd"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xb8-mI-jYN">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xb8-mI-jYN">
                                 <rect key="frame" x="684" y="660.5" width="64" height="29"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
